@@ -22,7 +22,7 @@ public class PaddleExperience extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
         
         Scene scene = new Scene(root);
-        
+        //Lechuga
         stage.setScene(scene);
         stage.show();
     }
