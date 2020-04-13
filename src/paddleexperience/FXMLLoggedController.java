@@ -7,30 +7,20 @@ package paddleexperience;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
-import static DBAcess.ClubDBAccess.getSingletonClubDBAccess;
-import java.io.IOException;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-
-        
 /**
+ * FXML Controller class
  *
  * @author Gerard
  */
-public class FXMLDocumentController implements Initializable {
-    
-    //hola
-    //altreola
-    
+public class FXMLLoggedController implements Initializable {
+
     @FXML
     private ImageView backDate;
     @FXML
@@ -45,16 +35,14 @@ public class FXMLDocumentController implements Initializable {
     private TableView<?> pista3;
     @FXML
     private TableView<?> pista4;
-    
+
+    /**
+     * Initializes the controller class.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
-    
-    @FXML
-    private void toLogIn(ActionEvent event) throws IOException {
-          ((Node) event.getSource()).getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLLogin.fxml")));
-    }
 
     @FXML
     private void previousDay(MouseEvent event) {
