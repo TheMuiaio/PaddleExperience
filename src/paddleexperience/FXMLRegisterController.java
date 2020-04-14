@@ -6,18 +6,26 @@
 package paddleexperience;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
+import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
 
 /**
  *
@@ -36,25 +44,25 @@ public class FXMLRegisterController implements Initializable {
     @FXML
     private TextField cognomField;
     @FXML
-    private Label afegirDalt;
-    @FXML
-    private Label afegirBaix;
-    @FXML
     private ImageView imageView;
     @FXML
     private PasswordField passwordField;
     @FXML
     private TextField passwordAppears;
-    Image avatar;
     @FXML
     private PasswordField repeatedPasswordField;
+    @FXML
+    private GridPane gridAvatar;
+    
+    
+    File avatar;
+    
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        afegirDalt.setOpacity(0);
-        afegirBaix.setOpacity(0);
         passwordAppears.setOpacity(0);
+        info.setText("");
         
         // force the field to be numeric only
         telfField.textProperty().addListener((property, oldValue, newValue) -> {
@@ -62,8 +70,6 @@ public class FXMLRegisterController implements Initializable {
                 telfField.setText(newValue.replaceAll("[^\\d]", ""));
             }
         });
-        
-        
     }    
 
     @FXML
@@ -72,19 +78,14 @@ public class FXMLRegisterController implements Initializable {
         info.setText("Serà el teu nom d'usuari a l'aplicació. No poses espais.");
     }
 
-    private void cardFieldInfo(MouseEvent event) {
-        info.setTextFill(Color.BLACK);
-        info.setText("Posa els 16 números de la targeta i els 3 del codi de seguretat.");
-    }
-
     @FXML
     private void passwordFieldInfo(MouseEvent event) {
         info.setTextFill(Color.BLACK);
-        info.setText("Una combinació de lletres i números. Ha de tenir més de 6 caràcters i no tenir espais al principi i al final.");
+        info.setText("Una combinació de lletres i números amb més de 6 caràcters.");
     }
 
     @FXML
-    private void accioAcceptar(ActionEvent event) {
+    private void accioAcceptar(ActionEvent event) throws InterruptedException, IOException {
         //Comprobe nom i cognom
         if(!nomField.getText().trim().isEmpty() &&
                 !cognomField.getText().trim().isEmpty())
@@ -102,7 +103,8 @@ public class FXMLRegisterController implements Initializable {
                         //Comprobe que coincidisquen les contrasenyes
                         if(passwordField.getText().equals(repeatedPasswordField.getText())){
                             info.setTextFill(Color.GREEN);
-                            info.setText("Tot correcte"); 
+                            info.setText("Tot correcte");
+                            ((Node) event.getSource()).getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLPaymentCard.fxml")));
                         }
                         
                         
@@ -134,28 +136,28 @@ public class FXMLRegisterController implements Initializable {
         
     }
 
-    @FXML
-    private void avatarSugerenciaDesapareix() {
-        afegirDalt.setOpacity(0);
-        afegirBaix.setOpacity(0);
-    }
+
 
     @FXML
-    private void avatarSugerenciaApareix() {
-        if(avatar == null){
-            afegirDalt.setOpacity(1);
-            afegirBaix.setOpacity(1);
-        }
-    }
-
-    @FXML
-    private void afegirImatge(MouseEvent event) {
+    private void afegirImatge(MouseEvent event) throws MalformedURLException {
         //aci he de fer que el camp imatge valga el que m'ha dit la persona eixa
-        
-        avatar = new Image("file:src"+File.separator+"images"+File.separator+"pala.png");
-        imageView.imageProperty().setValue(avatar); 
-        afegirDalt.setOpacity(0);
-        afegirBaix.setOpacity(0);
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Selecciona una imatge");
+        avatar = fileChooser.showOpenDialog(null);
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files","*.bmp", "*.png", "*.jpg", "*.gif"));
+        if(avatar != null){
+            String path = avatar.toURI().toURL().toString();
+            Image image = new Image(path);
+            imageView.setImage(image);
+            gridAvatar.setGridLinesVisible(false);
+        }
+        else{
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Diàleg d'informació");
+            alert.setHeaderText("No has elegit cap imatge.");
+            alert.setContentText("Selecciona una imatge.");
+            alert.showAndWait();
+        }
     }
 
     @FXML
@@ -172,8 +174,35 @@ public class FXMLRegisterController implements Initializable {
     }
 
     @FXML
+    private void onBack(MouseEvent event) throws IOException {
+        info.getScene().setCursor(Cursor.DEFAULT);
+        ((Node) event.getSource()).getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLLogin.fxml")));
+    }
+
+    @FXML
+    private void outLink() {
+        info.getScene().setCursor(Cursor.DEFAULT);
+    }
+
+    @FXML
+    private void onLink() throws NullPointerException{
+        info.getScene().setCursor(Cursor.HAND);
+    }
+
+    @FXML
     private void infoDisappear(MouseEvent event) {
-        info.setText("");
+    }
+
+    @FXML
+    private void avatarSugerenciaDesapareix(MouseEvent event) {
+        info.getScene().setCursor(Cursor.DEFAULT);
+        imageView.setOpacity(1);
+    }
+
+    @FXML
+    private void avatarSugerenciaApareix(MouseEvent event) {
+        info.getScene().setCursor(Cursor.HAND);
+        imageView.setOpacity(0.4);
     }
 
 }

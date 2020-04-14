@@ -19,6 +19,7 @@ import javafx.scene.input.MouseEvent;
 import static DBAcess.ClubDBAccess.getSingletonClubDBAccess;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 
         
@@ -45,6 +46,8 @@ public class FXMLDocumentController implements Initializable {
     private TableView<?> pista3;
     @FXML
     private TableView<?> pista4;
+    @FXML
+    private Button login;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -53,7 +56,8 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML
     private void toLogIn(ActionEvent event) throws IOException {
-          ((Node) event.getSource()).getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLLogin.fxml")));
+        login.getScene().setCursor(Cursor.DEFAULT);
+        ((Node) event.getSource()).getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLLogin.fxml")));
     }
 
     @FXML
@@ -62,6 +66,17 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void nextDay(MouseEvent event) {
+    }
+
+    @FXML
+    private void outLink(MouseEvent event) {
+        login.getScene().setCursor(Cursor.DEFAULT);
+    }
+
+    @FXML
+    private void onLink(MouseEvent event) throws NullPointerException{
+        login.getScene().setCursor(Cursor.HAND);
+        
     }
     
 }

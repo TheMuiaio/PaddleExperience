@@ -9,15 +9,18 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="420.0" prefHeight="420.0" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="paddleexperience.FXMLLoginController">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="420.0" prefHeight="620.0" prefWidth="800.0" spacing="20.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="paddleexperience.FXMLLoginController">
    <children>
       <HBox prefHeight="100.0" prefWidth="600.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#checkLogIn">
-               <graphic>
-                  <ImageView fx:id="backImg" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
-               </graphic>
-            </Button>
+            <ImageView fx:id="backImg" fitHeight="25.0" fitWidth="25.0" onMouseClicked="#onBack" onMouseEntered="#onLink" onMouseExited="#outLink" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../resources/toBack2.png" />
+               </image>
+               <HBox.margin>
+                  <Insets left="5.0" top="5.0" />
+               </HBox.margin>
+            </ImageView>
          </children>
       </HBox>
       <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
@@ -31,7 +34,7 @@
       <HBox alignment="CENTER" maxHeight="-Infinity" prefHeight="10.0" prefWidth="600.0">
          <children>
             <Label text="No tens compte?" />
-            <Label fx:id="signIn" onMousePressed="#toSignIn" text=" Registra't" />
+            <Label fx:id="signIn" onMouseClicked="#toSignIn" onMouseEntered="#onLink" onMouseExited="#outLink" text=" Enregistra't" />
          </children>
       </HBox>
    </children>

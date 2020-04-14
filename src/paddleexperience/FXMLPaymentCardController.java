@@ -5,13 +5,18 @@
  */
 package paddleexperience;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 
 /**
  * FXML Controller class
@@ -39,29 +44,73 @@ public class FXMLPaymentCardController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-
-    @FXML
-    private void onHome(MouseEvent event) {
-    }
-
-    @FXML
-    private void onOmetre(MouseEvent event) {
-    }
-
-    @FXML
-    private void onAfegirTargeta(MouseEvent event) {
-    }
-    
-    /*cardFieldBig.textProperty().addListener((poperty, oldValue, newValue) -> {
+        infoLabel.setTextFill(Color.RED);
+        infoLabel.setText("");
+        
+        //Posem que només puguem gastar números
+        numberOne.textProperty().addListener((poperty, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
-                cardFieldBig.setText(newValue.replaceAll("[^\\d]", ""));
+                numberOne.setText(newValue.replaceAll("[^\\d]", ""));
             }
         });
         
-        cardFieldSmall.textProperty().addListener((property, oldValue,newValue) -> {
+        numberTwo.textProperty().addListener((poperty, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
-                cardFieldSmall.setText(newValue.replaceAll("[^\\d]", ""));
+                numberTwo.setText(newValue.replaceAll("[^\\d]", ""));
             }
-        });*/
+        });
+        
+        numberThree.textProperty().addListener((poperty, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                numberThree.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+        
+        numberFour.textProperty().addListener((poperty, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                numberFour.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+        
+        secretNumber.textProperty().addListener((property, oldValue,newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                secretNumber.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+    }    
+
+    @FXML
+    private void onBack(MouseEvent event) throws IOException {
+        //tenim un problemeta, que es borraran totes les dades introduides abans
+        secretNumber.getScene().setCursor(Cursor.DEFAULT);
+        ((Node) event.getSource()).getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLRegister.fxml")));
+    }
+
+    @FXML
+    private void onOmetre(MouseEvent event) throws IOException {
+        ((Node) event.getSource()).getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLLogged.fxml")));
+    }
+
+    @FXML
+    private void onAfegirTargeta(MouseEvent event) throws IOException {
+        if(numberOne.getText().length() == 4 && numberTwo.getText().length()== 4 &&
+                numberThree.getText().length() == 4 && numberFour.getText().length() == 4 &&
+                secretNumber.getText().length() == 3)
+        {
+            ((Node) event.getSource()).getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLLogged.fxml")));
+        }
+        else{
+            infoLabel.setText("Introdueix correctament la teua targeta.");
+        }
+    }
+
+    @FXML
+    private void outLink(MouseEvent event) {
+        secretNumber.getScene().setCursor(Cursor.DEFAULT);
+    }
+
+    @FXML
+    private void onLink(MouseEvent event) throws NullPointerException {
+        secretNumber.getScene().setCursor(Cursor.HAND);
+    }
 }

@@ -10,23 +10,18 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="337.0" prefWidth="454.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="paddleexperience.FXMLPaymentCardController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="420.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="paddleexperience.FXMLPaymentCardController">
    <children>
       <HBox prefHeight="66.0" prefWidth="454.0">
          <children>
-            <Button mnemonicParsing="false" onMouseClicked="#onHome" prefHeight="31.0" prefWidth="28.0">
-               <graphic>
-                  <ImageView fitHeight="25.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../resources/toBack2.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
+            <ImageView fitHeight="25.0" fitWidth="25.0" onMouseClicked="#onBack" onMouseEntered="#onLink" onMouseExited="#outLink" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../resources/toBack2.png" />
+               </image>
                <HBox.margin>
                   <Insets left="5.0" top="5.0" />
                </HBox.margin>
-            </Button>
+            </ImageView>
          </children>
       </HBox>
       <HBox prefHeight="50.0" prefWidth="454.0">
@@ -40,6 +35,9 @@
                </HBox.margin>
             </Label>
          </children>
+         <padding>
+            <Insets left="20.0" />
+         </padding>
       </HBox>
       <HBox prefHeight="52.0" prefWidth="454.0" spacing="4.0">
          <children>
@@ -52,7 +50,7 @@
             </Label>
          </children>
          <padding>
-            <Insets left="10.0" right="10.0" top="25.0" />
+            <Insets left="30.0" top="25.0" />
          </padding>
       </HBox>
       <HBox prefHeight="29.0" prefWidth="454.0" spacing="5.0">
@@ -73,19 +71,19 @@
             </TextField>
          </children>
          <padding>
-            <Insets top="10.0" />
+            <Insets left="20.0" top="10.0" />
          </padding>
       </HBox>
       <HBox alignment="CENTER_LEFT" prefHeight="78.0" prefWidth="454.0">
          <children>
-            <Label fx:id="infoLabel">
+            <Label fx:id="infoLabel" text="info">
                <HBox.margin>
-                  <Insets bottom="20.0" />
+                  <Insets />
                </HBox.margin>
             </Label>
          </children>
          <padding>
-            <Insets left="10.0" />
+            <Insets left="30.0" />
          </padding>
       </HBox>
       <HBox prefHeight="71.0" prefWidth="454.0">
@@ -95,7 +93,7 @@
             <Button mnemonicParsing="false" onMouseClicked="#onAfegirTargeta" text="Afegir targeta" />
          </children>
          <VBox.margin>
-            <Insets left="10.0" />
+            <Insets left="30.0" />
          </VBox.margin>
       </HBox>
    </children>
