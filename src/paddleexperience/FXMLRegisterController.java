@@ -5,6 +5,7 @@
  */
 package paddleexperience;
 
+/*import DBAcess.ClubDBAccess;*/
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -27,6 +28,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 
+import DBAcess.ClubDBAccess;
+import model.Member;
+
+import paddleexperience.CurrentUser;
 /**
  *
  * @author victo
@@ -55,12 +60,14 @@ public class FXMLRegisterController implements Initializable {
     private GridPane gridAvatar;
     
     
-    File avatar;
+    private File avatar;
     
+    private ClubDBAccess clubDBAccess;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        clubDBAccess = ClubDBAccess.getSingletonClubDBAccess();
         passwordAppears.setOpacity(0);
         info.setText("");
         
@@ -102,8 +109,23 @@ public class FXMLRegisterController implements Initializable {
                         
                         //Comprobe que coincidisquen les contrasenyes
                         if(passwordField.getText().equals(repeatedPasswordField.getText())){
+                            //estes dos línies no va a donar-nos temps de vore-les en pantalla
                             info.setTextFill(Color.GREEN);
                             info.setText("Tot correcte");
+                            //creem el nou membre
+                            Member member = new Member();
+                            //afegim les dades introduides
+                            member.setName(nomField.getText());
+                            member.setSurname(cognomField.getText());
+                            member.setTelephone(telfField.getText());
+                            member.setLogin(loginField.getText());
+                            member.setPassword(passwordField.getText());
+                            if (imageView.getImage() != null) member.setImage(imageView.getImage());
+                            //guardem el membre en la llista d'usuaris
+                            clubDBAccess.getMembers().add(member);
+                            //inicialitzem l'usuari actual amb el nou membre
+                            CurrentUser.setMembre(loginField.getText(), passwordField.getText());
+                            //canviem la finestra al formulari de targeta de crèdit per acabar amb el registre
                             ((Node) event.getSource()).getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLPaymentCard.fxml")));
                         }
                         
@@ -133,7 +155,6 @@ public class FXMLRegisterController implements Initializable {
             info.setTextFill(Color.RED);
             info.setText("Emplena el teu nom i cognom.");       
         }
-        
     }
 
 

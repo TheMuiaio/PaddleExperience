@@ -14,6 +14,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
+import DBAcess.ClubDBAccess;
+import model.Member;
+import paddleexperience.CurrentUser;
+
 /**
  * FXML Controller class
  *
@@ -36,12 +40,14 @@ public class FXMLLoggedController implements Initializable {
     @FXML
     private TableView<?> pista4;
 
+    private Member member;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        member = CurrentUser.getMembre();
     }    
 
     @FXML

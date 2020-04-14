@@ -18,6 +18,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 
+import DBAcess.ClubDBAccess;
+import model.Member;
+
+import paddleexperience.CurrentUser;
+
 /**
  * FXML Controller class
  *
@@ -38,12 +43,15 @@ public class FXMLPaymentCardController implements Initializable {
     @FXML
     private Label infoLabel;
 
+    private ClubDBAccess clubDBAccess;
+    private String creditCard;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        clubDBAccess = ClubDBAccess.getSingletonClubDBAccess();
         infoLabel.setTextFill(Color.RED);
         infoLabel.setText("");
         
@@ -82,6 +90,7 @@ public class FXMLPaymentCardController implements Initializable {
     @FXML
     private void onBack(MouseEvent event) throws IOException {
         //tenim un problemeta, que es borraran totes les dades introduides abans
+        // ja no jjj
         secretNumber.getScene().setCursor(Cursor.DEFAULT);
         ((Node) event.getSource()).getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLRegister.fxml")));
     }
@@ -97,6 +106,11 @@ public class FXMLPaymentCardController implements Initializable {
                 numberThree.getText().length() == 4 && numberFour.getText().length() == 4 &&
                 secretNumber.getText().length() == 3)
         {
+            creditCard = numberOne.getText() + numberTwo.getText() + numberThree.getText() + numberFour.getText();
+            Member membre = CurrentUser.getMembre();
+            membre.setCreditCard(creditCard); //fixa la targeta de crèdit
+            membre.setSvc(secretNumber.getText()); //fixa el nombre secret
+            //canviem la pantalla al fxml d'usuari
             ((Node) event.getSource()).getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLLogged.fxml")));
         }
         else{

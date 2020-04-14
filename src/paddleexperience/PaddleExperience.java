@@ -11,6 +11,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import DBAcess.ClubDBAccess;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.stage.WindowEvent;
+
 /**
  *
  * @author Gerard
@@ -19,12 +24,25 @@ public class PaddleExperience extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
+        ClubDBAccess clubDBAccess;
+        clubDBAccess = ClubDBAccess.getSingletonClubDBAccess();
+        
         Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
         
         Scene scene = new Scene(root);
-        //Lechuga
+        
         stage.setScene(scene);
         stage.show();
+        
+        //Guardem els canvis efectuats en la base de dades al tancar la finestra
+        stage.setOnCloseRequest((WindowEvent event) -> {
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle(clubDBAccess.getClubName());
+            alert.setHeaderText("Saving data in DB...");
+            alert.setContentText("Saving changes in DataBase. This process may expend some minutes...");
+            alert.show();
+            clubDBAccess.saveDB();
+        });
     }
 
     /**

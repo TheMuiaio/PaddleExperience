@@ -68,15 +68,23 @@ public class FXMLDocumentController implements Initializable {
     private void nextDay(MouseEvent event) {
     }
 
+    // Assegura't de capturar les excepcions per a no provocar errors raros :c
     @FXML
     private void outLink(MouseEvent event) {
+        try {
         login.getScene().setCursor(Cursor.DEFAULT);
+        } catch (NullPointerException e) { }
     }
 
+    // Same ací persi
     @FXML
-    private void onLink(MouseEvent event) throws NullPointerException{
+    private void onLink(MouseEvent event) {
+        try {
         login.getScene().setCursor(Cursor.HAND);
-        
+        } catch (NullPointerException e) { }
     }
     
+    //Vaig a canviar tots els que veja, però quan et poses a treballar repassa
+    //tots els botons que tinguen canvis en l'aparença del ratolí i afegeix el
+    //bloc try-catch als que no ho tinguen jjj
 }

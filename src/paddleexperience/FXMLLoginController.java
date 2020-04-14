@@ -23,6 +23,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
+import DBAcess.ClubDBAccess;
+import model.Member;
+
+import paddleexperience.CurrentUser;
 /**
  * FXML Controller class
  *
@@ -40,28 +44,56 @@ public class FXMLLoginController implements Initializable {
     private Label signIn;
     @FXML
     private ImageView backImg;
-
+    
+    private ClubDBAccess clubDBAccess;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        String hola = "\"hola\"";
+        clubDBAccess = ClubDBAccess.getSingletonClubDBAccess();
+        
     }    
 
     @FXML
     private void checkLogIn(ActionEvent event) throws IOException {
-       userName.getScene().setCursor(Cursor.DEFAULT);
+        userName.getScene().setCursor(Cursor.DEFAULT);
+        
+        String login, password;
+        login = userName.getText();
+        password = contrassenya.getText();
+        
         // COMPROVAR
-        if(false /*user + pssw ok*/){
-            ((Node) event.getSource()).getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLLogged.fxml")));
-        }
-        else{
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("Usuari no trobat");
-            alert.setContentText("El login i contrasenya introduit no coincideix amb cap usuari enregistrat. ");
-            alert.showAndWait();
+        if (login.length() == 0 || password.length() == 0) { //usuari o contrassenya buits
+            //VICTOR: si t'avorreixes, fes que primer comprove una cosa i després l'altra
+            //per a que ens diga quina de les dos ha fallat :)
+            
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("Credencials errònies");
+            alert.setContentText("L'usuari o la contrassenya introduïts no són correctes");
+            alert.show();
+        } else {
+            
+            if (clubDBAccess.existsLogin(userName.getText())) { //comprovem que el login introduit existeix
+                
+                if (clubDBAccess.getMemberByCredentials(login, password) == null) { //comprovem que la contrassenya siga correcta
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setHeaderText("Usuari no trobat");
+                    alert.setContentText("La contrassenya introduïda no es correspon amb l'usuari introduït.");
+                    alert.show();
+                } else { // Usuari i contrassenya correctes.
+                    //Inicialitzem l'usuari al login introduit
+                    CurrentUser.setMembre(login, password);
+                    //canviem al fxml d'usuari
+                    ((Node) event.getSource()).getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLLogged.fxml")));
+                }
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText("Usuari no trobat");
+                alert.setContentText("El nom d'usuari introduit no existeix a la nostra base de dades.");
+                alert.show();
+            }
         }
     }
 
