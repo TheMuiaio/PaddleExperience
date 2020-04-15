@@ -17,6 +17,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 import DBAcess.ClubDBAccess;
+import com.sun.javafx.scene.control.skin.DatePickerSkin;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -126,7 +127,7 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void pickDate(MouseEvent event) {
-        DatePicker dp = new DatePicker();
+        DatePicker dp = new DatePicker(LocalDate.now());
         dp.setDayCellFactory((DatePicker picker) -> {
             return new DateCell() {
                 @Override
@@ -137,7 +138,12 @@ public class FXMLDocumentController implements Initializable {
                 }
             };
         });
-        dp.show();
+        DatePickerSkin dpskin = new DatePickerSkin(dp);
+        Node popup = dpskin.getPopupContent();
+        
+        // FALTA FER EL SHOW DEL DPSKIN PER A MOSTRAR EL DATEPICKER
+        
+        //dp.show();
         dia = dp.getValue();
         changeDateLabel();
         //CANVIAR EL CONTINGUT DE LES PISTES
