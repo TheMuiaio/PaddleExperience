@@ -64,6 +64,7 @@ public class FXMLRegisterController implements Initializable {
     
     private File avatar;
     private ClubDBAccess clubDBAccess;
+    private Member member;
     
     
     @Override
@@ -71,6 +72,15 @@ public class FXMLRegisterController implements Initializable {
         // TODO
         clubDBAccess = ClubDBAccess.getSingletonClubDBAccess();
         
+        member = CurrentUser.getMembre();
+        if (member != null) {
+            nomField.setText(member.getName());
+            cognomField.setText(member.getSurname());
+            telfField.setText(member.getTelephone());
+            loginField.setText(member.getLogin());
+            passwordField.setText(member.getPassword());
+            imageView.setImage(member.getImage());
+        }
         //per a que al fer enrere en la targeta de credir vaja al registre
         FXMLUserInfoController.setFromUserInfo(false);
         
@@ -121,20 +131,37 @@ public class FXMLRegisterController implements Initializable {
                             //estes dos línies no va a donar-nos temps de vore-les en pantalla
                             info.setTextFill(Color.GREEN);
                             info.setText("Tot correcte");
-                            //creem el nou membre
-                            Member member = new Member();
-                            //afegim les dades introduides
-                            member.setName(nomField.getText());
-                            member.setSurname(cognomField.getText());
-                            member.setTelephone(telfField.getText());
-                            member.setLogin(loginField.getText());
-                            member.setPassword(passwordField.getText());
-                            //de fet, no fa falta comprovar si image de imageView és null perque
-                            //tens user.png. Passe el que passe l'afegirem
-                            member.setImage(imageView.getImage());
-                            //guardem el membre en la llista d'usuaris
-                            clubDBAccess.getMembers().add(member);
-                            //inicialitzem l'usuari actual amb el nou membre
+                            
+                            if (member == null) {// NO EXISTEIX EL MEMBRE I HEM DE CREAR UN DE NOU
+                                //creem el nou membre
+                                member = new Member();
+                                //afegim les dades introduides
+                                member.setName(nomField.getText());
+                                member.setSurname(cognomField.getText());
+                                member.setTelephone(telfField.getText());
+                                member.setLogin(loginField.getText());
+                                member.setPassword(passwordField.getText());
+                                //de fet, no fa falta comprovar si image de imageView és null perque
+                                //tens user.png. Passe el que passe l'afegirem
+                                member.setImage(imageView.getImage());
+                                //guardem el membre en la llista d'usuaris
+                                clubDBAccess.getMembers().add(member);
+                            } else {// EXISTEIX EL MEMBRE I L'HEM DE MODIFICAR
+                                CurrentUser.getMembre().setName(nomField.getText());
+                                //member.setName(nomField.getText());
+                                CurrentUser.getMembre().setSurname(cognomField.getText());
+                                //member.setSurname(cognomField.getText());
+                                CurrentUser.getMembre().setTelephone(telfField.getText());
+                                //member.setTelephone(telfField.getText());
+                                CurrentUser.getMembre().setLogin(loginField.getText());
+                                //member.setLogin(loginField.getText());
+                                CurrentUser.getMembre().setPassword(passwordField.getText());
+                                //member.setPassword(passwordField.getText());
+                                //de fet, no fa falta comprovar si image de imageView és null perque
+                                //tens user.png. Passe el que passe l'afegirem
+                                CurrentUser.getMembre().setImage(imageView.getImage());
+                                //member.setImage(imageView.getImage());
+                            }
                             CurrentUser.setMembre(loginField.getText(), passwordField.getText());
                             //canviem la finestra al formulari de targeta de crèdit per acabar amb el registre
                             ((Node) event.getSource()).getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLPaymentCard.fxml")));

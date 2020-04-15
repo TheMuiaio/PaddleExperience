@@ -14,11 +14,12 @@ import model.Member;
  */
 public class CurrentUser {
     private static ClubDBAccess clubDBAccess;
-    private static String user;
-    private static String password;
+    private static String user = "";
+    private static String password = "";
     
     public static Member getMembre() {
-        return clubDBAccess.getMemberByCredentials(user, password);
+        clubDBAccess = ClubDBAccess.getSingletonClubDBAccess();
+        return clubDBAccess.getMemberByCredentials(user, password) == null ? null : clubDBAccess.getMemberByCredentials(user, password);
     }
     
     public static void setMembre(String newUser, String newPassword) {

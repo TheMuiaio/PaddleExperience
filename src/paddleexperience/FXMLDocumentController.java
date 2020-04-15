@@ -24,6 +24,8 @@ import java.time.format.FormatStyle;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
+import javafx.scene.control.DateCell;
+import javafx.scene.control.DatePicker;
 import javafx.stage.Stage;
 
         
@@ -56,6 +58,8 @@ public class FXMLDocumentController implements Initializable {
     private LocalDate dia;
     
     private ClubDBAccess clubDBAccess;
+    @FXML
+    private Button signin;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -70,7 +74,13 @@ public class FXMLDocumentController implements Initializable {
         login.getScene().setCursor(Cursor.DEFAULT);
         ((Node) event.getSource()).getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLLogin.fxml")));
     }
-
+    
+    @FXML
+    private void toSignin(ActionEvent event) throws IOException {
+        login.getScene().setCursor(Cursor.DEFAULT);
+        ((Node) event.getSource()).getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLRegister.fxml")));
+    }
+    
     @FXML
     private void previousDay(ActionEvent event) {
         LocalDate aux = dia.minusDays(1);
@@ -110,7 +120,26 @@ public class FXMLDocumentController implements Initializable {
     
     private void changeDateLabel() {
         String formatted = dia.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL));
-        formatted = formatted.replace("/s", "");
+        formatted = formatted.replace("\\s", "");
         dateLabel.setText(formatted.replace("/", ", "));
+    }
+
+    @FXML
+    private void pickDate(MouseEvent event) {
+        DatePicker dp = new DatePicker();
+        dp.setDayCellFactory((DatePicker picker) -> {
+            return new DateCell() {
+                @Override
+                public void updateItem(LocalDate date, boolean empty) {
+                    super.updateItem(date, empty);
+                    LocalDate today = LocalDate.now();
+                    setDisable(empty || date.compareTo(today) < 0);
+                }
+            };
+        });
+        dp.show();
+        dia = dp.getValue();
+        changeDateLabel();
+        //CANVIAR EL CONTINGUT DE LES PISTES
     }
 }

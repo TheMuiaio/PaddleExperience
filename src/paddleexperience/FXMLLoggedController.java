@@ -114,4 +114,32 @@ public class FXMLLoggedController implements Initializable {
     private void changeDateLabel() {
         dateLabel.setText(dia.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)));
     }
+
+    @FXML
+    private void outLink(MouseEvent event) {
+    }
+
+    @FXML
+    private void onLink(MouseEvent event) {
+    }
+
+    @FXML
+    private void pickDate(MouseEvent event) {
+        DatePicker dp = new DatePicker();
+        dp.setDayCellFactory((DatePicker picker) -> {
+            return new DateCell() {
+                @Override
+                public void updateItem(LocalDate date, boolean empty) {
+                    super.updateItem(date, empty);
+                    LocalDate today = LocalDate.now();
+                    setDisable(empty || date.compareTo(today) < 0);
+                }
+            };
+        });
+        dp.show();
+        dia = dp.getValue();
+        changeDateLabel();
+        //CANVIAR EL CONTINGUT DE LES PISTES
+    }
+    
 }
