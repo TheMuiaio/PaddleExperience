@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="paddleexperience.FXMLDocumentController">
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="paddleexperience.FXMLDocumentController">
    <children>
       <ToolBar maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT">
         <items>
@@ -35,7 +35,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Label fx:id="dateLabel" text="Dilluns, 20 Set." />
+            <Label fx:id="dateLabel" alignment="CENTER" prefWidth="175.0" text="Dilluns, 20 Set." />
             <Button mnemonicParsing="false" onAction="#nextDay">
                <graphic>
                   <ImageView fx:id="forwardDate" fitHeight="20.0" fitWidth="20.0" onDragDetected="#nextDay" pickOnBounds="true" preserveRatio="true">

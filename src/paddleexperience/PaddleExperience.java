@@ -32,6 +32,8 @@ public class PaddleExperience extends Application {
         Scene scene = new Scene(root);
         
         stage.setScene(scene);
+        stage.setWidth(620);
+        stage.setHeight(450);
         stage.show();
         
         //Guardem els canvis efectuats en la base de dades al tancar la finestra
