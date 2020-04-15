@@ -3,13 +3,14 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="420.0" prefHeight="620.0" prefWidth="800.0" spacing="20.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="paddleexperience.FXMLLoginController">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="420.0" prefHeight="420.0" prefWidth="599.0" spacing="20.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="paddleexperience.FXMLLoginController">
    <children>
       <HBox prefHeight="100.0" prefWidth="600.0">
          <children>
@@ -29,7 +30,7 @@
          </image>
       </ImageView>
       <TextField fx:id="userName" alignment="CENTER" maxWidth="-Infinity" prefWidth="400.0" promptText="Usuari" />
-      <TextField fx:id="contrassenya" alignment="CENTER" maxWidth="-Infinity" prefWidth="400.0" promptText="Contrassenya" />
+      <PasswordField fx:id="contrassenya" alignment="CENTER" maxWidth="-Infinity" prefWidth="400.0" promptText="Contrassenya" />
       <Button fx:id="botoAcceptar" mnemonicParsing="false" onAction="#checkLogIn" prefWidth="400.0" text="Accedeix" />
       <HBox alignment="CENTER" maxHeight="-Infinity" prefHeight="10.0" prefWidth="600.0">
          <children>

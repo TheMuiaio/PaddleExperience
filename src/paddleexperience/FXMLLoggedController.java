@@ -15,6 +15,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 import DBAcess.ClubDBAccess;
+import java.io.IOException;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import model.Member;
 import paddleexperience.CurrentUser;
 
@@ -56,6 +60,11 @@ public class FXMLLoggedController implements Initializable {
 
     @FXML
     private void nextDay(MouseEvent event) {
+    }
+
+    @FXML
+    private void onProfile(ActionEvent event) throws IOException {
+        ((Node) event.getSource()).getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLUserInfo.fxml")));
     }
     
 }

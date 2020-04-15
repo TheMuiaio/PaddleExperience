@@ -58,17 +58,26 @@ public class FXMLRegisterController implements Initializable {
     private PasswordField repeatedPasswordField;
     @FXML
     private GridPane gridAvatar;
+    @FXML
+    private ImageView eye;
     
     
     private File avatar;
-    
     private ClubDBAccess clubDBAccess;
+    
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         clubDBAccess = ClubDBAccess.getSingletonClubDBAccess();
-        passwordAppears.setOpacity(0);
+        
+        //per a que al fer enrere en la targeta de credir vaja al registre
+        FXMLUserInfoController.setFromUserInfo(false);
+        
+        //lligue que pugues vore la pssw amb el press de l'ull
+        passwordAppears.visibleProperty().bind(eye.pressedProperty());
+        passwordAppears.textProperty().bind(passwordField.textProperty());
+        
         info.setText("");
         
         // force the field to be numeric only
@@ -120,7 +129,9 @@ public class FXMLRegisterController implements Initializable {
                             member.setTelephone(telfField.getText());
                             member.setLogin(loginField.getText());
                             member.setPassword(passwordField.getText());
-                            if (imageView.getImage() != null) member.setImage(imageView.getImage());
+                            //de fet, no fa falta comprovar si image de imageView és null perque
+                            //tens user.png. Passe el que passe l'afegirem
+                            member.setImage(imageView.getImage());
                             //guardem el membre en la llista d'usuaris
                             clubDBAccess.getMembers().add(member);
                             //inicialitzem l'usuari actual amb el nou membre
@@ -161,7 +172,7 @@ public class FXMLRegisterController implements Initializable {
 
     @FXML
     private void afegirImatge(MouseEvent event) throws MalformedURLException {
-        //aci he de fer que el camp imatge valga el que m'ha dit la persona eixa
+        //aci he de fer que el camp imatge valga el que m'ha dit l'usuari
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Selecciona una imatge");
         avatar = fileChooser.showOpenDialog(null);
@@ -182,19 +193,6 @@ public class FXMLRegisterController implements Initializable {
     }
 
     @FXML
-    private void vorePassword() {
-        passwordAppears.setOpacity(1);
-        passwordField.setOpacity(0);
-        passwordAppears.setText(passwordField.getText());
-    }
-
-    @FXML
-    private void noVorePassword(MouseEvent event) {
-        passwordField.setOpacity(1);
-        passwordAppears.setOpacity(0);
-    }
-
-    @FXML
     private void onBack(MouseEvent event) throws IOException {
         info.getScene().setCursor(Cursor.DEFAULT);
         ((Node) event.getSource()).getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLLogin.fxml")));
@@ -202,16 +200,23 @@ public class FXMLRegisterController implements Initializable {
 
     @FXML
     private void outLink() {
-        info.getScene().setCursor(Cursor.DEFAULT);
+        try{
+            info.getScene().setCursor(Cursor.DEFAULT);
+        }
+        catch(NullPointerException e){}
     }
 
     @FXML
     private void onLink() throws NullPointerException{
-        info.getScene().setCursor(Cursor.HAND);
+        try{
+            info.getScene().setCursor(Cursor.HAND);
+        } 
+        catch(NullPointerException e){}
     }
 
     @FXML
     private void infoDisappear(MouseEvent event) {
+        info.setText("");
     }
 
     @FXML

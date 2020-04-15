@@ -21,6 +21,7 @@ import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
+import javafx.stage.Stage;
 
         
 /**
@@ -87,4 +88,6 @@ public class FXMLDocumentController implements Initializable {
     //Vaig a canviar tots els que veja, però quan et poses a treballar repassa
     //tots els botons que tinguen canvis en l'aparença del ratolí i afegeix el
     //bloc try-catch als que no ho tinguen jjj
+    
+    //els que donen error en principi ja està
 }

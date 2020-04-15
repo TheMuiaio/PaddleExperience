@@ -88,7 +88,7 @@
       </HBox>
       <HBox prefHeight="71.0" prefWidth="454.0">
          <children>
-            <Button mnemonicParsing="false" onMouseClicked="#onOmetre" text="Ometre aquest pas" />
+            <Button fx:id="ometre" mnemonicParsing="false" onMouseClicked="#onOmetre" text="Ometre aquest pas" />
             <HBox prefHeight="72.0" prefWidth="200.0" />
             <Button mnemonicParsing="false" onMouseClicked="#onAfegirTargeta" text="Afegir targeta" />
          </children>

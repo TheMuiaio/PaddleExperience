@@ -19,9 +19,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 
 import DBAcess.ClubDBAccess;
+import javafx.scene.control.Button;
 import model.Member;
 
-import paddleexperience.CurrentUser;
 
 /**
  * FXML Controller class
@@ -42,18 +42,28 @@ public class FXMLPaymentCardController implements Initializable {
     private TextField secretNumber;
     @FXML
     private Label infoLabel;
+    @FXML
+    private Button ometre;
 
     private ClubDBAccess clubDBAccess;
     private String creditCard;
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+                
         clubDBAccess = ClubDBAccess.getSingletonClubDBAccess();
         infoLabel.setTextFill(Color.RED);
         infoLabel.setText("");
+        
+        //Posem que ometre pas en la targeta estiga disabled si ve de UserInfo
+        if(FXMLUserInfoController.getFromUserInfo()){
+            ometre.setDisable(true);
+        }
+        else {ometre.setDisable(false);}
         
         //Posem que només puguem gastar números
         numberOne.textProperty().addListener((poperty, oldValue, newValue) -> {
@@ -91,8 +101,17 @@ public class FXMLPaymentCardController implements Initializable {
     private void onBack(MouseEvent event) throws IOException {
         //tenim un problemeta, que es borraran totes les dades introduides abans
         // ja no jjj
+        //perfecte bonico
+        
         secretNumber.getScene().setCursor(Cursor.DEFAULT);
-        ((Node) event.getSource()).getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLRegister.fxml")));
+        
+        if(!FXMLUserInfoController.getFromUserInfo()){
+            ((Node) event.getSource()).getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLRegister.fxml")));
+        } 
+        else {
+            ((Node) event.getSource()).getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLUserInfo.fxml")));
+        }
+        
     }
 
     @FXML
@@ -110,17 +129,28 @@ public class FXMLPaymentCardController implements Initializable {
             Member membre = CurrentUser.getMembre();
             membre.setCreditCard(creditCard); //fixa la targeta de crèdit
             membre.setSvc(secretNumber.getText()); //fixa el nombre secret
-            //canviem la pantalla al fxml d'usuari
-            ((Node) event.getSource()).getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLLogged.fxml")));
+            
+            
+            if(FXMLUserInfoController.getFromUserInfo()){ //canviem la pantalla al UserInfo
+               ((Node) event.getSource()).getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLUserInfo.fxml")));
+            }
+                
+            else { //canviem la pantalla al fxml d'usuari
+                ((Node) event.getSource()).getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLLogged.fxml")));
+            }
         }
         else{
+            infoLabel.setTextFill(Color.RED);
             infoLabel.setText("Introdueix correctament la teua targeta.");
         }
     }
 
     @FXML
     private void outLink(MouseEvent event) {
-        secretNumber.getScene().setCursor(Cursor.DEFAULT);
+        try {
+            secretNumber.getScene().setCursor(Cursor.DEFAULT);
+        }
+        catch(NullPointerException e){}
     }
 
     @FXML

@@ -16,7 +16,6 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-
 <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="420.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="paddleexperience.FXMLRegisterController">
    <center>
       <VBox prefHeight="455.0" prefWidth="665.0">
@@ -83,8 +82,8 @@
                               <Label text="* Contrasenya:" />
                               <AnchorPane>
                                  <children>
-                                    <TextField fx:id="passwordAppears" prefWidth="162.0" />
                                     <PasswordField fx:id="passwordField" onMouseClicked="#passwordFieldInfo" prefHeight="25.0" prefWidth="162.0" />
+                                    <TextField fx:id="passwordAppears" prefWidth="162.0" />
                                  </children>
                               </AnchorPane>
                            </children>
@@ -96,7 +95,7 @@
                               <PasswordField fx:id="repeatedPasswordField" onMouseClicked="#passwordFieldInfo" prefHeight="25.0" prefWidth="168.0" />
                            </children>
                         </VBox>
-                        <ImageView fitHeight="22.0" fitWidth="23.0" layoutX="207.0" layoutY="74.0" onMousePressed="#vorePassword" onMouseReleased="#noVorePassword" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="eye" fitHeight="22.0" fitWidth="23.0" layoutX="207.0" layoutY="74.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../resources/eye.png" />
                            </image>
