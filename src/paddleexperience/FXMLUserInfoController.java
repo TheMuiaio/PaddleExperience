@@ -44,7 +44,8 @@ public class FXMLUserInfoController implements Initializable {
     private TextField loginField;
 
     
-    Member user;
+    private Member user;
+    
     private static boolean fromUserInfo;
     
     /**

@@ -16,8 +16,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
-import static DBAcess.ClubDBAccess.getSingletonClubDBAccess;
+import DBAcess.ClubDBAccess;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
@@ -50,9 +53,16 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Button login;
     
+    private LocalDate dia;
+    
+    private ClubDBAccess clubDBAccess;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        clubDBAccess = ClubDBAccess.getSingletonClubDBAccess();
+        dia = LocalDate.now();
+        changeDateLabel();
     }    
     
     @FXML
@@ -62,11 +72,18 @@ public class FXMLDocumentController implements Initializable {
     }
 
     @FXML
-    private void previousDay(MouseEvent event) {
+    private void previousDay(ActionEvent event) {
+        LocalDate aux = dia.minusDays(1);
+        if (aux.compareTo(LocalDate.now()) >= 0) {
+            dia = aux;
+            changeDateLabel();
+        }
     }
 
     @FXML
-    private void nextDay(MouseEvent event) {
+    private void nextDay(ActionEvent event) {
+        dia = dia.plusDays(1);
+        changeDateLabel();
     }
 
     // Assegura't de capturar les excepcions per a no provocar errors raros :c
@@ -90,4 +107,10 @@ public class FXMLDocumentController implements Initializable {
     //bloc try-catch als que no ho tinguen jjj
     
     //els que donen error en principi ja està
+    
+    private void changeDateLabel() {
+        String formatted = dia.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL));
+        formatted = formatted.replace("/s", "");
+        dateLabel.setText(formatted.replace("/", ", "));
+    }
 }

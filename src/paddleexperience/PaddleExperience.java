@@ -37,14 +37,14 @@ public class PaddleExperience extends Application {
         //Guardem els canvis efectuats en la base de dades al tancar la finestra
         
         //Et canvie l'idioma de la finestra emergent
-        stage.setOnCloseRequest((WindowEvent event) -> {
+        /*stage.setOnCloseRequest((WindowEvent event) -> {
             Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle(clubDBAccess.getClubName());
             alert.setHeaderText("Guardant dades a la base de dades.");
             alert.setContentText("Guardant canvis a la base de dades. Aquest procés pot tardar uns minuts...");
             alert.show();
             clubDBAccess.saveDB();
-        });
+        });*/
     }
 
     /**
