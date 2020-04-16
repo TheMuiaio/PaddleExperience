@@ -77,7 +77,6 @@ public class FXMLRegisterController implements Initializable {
     private boolean comprovacioPssw2;
     
     
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO

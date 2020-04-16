@@ -27,6 +27,7 @@ import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
+import javafx.scene.layout.GridPane;
 import model.Booking;
 import model.Member;
 import paddleexperience.CurrentUser;
@@ -44,20 +45,16 @@ public class FXMLLoggedController implements Initializable {
     private Label dateLabel;
     @FXML
     private ImageView forwardDate;
-    @FXML
-    private TableView<?> pista1;
-    @FXML
-    private TableView<?> pista2;
-    @FXML
-    private TableView<?> pista3;
-    @FXML
-    private TableView<?> pista4;
     
     private LocalDate dia;
 
     private Member member;
     
     private ClubDBAccess clubDBAccess;
+    @FXML
+    private DatePicker datePicker;
+    @FXML
+    private GridPane taula;
     /**
      * Initializes the controller class.
      */
@@ -68,6 +65,19 @@ public class FXMLLoggedController implements Initializable {
         clubDBAccess = ClubDBAccess.getSingletonClubDBAccess();
         member = CurrentUser.getMembre();
         changeDateLabel();
+        datePicker.getEditor().setEditable(false);
+        datePicker.getEditor().setVisible(false);
+        
+        datePicker.setDayCellFactory((DatePicker picker) -> {
+            return new DateCell() {
+                @Override
+                public void updateItem(LocalDate date, boolean empty) {
+                    super.updateItem(date, empty);
+                    LocalDate today = LocalDate.now();
+                    setDisable(empty || date.compareTo(today) < 0);
+                }
+            };
+        });
     }    
 
     @FXML
@@ -134,22 +144,10 @@ public class FXMLLoggedController implements Initializable {
     }
 
     @FXML
-    private void pickDate(MouseEvent event) {
-        DatePicker dp = new DatePicker();
-        dp.setDayCellFactory((DatePicker picker) -> {
-            return new DateCell() {
-                @Override
-                public void updateItem(LocalDate date, boolean empty) {
-                    super.updateItem(date, empty);
-                    LocalDate today = LocalDate.now();
-                    setDisable(empty || date.compareTo(today) < 0);
-                }
-            };
-        });
-        dp.show();
-        dia = dp.getValue();
+    private void pickDate(ActionEvent event) {
+        dia = datePicker.getValue();
+        datePicker.hide();
         changeDateLabel();
-        //CANVIAR EL CONTINGUT DE LES PISTES
     }
     
 }

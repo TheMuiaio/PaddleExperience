@@ -59,9 +59,18 @@ public class FXMLDocumentController implements Initializable {
         clubDBAccess = ClubDBAccess.getSingletonClubDBAccess();
         dia = LocalDate.now();
         changeDateLabel();
-        
-        //per a que se'n vaja la label si estàs amb el datepicker
-        dateLabel.visibleProperty().bind(Bindings.not(datePicker.focusedProperty()));
+        datePicker.getEditor().setEditable(false);
+        datePicker.getEditor().setVisible(false);
+        datePicker.setDayCellFactory((DatePicker picker) -> {
+            return new DateCell() {
+                @Override
+                public void updateItem(LocalDate date, boolean empty) {
+                    super.updateItem(date, empty);
+                    LocalDate today = LocalDate.now();
+                    setDisable(empty || date.compareTo(today) < 0);
+                }
+            };
+        });
     }    
     
     @FXML
@@ -121,30 +130,10 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void pickDate(ActionEvent event) {
-        DatePicker dp = new DatePicker(LocalDate.now());
-        dp.setDayCellFactory((DatePicker picker) -> {
-            return new DateCell() {
-                @Override
-                public void updateItem(LocalDate date, boolean empty) {
-                    super.updateItem(date, empty);
-                    LocalDate today = LocalDate.now();
-                    setDisable(empty || date.compareTo(today) < 0);
-                }
-            };
-        });
-        DatePickerSkin dpskin = new DatePickerSkin(dp);
-        Node popup = dpskin.getPopupContent();
-        
-        //per a que no estiga la label per damunt
-        try{
-            if(datePicker.getValue().toString().length() != 0) dateLabel.setOpacity(0);
-        }
-        catch(NullPointerException e){}
-        // FALTA FER EL SHOW DEL DPSKIN PER A MOSTRAR EL DATEPICKER
-        
-        //dp.show();
-        dia = dp.getValue();
+        dia = datePicker.getValue();
+        datePicker.hide();
         changeDateLabel();
+        System.out.println(dateLabel.getText());
         //CANVIAR EL CONTINGUT DE LES PISTES
     }
 
@@ -155,6 +144,9 @@ public class FXMLDocumentController implements Initializable {
     //el resized es per a fer que nomes actue una vegada
     //funciona ja per a totes les finestres, així que o fem totes les finestres per a un minim de tamany gran
     //o en cada finestra posem este codi (que si, que cada finestra deu estar feta per a q quede guai en tamany gran mimimimi)
+    
+    //el problema es no podem redimensionar estirant la finestra, només si polsem el botó de maximitzar.
+    //mira a vore si conseguim que poguem redimensionar la finestra estirant-la dels costats pls :c
     
     @FXML
     private void redimensionament(MouseEvent event) {
@@ -174,9 +166,5 @@ public class FXMLDocumentController implements Initializable {
     private void onBack() throws IOException { //dona error
         login.getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLLogged.fxml")));
     }
-
-    @FXML
-    private void pickDate(MouseEvent event) {//wtf ni idea
-    }
-
+    
 }

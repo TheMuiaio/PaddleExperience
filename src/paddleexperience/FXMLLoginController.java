@@ -81,7 +81,7 @@ public class FXMLLoginController implements Initializable {
                 //GERMÀRMOL: el que he fet és canviar la condició, que haja de cumplir que no estam buits
 
                 if (clubDBAccess.existsLogin(userName.getText())) { //comprovem que el login introduit existeix
-
+                    
                     if (clubDBAccess.getMemberByCredentials(login, password) == null) { //comprovem que la contrassenya siga correcta
                         incorrectPssw++;
                         Alert alert = new Alert(Alert.AlertType.ERROR);
