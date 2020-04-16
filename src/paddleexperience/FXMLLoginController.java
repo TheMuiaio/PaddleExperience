@@ -59,7 +59,7 @@ public class FXMLLoginController implements Initializable {
         // TODO
         clubDBAccess = ClubDBAccess.getSingletonClubDBAccess();
         
-            botoAcceptar.requestFocus();
+        botoAcceptar.requestFocus();
         
     }    
 
@@ -74,6 +74,7 @@ public class FXMLLoginController implements Initializable {
         // COMPROVAR
         if(incorrectPssw != 4){
             if (login.length() != 0 && password.length() != 0) { //usuari o contrassenya buits
+                
                 //VICTOR: si t'avorreixes, fes que primer comprove una cosa i després l'altra
                 //per a que ens diga quina de les dos ha fallat :)
 
@@ -123,9 +124,13 @@ public class FXMLLoginController implements Initializable {
     
     @FXML
     private void onBack(Event event) throws IOException {
-        userName.getScene().setCursor(Cursor.DEFAULT);
-        ((Node) event.getSource()).getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLDocument.fxml")));
-         
+        
+        try{
+            userName.getScene().setCursor(Cursor.DEFAULT);
+            ((Node) event.getSource()).getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLDocument.fxml")));
+        }
+        
+        catch(NullPointerException e){}
     }
 
     @FXML
@@ -139,7 +144,10 @@ public class FXMLLoginController implements Initializable {
 
     @FXML
     private void onLink(MouseEvent event) {
-        userName.getScene().setCursor(Cursor.HAND); //Change cursor to hand
+        try{
+            userName.getScene().setCursor(Cursor.HAND); //Change cursor to hand
+        }
+        catch(NullPointerException e){}
     }
 
 }

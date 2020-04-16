@@ -20,6 +20,7 @@ import javafx.scene.paint.Color;
 
 import DBAcess.ClubDBAccess;
 import javafx.scene.control.Button;
+import javafx.stage.Stage;
 import model.Member;
 
 

@@ -80,22 +80,10 @@ public class FXMLUserInfoController implements Initializable {
         return fromUserInfo;
     }
 
-    @FXML
     private void onNewCard(ActionEvent event) throws IOException {
         ((Node) event.getSource()).getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLPaymentCard.fxml")));
     }
 
-    @FXML
-    private void onEditTelf(MouseEvent event) {
-        telfField.setDisable(false);
-    }
-
-    @FXML
-    private void onEditLogin(MouseEvent event) {
-        loginField.setDisable(false);
-    }
-
-    @FXML
     private void onGuardar(ActionEvent event) {
         if(telfField.getText().length() == 9) { //telefon be
             if(!loginField.getText().trim().isEmpty() &&
@@ -145,7 +133,6 @@ public class FXMLUserInfoController implements Initializable {
         catch(NullPointerException e){}
     }
 
-    @FXML
     private void onNewImg(MouseEvent event) throws MalformedURLException {
         //aci he de fer que el camp imatge valga el que m'ha dit l'usuari
         FileChooser fileChooser = new FileChooser();
@@ -181,11 +168,6 @@ public class FXMLUserInfoController implements Initializable {
         alert.show();
                 
         ((Node) event.getSource()).getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLLogin.fxml")));
-    }
-
-    @FXML
-    private void onNewPssw(ActionEvent event) throws IOException {
-        ((Node) event.getSource()).getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLNewPassword.fxml")));
     }
 
     @FXML

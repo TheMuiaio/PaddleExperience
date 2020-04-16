@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
@@ -36,38 +37,31 @@ import javafx.stage.Stage;
  */
 public class FXMLDocumentController implements Initializable {
     
-    //hola
-    //altreola
-    
-    @FXML
-    private ImageView backDate;
     @FXML
     private Label dateLabel;
-    @FXML
-    private ImageView forwardDate;
-    @FXML
-    private TableView<?> pista1;
-    @FXML
-    private TableView<?> pista2;
-    @FXML
-    private TableView<?> pista3;
-    @FXML
-    private TableView<?> pista4;
     @FXML
     private Button login;
     
     private LocalDate dia;
     
+    private boolean resized;
+    
     private ClubDBAccess clubDBAccess;
+    @FXML
+    private DatePicker datePicker;
     @FXML
     private Button signin;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        resized = false;
         clubDBAccess = ClubDBAccess.getSingletonClubDBAccess();
         dia = LocalDate.now();
         changeDateLabel();
+        
+        //per a que se'n vaja la label si estàs amb el datepicker
+        dateLabel.visibleProperty().bind(Bindings.not(datePicker.focusedProperty()));
     }    
     
     @FXML
@@ -110,7 +104,7 @@ public class FXMLDocumentController implements Initializable {
     private void onLink(MouseEvent event) {
         try {
         login.getScene().setCursor(Cursor.HAND);
-        } catch (NullPointerException e) { }
+        } catch (NullPointerException e) {}
     }
     
     //Vaig a canviar tots els que veja, però quan et poses a treballar repassa
@@ -126,7 +120,7 @@ public class FXMLDocumentController implements Initializable {
     }
 
     @FXML
-    private void pickDate(MouseEvent event) {
+    private void pickDate(ActionEvent event) {
         DatePicker dp = new DatePicker(LocalDate.now());
         dp.setDayCellFactory((DatePicker picker) -> {
             return new DateCell() {
@@ -141,6 +135,11 @@ public class FXMLDocumentController implements Initializable {
         DatePickerSkin dpskin = new DatePickerSkin(dp);
         Node popup = dpskin.getPopupContent();
         
+        //per a que no estiga la label per damunt
+        try{
+            if(datePicker.getValue().toString().length() != 0) dateLabel.setOpacity(0);
+        }
+        catch(NullPointerException e){}
         // FALTA FER EL SHOW DEL DPSKIN PER A MOSTRAR EL DATEPICKER
         
         //dp.show();
@@ -148,4 +147,36 @@ public class FXMLDocumentController implements Initializable {
         changeDateLabel();
         //CANVIAR EL CONTINGUT DE LES PISTES
     }
+
+    
+    //perdó per tindre que fer esto, però és lo que se m'ha ocurrit
+    //si ho pose al initialize no funciona, pq com no hi ha capwindow, salta nullpointer
+    //necessite el stage per fer minWidth i minHeight
+    //el resized es per a fer que nomes actue una vegada
+    //funciona ja per a totes les finestres, així que o fem totes les finestres per a un minim de tamany gran
+    //o en cada finestra posem este codi (que si, que cada finestra deu estar feta per a q quede guai en tamany gran mimimimi)
+    
+    @FXML
+    private void redimensionament(MouseEvent event) {
+        if(!resized){
+            try {
+                Stage stage =(Stage)login.getScene().getWindow();
+                stage.setMinWidth(stage.getWidth());
+                stage.setMinHeight(stage.getHeight());
+            }
+            catch(NullPointerException e){}
+        }
+    }
+
+    
+    //No tinc ni puta idea de per què no funciona esto de baix, ni per què crea el pickDate. Crec que hi ha porblemes per compartir controlador
+    @FXML
+    private void onBack() throws IOException { //dona error
+        login.getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLLogged.fxml")));
+    }
+
+    @FXML
+    private void pickDate(MouseEvent event) {//wtf ni idea
+    }
+
 }

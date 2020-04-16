@@ -23,6 +23,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
@@ -108,7 +109,8 @@ public class FXMLLoggedController implements Initializable {
     }
 
     @FXML
-    private void toMyBookings(ActionEvent event) {
+    private void toMyBookings(ActionEvent event) throws IOException {
+        ((Node) event.getSource()).getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLReserves.fxml")));
     }
     
     private void changeDateLabel() {
@@ -117,10 +119,18 @@ public class FXMLLoggedController implements Initializable {
 
     @FXML
     private void outLink(MouseEvent event) {
+        try {
+            dateLabel.getScene().setCursor(Cursor.DEFAULT);
+        }
+        catch(NullPointerException e){}
     }
 
     @FXML
     private void onLink(MouseEvent event) {
+        try {
+            dateLabel.getScene().setCursor(Cursor.HAND);
+        }
+        catch(NullPointerException e){}
     }
 
     @FXML

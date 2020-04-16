@@ -29,6 +29,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 
 import DBAcess.ClubDBAccess;
+import javafx.scene.control.Button;
 import model.Member;
 
 import paddleexperience.CurrentUser;
@@ -60,17 +61,63 @@ public class FXMLRegisterController implements Initializable {
     private GridPane gridAvatar;
     @FXML
     private ImageView eye;
-    
+    @FXML
+    private Button botoAcceptar;
     
     private File avatar;
     private ClubDBAccess clubDBAccess;
     private Member member;
+    
+    //:( no va
+    private boolean comprovacioNom;
+    private boolean comprovacioCognom;
+    private boolean comprovacioTelf;
+    private boolean comprovacioLogin;
+    private boolean comprovacioPssw;
+    private boolean comprovacioPssw2;
+    
     
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         clubDBAccess = ClubDBAccess.getSingletonClubDBAccess();
+        botoAcceptar.setDisable(true);
+        
+        nomField.textProperty().addListener((property) -> {
+            comprovacioNom = !property.toString().isEmpty();
+        });
+        
+        cognomField.textProperty().addListener((property) -> {
+            comprovacioCognom = !property.toString().isEmpty();
+        });
+        
+        telfField.textProperty().addListener((property) -> {
+           comprovacioTelf = property.toString().length() == 9;
+        });
+        
+        loginField.textProperty().addListener((property) -> {
+            comprovacioLogin = property.toString().replaceAll(" ", "").length() == property.toString().length();
+            
+            if(property.toString().equals(""/*posar codi de vore si coincideix amb un existent*/)) System.out.println("");
+        });
+        
+        passwordField.textProperty().addListener((property) -> {
+            comprovacioPssw = property.toString().length() > 5;
+        });
+        
+        repeatedPasswordField.textProperty().addListener((property) -> {
+            comprovacioPssw2 = property.toString().equals(passwordField.toString());
+        });
+        
+        //ara que hem comprovat tot
+        botoAcceptar.disableProperty().addListener((property) -> {
+            if(comprovacioNom && comprovacioCognom && comprovacioLogin && comprovacioTelf && comprovacioPssw && comprovacioPssw2) botoAcceptar.setDisable(false);
+        });
+        
+        //se que és horrible, pero es que a més no funciona xd
+        
+        
         
         member = CurrentUser.getMembre();
         if (member != null) {
@@ -96,6 +143,8 @@ public class FXMLRegisterController implements Initializable {
                 telfField.setText(newValue.replaceAll("[^\\d]", ""));
             }
         });
+        
+        
     }    
 
     @FXML
@@ -128,9 +177,14 @@ public class FXMLRegisterController implements Initializable {
                         
                         //Comprobe que coincidisquen les contrasenyes
                         if(passwordField.getText().equals(repeatedPasswordField.getText())){
-                            //estes dos línies no va a donar-nos temps de vore-les en pantalla
-                            info.setTextFill(Color.GREEN);
-                            info.setText("Tot correcte");
+                            
+                            
+                            //TOT CORRECTE
+                            botoAcceptar.setDisable(false);
+                            //No deuria fer falta, pero no funcionen els listeners de dalt
+                            //No funciona tampoc, no ho entenc
+                            
+                            
                             
                             if (member == null) {// NO EXISTEIX EL MEMBRE I HEM DE CREAR UN DE NOU
                                 //creem el nou membre
@@ -146,6 +200,7 @@ public class FXMLRegisterController implements Initializable {
                                 member.setImage(imageView.getImage());
                                 //guardem el membre en la llista d'usuaris
                                 clubDBAccess.getMembers().add(member);
+                                
                             } else {// EXISTEIX EL MEMBRE I L'HEM DE MODIFICAR
                                 CurrentUser.getMembre().setName(nomField.getText());
                                 //member.setName(nomField.getText());
@@ -221,8 +276,11 @@ public class FXMLRegisterController implements Initializable {
 
     @FXML
     private void onBack(MouseEvent event) throws IOException {
-        info.getScene().setCursor(Cursor.DEFAULT);
-        ((Node) event.getSource()).getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLLogin.fxml")));
+        try{
+            info.getScene().setCursor(Cursor.DEFAULT);
+            ((Node) event.getSource()).getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLDocument.fxml")));
+        }
+        catch(NullPointerException e){}
     }
 
     @FXML
@@ -234,7 +292,7 @@ public class FXMLRegisterController implements Initializable {
     }
 
     @FXML
-    private void onLink() throws NullPointerException{
+    private void onLink() {
         try{
             info.getScene().setCursor(Cursor.HAND);
         } 
@@ -248,14 +306,20 @@ public class FXMLRegisterController implements Initializable {
 
     @FXML
     private void avatarSugerenciaDesapareix(MouseEvent event) {
-        info.getScene().setCursor(Cursor.DEFAULT);
-        imageView.setOpacity(1);
+        try{
+            info.getScene().setCursor(Cursor.DEFAULT);
+            imageView.setOpacity(1);
+        }
+        catch(NullPointerException e){}
     }
 
     @FXML
     private void avatarSugerenciaApareix(MouseEvent event) {
-        info.getScene().setCursor(Cursor.HAND);
-        imageView.setOpacity(0.4);
+        try{
+            info.getScene().setCursor(Cursor.HAND);
+            imageView.setOpacity(0.4);
+        }
+        catch(NullPointerException e){}
     }
 
 }

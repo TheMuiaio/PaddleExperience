@@ -7,12 +7,38 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="420.0" prefHeight="420.0" prefWidth="599.0" spacing="20.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="paddleexperience.FXMLLoginController">
-   <children>
-      <HBox prefHeight="100.0" prefWidth="600.0">
+
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="paddleexperience.FXMLLoginController">
+   <center>
+      <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="420.0" prefHeight="420.0" prefWidth="599.0" spacing="20.0">
+         <children>
+            <HBox prefHeight="77.0" prefWidth="599.0" />
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../resources/image.jpg" />
+               </image>
+            </ImageView>
+            <TextField fx:id="userName" alignment="CENTER" maxWidth="-Infinity" prefWidth="400.0" promptText="Usuari" />
+            <PasswordField fx:id="contrassenya" alignment="CENTER" maxWidth="-Infinity" prefWidth="400.0" promptText="Contrassenya" />
+            <Button fx:id="botoAcceptar" mnemonicParsing="false" onAction="#checkLogIn" prefWidth="400.0" text="Accedeix" />
+            <HBox alignment="CENTER" maxHeight="-Infinity" prefHeight="10.0" prefWidth="600.0">
+               <children>
+                  <Label text="No tens compte?" />
+                  <Label fx:id="signIn" onMouseClicked="#toSignIn" onMouseEntered="#onLink" onMouseExited="#outLink" text=" Enregistra't" />
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="20.0" />
+         </padding>
+      </VBox>
+   </center>
+   <top>
+      <HBox prefHeight="79.0" prefWidth="799.0" BorderPane.alignment="CENTER">
          <children>
             <ImageView fx:id="backImg" fitHeight="25.0" fitWidth="25.0" onMouseClicked="#onBack" onMouseEntered="#onLink" onMouseExited="#outLink" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -24,22 +50,14 @@
             </ImageView>
          </children>
       </HBox>
-      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../resources/image.jpg" />
-         </image>
-      </ImageView>
-      <TextField fx:id="userName" alignment="CENTER" maxWidth="-Infinity" prefWidth="400.0" promptText="Usuari" />
-      <PasswordField fx:id="contrassenya" alignment="CENTER" maxWidth="-Infinity" prefWidth="400.0" promptText="Contrassenya" />
-      <Button fx:id="botoAcceptar" mnemonicParsing="false" onAction="#checkLogIn" prefWidth="400.0" text="Accedeix" />
-      <HBox alignment="CENTER" maxHeight="-Infinity" prefHeight="10.0" prefWidth="600.0">
-         <children>
-            <Label text="No tens compte?" />
-            <Label fx:id="signIn" onMouseClicked="#toSignIn" onMouseEntered="#onLink" onMouseExited="#outLink" text=" Enregistra't" />
-         </children>
-      </HBox>
-   </children>
-   <padding>
-      <Insets bottom="20.0" />
-   </padding>
-</VBox>
+   </top>
+   <bottom>
+      <HBox prefHeight="77.0" prefWidth="799.0" BorderPane.alignment="CENTER" />
+   </bottom>
+   <right>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
+   </right>
+   <left>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
+   </left>
+</BorderPane>

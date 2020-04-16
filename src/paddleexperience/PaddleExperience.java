@@ -14,7 +14,9 @@ import javafx.stage.Stage;
 import DBAcess.ClubDBAccess;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
 import javafx.stage.WindowEvent;
+
 
 /**
  *
@@ -30,10 +32,9 @@ public class PaddleExperience extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
         
         Scene scene = new Scene(root);
-        
+        stage.setTitle("Paddle Experience");
+        stage.getIcons().add(new Image("/resources/image.jpg"));
         stage.setScene(scene);
-        stage.setWidth(620);
-        stage.setHeight(450);
         stage.show();
         
         //Guardem els canvis efectuats en la base de dades al tancar la finestra
