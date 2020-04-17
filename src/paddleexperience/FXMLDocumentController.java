@@ -28,6 +28,7 @@ import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
         
@@ -51,6 +52,8 @@ public class FXMLDocumentController implements Initializable {
     private DatePicker datePicker;
     @FXML
     private Button signin;
+    @FXML
+    private GridPane taula;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -71,6 +74,14 @@ public class FXMLDocumentController implements Initializable {
                 }
             };
         });
+        
+        for (int i = 13; i < taula.getChildren().size() - 1; i++) {
+            if (true) {
+                System.out.println("hola " + (i - 13));
+                ((Label)taula.getChildren().get(i)).setText("hola " + (i - 13));
+            }
+        }
+        
     }    
     
     @FXML
@@ -162,6 +173,7 @@ public class FXMLDocumentController implements Initializable {
 
     
     //No tinc ni puta idea de per què no funciona esto de baix, ni per què crea el pickDate. Crec que hi ha porblemes per compartir controlador
+    //Era perquè tenia un pickdate onMousePressed i ahi no va. L'he llevat i ja funciona
     @FXML
     private void onBack() throws IOException { //dona error
         login.getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLLogged.fxml")));
