@@ -75,10 +75,10 @@ public class FXMLDocumentController implements Initializable {
             };
         });
         
-        for (int i = 13; i < taula.getChildren().size() - 1; i++) {
+        for (int i = 14; i < taula.getChildren().size() - 1; i++) {
             if (true) {
-                System.out.println("hola " + (i - 13));
-                ((Label)taula.getChildren().get(i)).setText("hola " + (i - 13));
+                System.out.println("hola " + (i - 14));
+                ((Label)taula.getChildren().get(i)).setText("hola " + (i - 14));
             }
         }
         
