@@ -198,6 +198,19 @@ public class FXMLDocumentController implements Initializable {
         for(Booking b : bookForDay) {
             //FORMULA: POSICIÓ = (13) + (PISTA * HORA) - 1
             //mentida xd
+            
+            
+            
+            
+            
+            
+            //Germarmol modify 1
+            
+            
+            
+            
+            
+            
             //FORMULA . POSICIÓ = 12 + (HORA * 4) + PISTA
             System.out.println();
             System.out.println(translateHour(b.getFromTime().getHour()));

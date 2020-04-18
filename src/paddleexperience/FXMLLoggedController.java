@@ -121,6 +121,16 @@ public class FXMLLoggedController implements Initializable {
 //        clubDBAccess.getBookings().add(new Booking(LocalDateTime.now(), dia, lt, member.getCreditCard() != null, clubDBAccess.getCourt("Court 1"), member));
 //        
 //    }
+    
+    
+    
+    
+    
+    //Germarmol modify2
+    
+    
+    
+    
 
     @FXML
     private void newBooking(MouseEvent event) {
@@ -215,7 +225,7 @@ public class FXMLLoggedController implements Initializable {
             ((Label)taula.getChildren().get(12 + ((translateHour(b.getFromTime().getHour()) * 4) + translateCourt(b.getCourt().getName())))).setText("Lliure");
         }
     }
-    
+     
     private int translateHour(int i) {
         switch (i) {
             case 9:
