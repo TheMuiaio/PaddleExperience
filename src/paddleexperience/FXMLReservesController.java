@@ -105,7 +105,7 @@ public class FXMLReservesController implements Initializable {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
             //Cancelem la reserva
-            
+            System.out.println("Adeu");
             System.out.println("OK");
         } else {
             //ps no la cancelem 
