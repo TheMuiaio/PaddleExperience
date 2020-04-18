@@ -148,7 +148,7 @@ public class FXMLLoggedController implements Initializable {
     @FXML
     private void newBooking(MouseEvent event) {
         LocalTime lt = fromRow(taula.getRowIndex((Label)event.getSource()));
-        if (dia.compareTo(LocalDate.now()) >= 0 && lt.compareTo(LocalTime.now()) > 0) {
+        if ((dia.compareTo(LocalDate.now()) == 0 && lt.compareTo(LocalTime.now()) > 0) || dia.compareTo(LocalDate.now()) > 0) {
             Alert alert = new Alert(AlertType.CONFIRMATION);
             alert.setTitle("Diàleg de confirmació");
             alert.setHeaderText("Vas a realitzar una reserva");
