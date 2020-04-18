@@ -28,6 +28,10 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.layout.GridPane;
 
 import DBAcess.ClubDBAccess;
+import java.util.Optional;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import model.Booking;
 import model.Member;
@@ -135,10 +139,21 @@ public class FXMLLoggedController implements Initializable {
     
     @FXML
     private void newBooking(MouseEvent event) {
-        LocalTime lt = fromRow(taula.getRowIndex((Label)event.getSource()));
-        clubDBAccess.getBookings().add(new Booking(LocalDateTime.now(), dia, lt, member.getCreditCard() != null, clubDBAccess.getCourt(fromCourt(event)), member));
-        ((Label)event.getSource()).setText(member.getLogin());
-        bookForDay = clubDBAccess.getForDayBookings(dia);
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Diàleg de confirmació");
+        alert.setHeaderText("Vas a realitzar una reserva");
+        alert.setContentText("Vols continuar? Recorda que només pots anul·lar-la amb 24h d'antelació.");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) { //Es realitza la reserva
+            
+            LocalTime lt = fromRow(taula.getRowIndex((Label)event.getSource()));
+            clubDBAccess.getBookings().add(new Booking(LocalDateTime.now(), dia, lt, member.getCreditCard() != null, clubDBAccess.getCourt(fromCourt(event)), member));
+            ((Label)event.getSource()).setText(member.getLogin());
+            bookForDay = clubDBAccess.getForDayBookings(dia);
+            
+        } else {
+            System.out.println("CANCEL");
+        }
     }
     
     private LocalTime fromRow(int row) {
