@@ -24,6 +24,9 @@ import javafx.scene.layout.GridPane;
 import model.Member;
 import paddleexperience.CurrentUser;
 import DBAcess.ClubDBAccess;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import javafx.scene.control.Button;
@@ -58,15 +61,25 @@ public class FXMLReservesController implements Initializable {
 
     private void placeBookings() {
         String time;
-        for(int i = 3; i - 3 < 10 && i - 3 < bookForMember.size(); i++) {
-            time = "";
-            time += bookForMember.get(i - 3).getMadeForDay().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)) + " ";
-            time += bookForMember.get(i - 3).getFromTime().format(DateTimeFormatter.ofPattern("HH:mm"));
-            ((Label)taula.getChildren().get(i)).setText(time);
-//            ((Label)taula.getChildren().get(i)).setText(bookForMember.get(i - 3).getMadeForDay().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)));
-//            ((Label)taula.getChildren().get(i + 10)).setText(bookForMember.get(i - 3).getFromTime().format(DateTimeFormatter.ofPattern("HH:mm")));
-            ((Label)taula.getChildren().get(i + 10)).setText(bookForMember.get(i - 3).getCourt().getName());
-            //System.out.println("index = " + i);
+        int i = 3;
+        for(;  i - 3 < 10 && i - 3 < bookForMember.size(); i++) {
+//            if( i - 3 < 10) {
+                time = "";
+                time += bookForMember.get(i - 3).getMadeForDay().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)) + " ";
+                time += bookForMember.get(i - 3).getFromTime().format(DateTimeFormatter.ofPattern("HH:mm"));
+                ((Label)taula.getChildren().get(i)).setText(time);
+    //            ((Label)taula.getChildren().get(i)).setText(bookForMember.get(i - 3).getMadeForDay().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)));
+    //            ((Label)taula.getChildren().get(i + 10)).setText(bookForMember.get(i - 3).getFromTime().format(DateTimeFormatter.ofPattern("HH:mm")));
+                ((Label)taula.getChildren().get(i + 10)).setText(bookForMember.get(i - 3).getCourt().getName());
+                //System.out.println("index = " + i);
+//            } else {
+//                ((Label)taula.getChildren().get(i)).setText("");
+//                ((Label)taula.getChildren().get(i + 10)).setText(bookForMember.get(i - 3).getCourt().getName());
+//            }
+        }
+        for(; i - 3 < 10; i++) {
+            ((Label)taula.getChildren().get(i)).setText("");
+            ((Label)taula.getChildren().get(i + 10)).setText("");
         }
     }
     
@@ -94,24 +107,63 @@ public class FXMLReservesController implements Initializable {
 
     @FXML
     private void cancelarReserva(ActionEvent event) {
-        Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setTitle("Diàleg de confirmació");
-        alert.setHeaderText("Vas a anul·lar aquesta reserva");
-        alert.setContentText("Vols continuar?");
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.OK) {
-            //Cancelem la reserva
-            System.out.println("index = " + (taula.getRowIndex(((Button)event.getSource())) - 1));
-            Booking b = bookForMember.get(taula.getRowIndex(((Button)event.getSource())) - 1);
-            clubDBAccess.getBookings().remove(b);
-            bookForMember = clubDBAccess.getUserBookings(member.getLogin());
-            placeBookings();
-            System.out.println("Adeu");
-            System.out.println("OK");
+        Booking b = bookForMember.get(taula.getRowIndex(((Button)event.getSource())) - 1);
+        System.out.println("index = " + (taula.getRowIndex(((Button)event.getSource())) - 1));
+        System.out.println("dia i hora de la reserva: " + b.getMadeForDay().format(DateTimeFormatter.ISO_DATE));
+        
+        LocalDate ld = LocalDate.now();
+        LocalTime lt = LocalTime.now();
+        
+        if (ld.compareTo(b.getMadeForDay()) == 0) {
+            //NO ES POT PERQUÈ RESERVA I DATA SÓN EL MATEIX DIA
+        } else if (ld.compareTo(b.getMadeForDay().minusDays(1)) == 0 && lt.compareTo(b.getFromTime().minusHours(24)) > 0) {
+            //NO ES POT PERQUÈ HI HA MÉS DE 24H ENTRE ARA I L'HORA DE RESERVA
         } else {
-            //ps no la cancelem 
-            System.out.println("CANCEL");
+            Alert alert = new Alert(AlertType.CONFIRMATION);
+            alert.setTitle("Diàleg de confirmació");
+            alert.setHeaderText("Vas a anul·lar aquesta reserva");
+            alert.setContentText("Vols continuar?");
+            Optional<ButtonType> result = alert.showAndWait();
+            
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                //Cancelem la reserva
+                
+                
+                clubDBAccess.getBookings().remove(b);
+                bookForMember = clubDBAccess.getUserBookings(member.getLogin());
+                
+                placeBookings();
+                System.out.println("Adeu");
+                System.out.println("OK");
+            } else {
+                //ps no la cancelem 
+                System.out.println("CANCEL");
+            }
         }
+        
+//        LocalDateTime ldt = LocalDateTime.now();
+//        if(ldt.compareTo(b.getBookingDate().minusDays(1)) <= 0) {
+//            Alert alert = new Alert(AlertType.CONFIRMATION);
+//            alert.setTitle("Diàleg de confirmació");
+//            alert.setHeaderText("Vas a anul·lar aquesta reserva");
+//            alert.setContentText("Vols continuar?");
+//            Optional<ButtonType> result = alert.showAndWait();
+//            
+//            if (result.isPresent() && result.get() == ButtonType.OK) {
+//                //Cancelem la reserva
+//                
+//                
+//                clubDBAccess.getBookings().remove(b);
+//                bookForMember = clubDBAccess.getUserBookings(member.getLogin());
+//                
+//                placeBookings();
+//                System.out.println("Adeu");
+//                System.out.println("OK");
+//            } else {
+//                //ps no la cancelem 
+//                System.out.println("CANCEL");
+//            }
+//        }
     }
     
 }
