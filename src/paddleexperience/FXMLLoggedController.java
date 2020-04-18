@@ -28,6 +28,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.layout.GridPane;
 
 import DBAcess.ClubDBAccess;
+import javafx.stage.Stage;
 import model.Booking;
 import model.Member;
 import paddleexperience.CurrentUser;
@@ -110,6 +111,15 @@ public class FXMLLoggedController implements Initializable {
 
     @FXML
     private void onProfile(ActionEvent event) throws IOException {
+        dateLabel.getScene().setCursor(Cursor.DEFAULT);
+        //SI ens agrada només
+        //fem que la de user siga mes xicoteta i alhora de redimensionar tmb tinga altres mins
+        ((Stage) ((Node) event.getSource()).getScene().getWindow()).setHeight(430);
+        ((Stage) ((Node) event.getSource()).getScene().getWindow()).setWidth(780);
+        ((Stage) ((Node) event.getSource()).getScene().getWindow()).setMinHeight(430);
+        ((Stage) ((Node) event.getSource()).getScene().getWindow()).setMinWidth(780);
+        
+        
         ((Node) event.getSource()).getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLUserInfo.fxml")));
     }
     
@@ -123,15 +133,6 @@ public class FXMLLoggedController implements Initializable {
 //    }
     
     
-    
-    
-    
-    //Germarmol modify2
-    
-    
-    
-    
-
     @FXML
     private void newBooking(MouseEvent event) {
         LocalTime lt = fromRow(taula.getRowIndex((Label)event.getSource()));
@@ -181,6 +182,7 @@ public class FXMLLoggedController implements Initializable {
     
     @FXML
     private void toMyBookings(ActionEvent event) throws IOException {
+        dateLabel.getScene().setCursor(Cursor.DEFAULT);
         ((Node) event.getSource()).getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLReserves.fxml")));
     }
     

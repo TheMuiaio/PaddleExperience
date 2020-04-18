@@ -163,33 +163,10 @@ public class FXMLDocumentController implements Initializable {
     }
 
     
-    //perdó per tindre que fer esto, però és lo que se m'ha ocurrit
-    //si ho pose al initialize no funciona, pq com no hi ha capwindow, salta nullpointer
-    //necessite el stage per fer minWidth i minHeight
-    //el resized es per a fer que nomes actue una vegada
-    //funciona ja per a totes les finestres, així que o fem totes les finestres per a un minim de tamany gran
-    //o en cada finestra posem este codi (que si, que cada finestra deu estar feta per a q quede guai en tamany gran mimimimi)
-    
-    //el problema es no podem redimensionar estirant la finestra, només si polsem el botó de maximitzar.
-    //mira a vore si conseguim que poguem redimensionar la finestra estirant-la dels costats pls :c
-    
-    @FXML
-    private void redimensionament(MouseEvent event) {
-        if(!resized){
-            try {
-                Stage stage =(Stage)login.getScene().getWindow();
-                stage.setMinWidth(stage.getWidth());
-                stage.setMinHeight(stage.getHeight());
-            }
-            catch(NullPointerException e){}
-        }
-    }
-
     
     //No tinc ni puta idea de per què no funciona esto de baix, ni per què crea el pickDate. Crec que hi ha porblemes per compartir controlador
     //Era perquè tenia un pickdate onMousePressed i ahi no va. L'he llevat i ja funciona
-    @FXML
-    private void onBack() throws IOException { //dona error
+    private void onBack() throws IOException {
         login.getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLLogged.fxml")));
     }
     
@@ -198,19 +175,6 @@ public class FXMLDocumentController implements Initializable {
         for(Booking b : bookForDay) {
             //FORMULA: POSICIÓ = (13) + (PISTA * HORA) - 1
             //mentida xd
-            
-            
-            
-            
-            
-            
-            //Germarmol modify 1
-            
-            
-            
-            
-            
-            
             //FORMULA . POSICIÓ = 12 + (HORA * 4) + PISTA
             System.out.println();
             System.out.println(translateHour(b.getFromTime().getHour()));

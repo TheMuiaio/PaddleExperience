@@ -63,6 +63,17 @@ public class FXMLRegisterController implements Initializable {
     private ImageView eye;
     @FXML
     private Button botoAcceptar;
+    @FXML
+    private TextField numberOne;
+    @FXML
+    private TextField numberTwo;
+    @FXML
+    private TextField numberThree;
+    @FXML
+    private TextField numberFour;
+    @FXML
+    private TextField secretNumber;
+    
     
     private File avatar;
     private ClubDBAccess clubDBAccess;
@@ -81,6 +92,50 @@ public class FXMLRegisterController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         clubDBAccess = ClubDBAccess.getSingletonClubDBAccess();
+        
+        //mirem si ja existeix algun membre amb eixe login
+        loginField.textProperty().addListener((property, oldValue, newValue) -> {
+            System.out.println(newValue);
+            if(clubDBAccess.existsLogin(newValue)){info.setText("Login en ús. Elegeix altre.");}
+        });
+        
+        
+        
+        //Posem que només puguem gastar números
+        numberOne.textProperty().addListener((poperty, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                numberOne.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+        
+        numberTwo.textProperty().addListener((poperty, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                numberTwo.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+        
+        numberThree.textProperty().addListener((poperty, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                numberThree.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+        
+        numberFour.textProperty().addListener((poperty, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                numberFour.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+        
+        secretNumber.textProperty().addListener((property, oldValue,newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                secretNumber.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+       
+        //Tot comentat pq he llevat el fxml de la targeta de crèdit. Ja em dius si deixar-ho com estava o canviar-ho, però Jose va dir que com 
+        //podiem fer la finestra més gran, podiem posar la targeta també al registre
+        
+        /*
         botoAcceptar.setDisable(true);
         
         nomField.textProperty().addListener((property) -> {
@@ -98,7 +153,7 @@ public class FXMLRegisterController implements Initializable {
         loginField.textProperty().addListener((property) -> {
             comprovacioLogin = property.toString().replaceAll(" ", "").length() == property.toString().length();
             
-            if(property.toString().equals(""/*posar codi de vore si coincideix amb un existent*/)) System.out.println("");
+            if(property.toString().equals(""posar codi de vore si coincideix amb un existent)) System.out.println("");
         });
         
         passwordField.textProperty().addListener((property) -> {
@@ -109,15 +164,15 @@ public class FXMLRegisterController implements Initializable {
             comprovacioPssw2 = property.toString().equals(passwordField.toString());
         });
         
-        //ara que hem comprovat tot
+        ara que hem comprovat tot
         botoAcceptar.disableProperty().addListener((property) -> {
             if(comprovacioNom && comprovacioCognom && comprovacioLogin && comprovacioTelf && comprovacioPssw && comprovacioPssw2) botoAcceptar.setDisable(false);
         });
         
-        //se que és horrible, pero es que a més no funciona xd
+        se que és horrible, pero es que a més no funciona xd
+        */
         
-        
-        
+        /*
         member = CurrentUser.getMembre();
         if (member != null) {
             nomField.setText(member.getName());
@@ -129,6 +184,8 @@ public class FXMLRegisterController implements Initializable {
         }
         //per a que al fer enrere en la targeta de credir vaja al registre
         FXMLUserInfoController.setFromUserInfo(false);
+        */
+        
         
         //lligue que pugues vore la pssw amb el press de l'ull
         passwordAppears.visibleProperty().bind(eye.pressedProperty());
@@ -149,7 +206,7 @@ public class FXMLRegisterController implements Initializable {
     @FXML
     private void loginFieldInfo(MouseEvent event) {
         info.setTextFill(Color.BLACK);
-        info.setText("Serà el teu nom d'usuari a l'aplicació. No poses espais.");
+        //info.setText("Serà el teu nom d'usuari a l'aplicació. No poses espais.");
     }
 
     @FXML

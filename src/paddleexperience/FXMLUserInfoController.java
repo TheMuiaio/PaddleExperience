@@ -23,6 +23,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import model.Member;
 
 /**
@@ -160,6 +161,11 @@ public class FXMLUserInfoController implements Initializable {
     private void onLogOut(ActionEvent event) throws IOException {
         CurrentUser.setMembre(null, null);
         
+        //Tornem les coses al seu lloc
+        ((Stage) ((Node) event.getSource()).getScene().getWindow()).setHeight(800);
+        ((Stage) ((Node) event.getSource()).getScene().getWindow()).setWidth(1100);
+        ((Stage) ((Node) event.getSource()).getScene().getWindow()).setMinHeight(800);
+        ((Stage) ((Node) event.getSource()).getScene().getWindow()).setMinWidth(1100);
         
         //Avisem a l'usuari que ha tancat sessió
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -173,6 +179,13 @@ public class FXMLUserInfoController implements Initializable {
     @FXML
     private void onBack(MouseEvent event) throws IOException {
         nomField.getScene().setCursor(Cursor.DEFAULT);
+        
+        //Tornem les coses al seu lloc
+        ((Stage) ((Node) event.getSource()).getScene().getWindow()).setHeight(800);
+        ((Stage) ((Node) event.getSource()).getScene().getWindow()).setWidth(1100);
+        ((Stage) ((Node) event.getSource()).getScene().getWindow()).setMinHeight(800);
+        ((Stage) ((Node) event.getSource()).getScene().getWindow()).setMinWidth(1100);
+        
         ((Node) event.getSource()).getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLLogged.fxml")));
     }
         
