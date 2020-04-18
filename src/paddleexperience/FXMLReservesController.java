@@ -53,16 +53,12 @@ public class FXMLReservesController implements Initializable {
         member = CurrentUser.getMembre();
         bookForMember = clubDBAccess.getUserBookings(member.getLogin());
         
-//        int i = 0;
-//        for(Node n : taula.getChildren()) {
-//            if (n instanceof Label) {
-//                ((Label) n).setText("Hola" + i);
-//            }
-//            i++;
-//        }
-        
+        placeBookings();
+    }    
+
+    private void placeBookings() {
         String time;
-        for(int i = 3; i < 10 && i < bookForMember.size(); i++) {
+        for(int i = 3; i - 3 < 10 && i - 3 < bookForMember.size(); i++) {
             time = "";
             time += bookForMember.get(i - 3).getMadeForDay().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)) + " ";
             time += bookForMember.get(i - 3).getFromTime().format(DateTimeFormatter.ofPattern("HH:mm"));
@@ -70,10 +66,10 @@ public class FXMLReservesController implements Initializable {
 //            ((Label)taula.getChildren().get(i)).setText(bookForMember.get(i - 3).getMadeForDay().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)));
 //            ((Label)taula.getChildren().get(i + 10)).setText(bookForMember.get(i - 3).getFromTime().format(DateTimeFormatter.ofPattern("HH:mm")));
             ((Label)taula.getChildren().get(i + 10)).setText(bookForMember.get(i - 3).getCourt().getName());
-            
+            //System.out.println("index = " + i);
         }
-    }    
-
+    }
+    
     @FXML
     private void outLink(MouseEvent event) {
         try{
@@ -105,6 +101,11 @@ public class FXMLReservesController implements Initializable {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
             //Cancelem la reserva
+            System.out.println("index = " + (taula.getRowIndex(((Button)event.getSource())) - 1));
+            Booking b = bookForMember.get(taula.getRowIndex(((Button)event.getSource())) - 1);
+            clubDBAccess.getBookings().remove(b);
+            bookForMember = clubDBAccess.getUserBookings(member.getLogin());
+            placeBookings();
             System.out.println("Adeu");
             System.out.println("OK");
         } else {
