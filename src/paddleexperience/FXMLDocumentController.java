@@ -177,49 +177,47 @@ public class FXMLDocumentController implements Initializable {
             //mentida xd
             //FORMULA . POSICIÓ = 12 + (HORA * 4) + PISTA
             System.out.println();
-            System.out.println(translateHour(b.getFromTime().getHour()));
-            //error al accedir a una pista: pista = null
-            System.out.println(b.getCourt());
-            System.out.println(translateCourt(b.getCourt().getName()));
+            System.out.println("FILA: " + translateHour(b.getFromTime().getHour()));
+            System.out.println("COLUMNA: " + translateCourt(b.getCourt().getName()));
             
-            ((Label)taula.getChildren().get(12 + ((translateHour(b.getFromTime().getHour()) * 4) + translateCourt(b.getCourt().getName())))).setText(b.getMember().getLogin());
+            ((Label)taula.getChildren().get(13 + ((translateHour(b.getFromTime().getHour()) * 4) + translateCourt(b.getCourt().getName())))).setText(b.getMember().getLogin());
         }
     }
     
     public void cleangrid() {
         for(Booking b : bookForDay) {
-            ((Label)taula.getChildren().get(12 + ((translateHour(b.getFromTime().getHour()) * 4) + translateCourt(b.getCourt().getName())))).setText("Lliure");
+            ((Label)taula.getChildren().get(13 + ((translateHour(b.getFromTime().getHour()) * 4) + translateCourt(b.getCourt().getName())))).setText("Lliure");
         }
     }
     
     private int translateHour(int i) {
         switch (i) {
             case 9:
-                return 1;
+                return 0;
             
             case 10:
-                return 2;
+                return 1;
             
             case 12: 
-                return 3;
+                return 2;
             
             case 13:
-                return 4;
+                return 3;
                 
             case 15:
-                return 5;
+                return 4;
                 
             case 16:
-                return 6;
+                return 5;
                 
             case 18:
-                return 7;
+                return 6;
                 
             case 19:
-                return 8;
+                return 7;
                 
             case 21:
-                return 9;
+                return 8;
         }
         return -1;
     }
@@ -227,6 +225,6 @@ public class FXMLDocumentController implements Initializable {
     private int translateCourt(String name) {
         String substring = name.substring(name.length() - 1);
         System.out.println(substring);
-        return Integer.parseInt(substring);
+        return Integer.parseInt(substring) - 1;
     }
 }

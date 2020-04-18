@@ -94,6 +94,10 @@ public class FXMLLoggedController implements Initializable {
                 }
             };
         });
+        //bucle per vore l'ordre dels fills en la taula
+//        for(int i = 1; i < taula.getChildren().size() - 1; i++) {
+//            ((Label)taula.getChildren().get(i)).setText("Hola " + i);
+//        }
     }    
 
     @FXML
@@ -102,7 +106,9 @@ public class FXMLLoggedController implements Initializable {
         if (aux.compareTo(LocalDate.now()) >= 0) {
             dia = aux;
             changeDateLabel();
+            cleangrid();
             bookForDay = clubDBAccess.getForDayBookings(dia);
+            placeBookings();
         }
     }
 
@@ -110,7 +116,9 @@ public class FXMLLoggedController implements Initializable {
     private void nextDay(ActionEvent event) {
         dia = dia.plusDays(1);
         changeDateLabel();
+        cleangrid();
         bookForDay = clubDBAccess.getForDayBookings(dia);
+        placeBookings();
     }
 
     @FXML
@@ -139,20 +147,22 @@ public class FXMLLoggedController implements Initializable {
     
     @FXML
     private void newBooking(MouseEvent event) {
-        Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setTitle("Diàleg de confirmació");
-        alert.setHeaderText("Vas a realitzar una reserva");
-        alert.setContentText("Vols continuar? Recorda que només pots anul·lar-la amb 24h d'antelació.");
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.OK) { //Es realitza la reserva
-            
-            LocalTime lt = fromRow(taula.getRowIndex((Label)event.getSource()));
-            clubDBAccess.getBookings().add(new Booking(LocalDateTime.now(), dia, lt, member.getCreditCard() != null, clubDBAccess.getCourt(fromCourt(event)), member));
-            ((Label)event.getSource()).setText(member.getLogin());
-            bookForDay = clubDBAccess.getForDayBookings(dia);
-            
-        } else {
-            System.out.println("CANCEL");
+        LocalTime lt = fromRow(taula.getRowIndex((Label)event.getSource()));
+        if (dia.compareTo(LocalDate.now()) >= 0 && lt.compareTo(LocalTime.now()) > 0) {
+            Alert alert = new Alert(AlertType.CONFIRMATION);
+            alert.setTitle("Diàleg de confirmació");
+            alert.setHeaderText("Vas a realitzar una reserva");
+            alert.setContentText("Vols continuar? Recorda que només pots anul·lar-la amb 24h d'antelació.");
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) { //Es realitza la reserva
+
+                clubDBAccess.getBookings().add(new Booking(LocalDateTime.now(), dia, lt, member.getCreditCard() != null, clubDBAccess.getCourt(fromCourt(event)), member));
+                ((Label)event.getSource()).setText(member.getLogin());
+                bookForDay = clubDBAccess.getForDayBookings(dia);
+
+            } else {
+                System.out.println("CANCEL");
+            }
         }
     }
     
@@ -189,10 +199,10 @@ public class FXMLLoggedController implements Initializable {
     }
     
     private String fromCourt(MouseEvent event) {
-        String res = "court ";
+        String res = "Court ";
         res += taula.getColumnIndex((Label)event.getSource());
         System.out.println(res);
-        return "";
+        return res;
     }
     
     @FXML
@@ -226,57 +236,68 @@ public class FXMLLoggedController implements Initializable {
         dia = datePicker.getValue();
         datePicker.hide();
         changeDateLabel();
+        System.out.println(dateLabel.getText());
+        //CANVIAR EL CONTINGUT DE LES PISTES
+        cleangrid();
         bookForDay = clubDBAccess.getForDayBookings(dia);
+        placeBookings();
     }
     
     private void placeBookings() {
         
         for(Booking b : bookForDay) {
             //FORMULA: POSICIÓ = 12 + (HORA * 4) + PISTA
-            ((Label)taula.getChildren().get(12 + ((translateHour(b.getFromTime().getHour()) * 4) + translateCourt(b.getCourt().getName())))).setText(b.getMember().getLogin());
+            
+            System.out.println();
+            System.out.println("FILA: " + translateCourt(b.getCourt().getName()));
+            System.out.println("COLUMNA: " + translateHour(b.getFromTime().getHour()));
+            
+            ((Label)taula.getChildren().get(13 + ((translateCourt(b.getCourt().getName()) * 9) + translateHour(b.getFromTime().getHour())))).setText(b.getMember().getLogin());
         }
     }
     
     public void cleangrid() {
         for(Booking b : bookForDay) {
-            ((Label)taula.getChildren().get(12 + ((translateHour(b.getFromTime().getHour()) * 4) + translateCourt(b.getCourt().getName())))).setText("Lliure");
+            //System.out.println(b.getCourt().getName().equals("Court 4") ? "": "");
+            ((Label)taula.getChildren().get(13 + ((translateCourt(b.getCourt().getName()) * 9) + translateHour(b.getFromTime().getHour())))).setText("Lliure");
         }
     }
      
     private int translateHour(int i) {
         switch (i) {
             case 9:
-                return 1;
+                return 0;
             
             case 10:
-                return 2;
+                return 1;
             
             case 12: 
-                return 3;
+                return 2;
             
             case 13:
-                return 4;
+                return 3;
                 
             case 15:
-                return 5;
+                return 4;
                 
             case 16:
-                return 6;
+                return 5;
                 
             case 18:
-                return 7;
+                return 6;
                 
             case 19:
-                return 8;
+                return 7;
                 
             case 21:
-                return 9;
+                return 8;
         }
         return -1;
     }
     
     private int translateCourt(String name) {
         String substring = name.substring(name.length() - 1);
-        return Integer.parseInt(substring);
+        System.out.println(substring);
+        return Integer.parseInt(substring) - 1;
     }
 }
