@@ -35,6 +35,9 @@ public class PaddleExperience extends Application {
         stage.setTitle("Paddle Experience");
         stage.getIcons().add(new Image("/resources/image.jpg"));
         stage.setScene(scene);
+        
+        //stage.setMin
+        
         stage.show();
         
         //Guardem els canvis efectuats en la base de dades al tancar la finestra
