@@ -6,6 +6,7 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -16,119 +17,115 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
+
 <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="770.0" prefWidth="1070.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="paddleexperience.FXMLRegisterController">
    <center>
-      <VBox prefHeight="455.0" prefWidth="665.0">
+      <VBox alignment="CENTER" prefHeight="455.0" prefWidth="707.0" spacing="12.0" BorderPane.alignment="CENTER">
          <children>
-            <AnchorPane>
-               <children>
-                  <TitledPane animated="false" collapsible="false" prefHeight="282.0" prefWidth="707.0" text="Informació personal">
-                    <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="148.0" prefWidth="511.0">
+            <TitledPane alignment="TOP_LEFT" animated="false" collapsible="false" maxWidth="-Infinity" prefHeight="282.0" prefWidth="707.0" text="Informació personal">
+              <content>
+                <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="276.0" prefWidth="511.0">
+                     <children>
+                        <VBox layoutX="37.0" layoutY="10.0" prefHeight="60.0" prefWidth="107.0" spacing="4.0">
                            <children>
-                              <VBox layoutX="37.0" layoutY="10.0" prefHeight="60.0" prefWidth="107.0" spacing="4.0">
-                                 <children>
-                                    <Label text="* Nom:" />
-                                    <TextField fx:id="nomField" onMouseClicked="#infoDisappear" prefHeight="25.0" prefWidth="126.0" />
-                                 </children>
-                              </VBox>
-                              <VBox layoutX="37.0" layoutY="71.0" prefHeight="50.0" prefWidth="172.0" spacing="4.0">
-                                 <children>
-                                    <Label text="* Cognoms:" />
-                                    <TextField fx:id="cognomField" onMouseClicked="#infoDisappear" prefHeight="11.0" prefWidth="172.0" />
-                                 </children>
-                              </VBox>
-                              <VBox layoutX="38.0" layoutY="132.0" prefHeight="50.0" prefWidth="106.0" spacing="4.0">
-                                 <children>
-                                    <Label text="* Telèfon:" />
-                                    <TextField fx:id="telfField" onMouseClicked="#infoDisappear" prefHeight="25.0" prefWidth="100.0" />
-                                 </children>
-                              </VBox>
-                              <GridPane fx:id="gridAvatar" gridLinesVisible="true" layoutX="424.0" layoutY="23.0" onMouseClicked="#afegirImatge" onMouseEntered="#avatarSugerenciaApareix" onMouseExited="#avatarSugerenciaDesapareix" prefHeight="122.0" prefWidth="89.0">
-                                <columnConstraints>
-                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                </columnConstraints>
-                                <rowConstraints>
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints />
-                                </rowConstraints>
-                                 <children>
-                                    <ImageView fx:id="imageView" fitHeight="98.0" fitWidth="88.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../resources/user.png" />
-                                       </image>
-                                    </ImageView>
-                                 </children>
-                              </GridPane>
-                              <VBox layoutX="36.0" layoutY="194.0" spacing="4.0">
-                                 <children>
-                                    <Label text="Número de targeta de crèdit:" />
-                                    <HBox prefHeight="25.0" prefWidth="590.0" spacing="5.0">
-                                       <children>
-                                          <TextField fx:id="numberOne" prefWidth="50.0" />
-                                          <TextField fx:id="numberTwo" prefWidth="50.0" />
-                                          <TextField fx:id="numberThree" prefWidth="50.0" />
-                                          <TextField fx:id="numberFour" prefWidth="50.0" />
-                                          <HBox prefHeight="25.0" prefWidth="74.0" />
-                                          <TextField fx:id="secretNumber" prefWidth="50.0" />
-                                       </children>
-                                    </HBox>
-                                 </children>
-                              </VBox>
-                              <Label layoutX="337.0" layoutY="194.0" text="Número de seguretat:" />
+                              <Label text="* Nom:" />
+                              <TextField fx:id="nomField" onMouseClicked="#infoDisappear" prefHeight="25.0" prefWidth="126.0" />
                            </children>
-                        </AnchorPane>
-                    </content>
-                  </TitledPane>
-                  <TitledPane animated="false" collapsible="false" layoutY="307.0" prefHeight="220.0" prefWidth="705.0" text="Dades d'usuari">
-                    <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="190.0" prefWidth="511.0">
+                        </VBox>
+                        <VBox layoutX="37.0" layoutY="71.0" prefHeight="50.0" prefWidth="172.0" spacing="4.0">
                            <children>
-                              <VBox layoutX="38.0" layoutY="6.0" spacing="4.0">
-                                 <children>
-                                    <Label text="* Login:" />
-                                    <TextField fx:id="loginField" onMouseClicked="#loginFieldInfo" prefHeight="25.0" prefWidth="100.0" />
-                                 </children>
-                              </VBox>
-                              <VBox layoutX="38.0" layoutY="57.0" spacing="4.0">
-                                 <children>
-                                    <Label text="* Contrasenya:" />
-                                    <AnchorPane>
-                                       <children>
-                                          <PasswordField fx:id="passwordField" onMouseClicked="#passwordFieldInfo" prefHeight="25.0" prefWidth="162.0" />
-                                          <TextField fx:id="passwordAppears" prefWidth="162.0" />
-                                       </children>
-                                    </AnchorPane>
-                                 </children>
-                              </VBox>
-                              <VBox layoutX="38.0" layoutY="106.0" prefHeight="42.0" prefWidth="160.0" spacing="4.0">
-                                 <children>
-                                    <HBox prefHeight="0.0" prefWidth="200.0" />
-                                    <Label text="* Repeteix la contrasenya:" />
-                                    <PasswordField fx:id="repeatedPasswordField" onMouseClicked="#passwordFieldInfo" prefHeight="25.0" prefWidth="168.0" />
-                                 </children>
-                              </VBox>
-                              <ImageView fx:id="eye" fitHeight="22.0" fitWidth="23.0" layoutX="209.0" layoutY="74.0" pickOnBounds="true" preserveRatio="true">
+                              <Label text="* Cognoms:" />
+                              <TextField fx:id="cognomField" onMouseClicked="#infoDisappear" prefHeight="11.0" prefWidth="172.0" />
+                           </children>
+                        </VBox>
+                        <VBox layoutX="38.0" layoutY="132.0" prefHeight="50.0" prefWidth="106.0" spacing="4.0">
+                           <children>
+                              <Label text="* Telèfon:" />
+                              <TextField fx:id="telfField" onMouseClicked="#infoDisappear" prefHeight="25.0" prefWidth="100.0" />
+                           </children>
+                        </VBox>
+                        <GridPane fx:id="gridAvatar" gridLinesVisible="true" layoutX="424.0" layoutY="23.0" onMouseClicked="#afegirImatge" onMouseEntered="#avatarSugerenciaApareix" onMouseExited="#avatarSugerenciaDesapareix" prefHeight="122.0" prefWidth="89.0">
+                          <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints />
+                          </rowConstraints>
+                           <children>
+                              <ImageView fx:id="imageView" fitHeight="98.0" fitWidth="88.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../resources/eye.png" />
-                                 </image>
-                              </ImageView>
-                              <Label fx:id="info" layoutX="38.0" layoutY="166.0" text="info" />
-                              <ImageView fitHeight="150.0" fitWidth="174.0" layoutX="390.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../resources/pala.png" />
+                                    <Image url="@../resources/user.png" />
                                  </image>
                               </ImageView>
                            </children>
-                        </AnchorPane>
-                    </content>
-                  </TitledPane>
-               </children>
-            </AnchorPane>
-            <HBox prefHeight="25.0" prefWidth="649.0" />
-            <HBox alignment="CENTER_LEFT" prefHeight="19.0" prefWidth="513.0" spacing="360.0">
+                        </GridPane>
+                        <VBox layoutX="36.0" layoutY="194.0" spacing="4.0">
+                           <children>
+                              <Label text="Número de targeta de crèdit:" />
+                              <HBox prefHeight="25.0" prefWidth="590.0" spacing="5.0">
+                                 <children>
+                                    <TextField fx:id="numberOne" prefWidth="50.0" />
+                                    <TextField fx:id="numberTwo" prefWidth="50.0" />
+                                    <TextField fx:id="numberThree" prefWidth="50.0" />
+                                    <TextField fx:id="numberFour" prefWidth="50.0" />
+                                    <HBox prefHeight="25.0" prefWidth="74.0" />
+                                    <TextField fx:id="secretNumber" prefWidth="50.0" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <Label layoutX="337.0" layoutY="194.0" text="Número de seguretat:" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </TitledPane>
+            <TitledPane animated="false" collapsible="false" maxWidth="-Infinity" prefHeight="220.0" prefWidth="705.0" text="Dades d'usuari">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="190.0" prefWidth="511.0">
+                     <children>
+                        <VBox layoutX="38.0" layoutY="6.0" spacing="4.0">
+                           <children>
+                              <Label text="* Login:" />
+                              <TextField fx:id="loginField" onMouseClicked="#loginFieldInfo" prefHeight="25.0" prefWidth="100.0" />
+                           </children>
+                        </VBox>
+                        <VBox layoutX="38.0" layoutY="57.0" spacing="4.0">
+                           <children>
+                              <Label text="* Contrasenya:" />
+                              <AnchorPane>
+                                 <children>
+                                    <PasswordField fx:id="passwordField" onMouseClicked="#passwordFieldInfo" prefHeight="25.0" prefWidth="162.0" />
+                                    <TextField fx:id="passwordAppears" prefWidth="162.0" />
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </VBox>
+                        <VBox layoutX="38.0" layoutY="106.0" prefHeight="42.0" prefWidth="160.0" spacing="4.0">
+                           <children>
+                              <HBox prefHeight="0.0" prefWidth="200.0" />
+                              <Label text="* Repeteix la contrasenya:" />
+                              <PasswordField fx:id="repeatedPasswordField" onMouseClicked="#passwordFieldInfo" prefHeight="25.0" prefWidth="168.0" />
+                           </children>
+                        </VBox>
+                        <ImageView fx:id="eye" fitHeight="22.0" fitWidth="23.0" layoutX="209.0" layoutY="79.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../resources/eye.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="info" layoutX="38.0" layoutY="169.0" text="info" />
+                        <ImageView fitHeight="150.0" fitWidth="174.0" layoutX="390.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../resources/pala.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </TitledPane>
+            <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="19.0" prefWidth="513.0" spacing="360.0">
                <children>
-                  <VBox prefHeight="35.0" prefWidth="208.0" spacing="1.0">
+                  <VBox alignment="CENTER" prefHeight="35.0" prefWidth="208.0" spacing="1.0">
                      <children>
                         <Label prefHeight="78.0" prefWidth="220.0" text="Camps marcats amb '*' són obligatoris">
                            <VBox.margin>
@@ -151,34 +148,33 @@
                </VBox.margin>
                <padding>
                   <Insets top="20.0" />
-               </padding></HBox>
+               </padding>
+            </HBox>
          </children>
       </VBox>
    </center>
    <left>
-      <VBox prefHeight="681.0" prefWidth="87.0" BorderPane.alignment="TOP_LEFT">
+      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="681.0" BorderPane.alignment="TOP_LEFT">
          <BorderPane.margin>
             <Insets />
          </BorderPane.margin>
       </VBox>
    </left>
    <right>
-      <VBox prefHeight="710.0" prefWidth="334.0" BorderPane.alignment="CENTER" />
+      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="681.0" BorderPane.alignment="CENTER" />
    </right>
    <top>
-      <HBox prefHeight="59.0" prefWidth="1070.0" BorderPane.alignment="CENTER">
-         <children>
+      <ToolBar prefWidth="1070.0" BorderPane.alignment="CENTER">
+         <items>
             <ImageView fitHeight="20.0" fitWidth="20.0" onMouseClicked="#onBack" onMouseEntered="#onLink" onMouseExited="#outLink" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../resources/toBack2.png" />
                </image>
-               <HBox.margin>
-                  <Insets left="5.0" top="5.0" />
-               </HBox.margin>
             </ImageView>
-         </children></HBox>
+         </items>
+      </ToolBar>
    </top>
    <bottom>
-      <HBox prefHeight="30.0" prefWidth="595.0" BorderPane.alignment="CENTER" />
+      <HBox prefHeight="36.0" prefWidth="1070.0" BorderPane.alignment="CENTER" />
    </bottom>
 </BorderPane>

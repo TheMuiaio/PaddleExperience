@@ -39,6 +39,7 @@ public class PaddleExperience extends Application {
         stage.setMinHeight(800);
         stage.setMinWidth(1100);
         
+        stage.setMaximized(true);
         stage.show();
         
         //Guardem els canvis efectuats en la base de dades al tancar la finestra

@@ -29,7 +29,9 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 
 import DBAcess.ClubDBAccess;
+import java.util.Optional;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import model.Member;
 
 import paddleexperience.CurrentUser;
@@ -79,7 +81,7 @@ public class FXMLRegisterController implements Initializable {
     private ClubDBAccess clubDBAccess;
     private Member member;
     
-    //:( no va
+    
     private boolean comprovacioNom;
     private boolean comprovacioCognom;
     private boolean comprovacioTelf;
@@ -87,126 +89,190 @@ public class FXMLRegisterController implements Initializable {
     private boolean comprovacioPssw;
     private boolean comprovacioPssw2;
     
+    private boolean comprovacioCreditOne;
+    private boolean comprovacioCreditTwo;
+    private boolean comprovacioCreditThree;
+    private boolean comprovacioCreditFour;
+    private boolean comprovacioCreditSecret;
+    
+    private boolean comprovacioBuitCreditOne;
+    private boolean comprovacioBuitCreditTwo;
+    private boolean comprovacioBuitCreditThree;
+    private boolean comprovacioBuitCreditFour;
+    private boolean comprovacioBuitCreditSecret;
+    
+    private boolean comprovacioCredit;
+        
+    
+    private String creditCard;
+    
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         clubDBAccess = ClubDBAccess.getSingletonClubDBAccess();
         
-        //mirem si ja existeix algun membre amb eixe login
+        botoAcceptar.setDisable(true);
+        
+        
+        //listeners camps obligatoris
+        
+        nomField.textProperty().addListener((property, oldValue, newValue) -> {
+            comprovacioNom = !newValue.isEmpty();
+            if(!comprovacioNom){
+                info.setTextFill(Color.RED);
+                info.setText("No deixes en blanc el teu nom");
+            }
+            else info.setText("");
+            
+            comprovacions();
+        });
+        
+        
+        cognomField.textProperty().addListener((property, oldValue, newValue) -> {
+            comprovacioCognom = !newValue.isEmpty();
+            if(!comprovacioCognom){
+                info.setTextFill(Color.RED);
+                info.setText("No deixes en blanc el teu cognom.");
+            }
+            else info.setText("");
+            
+            comprovacions();
+        });
+        
+        
+        telfField.textProperty().addListener((property, oldValue, newValue) -> {
+            
+           comprovacioTelf = newValue.length() == 9;
+           if(!comprovacioTelf){
+                info.setTextFill(Color.RED);
+                info.setText("Posa un número de telèfon vàlid.");
+            }
+           else info.setText("");
+           
+           //nomes numeros
+           if (!newValue.matches("\\d*")) {
+                telfField.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+           
+           comprovacions();
+        });
+        
+        
         loginField.textProperty().addListener((property, oldValue, newValue) -> {
-            System.out.println(newValue);
-            if(clubDBAccess.existsLogin(newValue)){info.setText("Login en ús. Elegeix altre.");}
+            comprovacioLogin = !newValue.isEmpty() && !clubDBAccess.existsLogin(newValue);
+            //mirem si ja existeix algun membre amb eixe login
+            if(clubDBAccess.existsLogin(newValue)){
+                info.setTextFill(Color.RED);
+                info.setText("Login en ús. Elegeix altre.");
+            }  
+            else if(!comprovacioLogin){
+                info.setTextFill(Color.RED);
+                info.setText("Emplena el teu Login.");
+            }
+            else{
+                info.setTextFill(Color.GREEN);
+                info.setText("Login disponible.");
+            }
+            
+            comprovacions();
+        });
+        
+        
+        passwordField.textProperty().addListener((property, oldValue, newValue) -> {
+            comprovacioPssw = newValue.length() > 5;
+            if(!comprovacioPssw){
+                info.setTextFill(Color.RED);
+                info.setText("Posa una contrassenya vàlida.");
+            }
+            else info.setText("");
+            
+            comprovacions();
+        });
+        
+        
+        repeatedPasswordField.textProperty().addListener((property, oldValue, newValue) -> {
+            comprovacioPssw2 = newValue.equals(passwordField.getText());
+            
+            if(!comprovacioPssw2){
+                info.setTextFill(Color.RED);
+                info.setText("Les contrassenyes no coincideixen.");
+            }
+            else info.setText("");
+            
+            comprovacions();
         });
         
         
         
-        //Posem que només puguem gastar números
+        //Listeners targeta de crèdit
         numberOne.textProperty().addListener((poperty, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
                 numberOne.setText(newValue.replaceAll("[^\\d]", ""));
             }
+            
+            comprovacioCreditOne = newValue.length() == 4;
+            comprovacioBuitCreditOne = newValue.isEmpty();
+            comprovacions();
         });
         
         numberTwo.textProperty().addListener((poperty, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
                 numberTwo.setText(newValue.replaceAll("[^\\d]", ""));
             }
+            
+            comprovacioCreditTwo = newValue.length() == 4;
+            comprovacioBuitCreditTwo = newValue.isEmpty();
+            comprovacions();
         });
         
         numberThree.textProperty().addListener((poperty, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
                 numberThree.setText(newValue.replaceAll("[^\\d]", ""));
             }
+            comprovacioCreditThree = newValue.length() == 4;
+            comprovacioBuitCreditThree = newValue.isEmpty();
+            comprovacions();
         });
         
         numberFour.textProperty().addListener((poperty, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
                 numberFour.setText(newValue.replaceAll("[^\\d]", ""));
             }
+            comprovacioCreditFour = newValue.length() == 4;
+            comprovacioBuitCreditFour = newValue.isEmpty();
+            comprovacions();
         });
         
-        secretNumber.textProperty().addListener((property, oldValue,newValue) -> {
+        secretNumber.textProperty().addListener((property, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
                 secretNumber.setText(newValue.replaceAll("[^\\d]", ""));
             }
-        });
-       
-        //Tot comentat pq he llevat el fxml de la targeta de crèdit. Ja em dius si deixar-ho com estava o canviar-ho, però Jose va dir que com 
-        //podiem fer la finestra més gran, podiem posar la targeta també al registre
-        
-        /*
-        botoAcceptar.setDisable(true);
-        
-        nomField.textProperty().addListener((property) -> {
-            comprovacioNom = !property.toString().isEmpty();
+            comprovacioCreditSecret = newValue.length() == 3;
+            comprovacioBuitCreditSecret = newValue.isEmpty();
+            comprovacions();
         });
         
-        cognomField.textProperty().addListener((property) -> {
-            comprovacioCognom = !property.toString().isEmpty();
-        });
         
-        telfField.textProperty().addListener((property) -> {
-           comprovacioTelf = property.toString().length() == 9;
-        });
-        
-        loginField.textProperty().addListener((property) -> {
-            comprovacioLogin = property.toString().replaceAll(" ", "").length() == property.toString().length();
-            
-            if(property.toString().equals(""posar codi de vore si coincideix amb un existent)) System.out.println("");
-        });
-        
-        passwordField.textProperty().addListener((property) -> {
-            comprovacioPssw = property.toString().length() > 5;
-        });
-        
-        repeatedPasswordField.textProperty().addListener((property) -> {
-            comprovacioPssw2 = property.toString().equals(passwordField.toString());
-        });
-        
-        ara que hem comprovat tot
-        botoAcceptar.disableProperty().addListener((property) -> {
-            if(comprovacioNom && comprovacioCognom && comprovacioLogin && comprovacioTelf && comprovacioPssw && comprovacioPssw2) botoAcceptar.setDisable(false);
-        });
-        
-        se que és horrible, pero es que a més no funciona xd
-        */
-        
-        /*
-        member = CurrentUser.getMembre();
-        if (member != null) {
-            nomField.setText(member.getName());
-            cognomField.setText(member.getSurname());
-            telfField.setText(member.getTelephone());
-            loginField.setText(member.getLogin());
-            passwordField.setText(member.getPassword());
-            imageView.setImage(member.getImage());
-        }
-        //per a que al fer enrere en la targeta de credir vaja al registre
-        FXMLUserInfoController.setFromUserInfo(false);
-        */
-        
-        
-        //lligue que pugues vore la pssw amb el press de l'ull
         passwordAppears.visibleProperty().bind(eye.pressedProperty());
         passwordAppears.textProperty().bind(passwordField.textProperty());
         
         info.setText("");
         
-        // force the field to be numeric only
-        telfField.textProperty().addListener((property, oldValue, newValue) -> {
-            if (!newValue.matches("\\d*")) {
-                telfField.setText(newValue.replaceAll("[^\\d]", ""));
-            }
-        });
-        
-        
     }    
-
+    
+    //Per a posar el button disable o not
+    private void comprovacions(){
+        comprovacioCredit = (comprovacioCreditOne && comprovacioCreditTwo && comprovacioCreditThree && comprovacioCreditFour && comprovacioCreditSecret) ||
+                            (comprovacioBuitCreditOne && comprovacioBuitCreditTwo && comprovacioBuitCreditThree && comprovacioBuitCreditFour && comprovacioBuitCreditSecret);
+        
+        botoAcceptar.setDisable(!(comprovacioNom && comprovacioCognom && comprovacioLogin && comprovacioTelf && comprovacioPssw && comprovacioPssw2 && comprovacioCredit));
+    }
+    
     @FXML
     private void loginFieldInfo(MouseEvent event) {
         info.setTextFill(Color.BLACK);
-        //info.setText("Serà el teu nom d'usuari a l'aplicació. No poses espais.");
+        info.setText("Serà el teu nom d'usuari a l'aplicació. No poses espais.");
     }
 
     @FXML
@@ -217,6 +283,41 @@ public class FXMLRegisterController implements Initializable {
 
     @FXML
     private void accioAcceptar(ActionEvent event) throws InterruptedException, IOException {
+        
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Diàleg de confirmació");
+        alert.setHeaderText("Estàs segur de registrar-te?");
+        alert.setContentText("No podràs canviar les dades més tard");
+        Optional<ButtonType> result = alert.showAndWait();
+            
+        if (result.isPresent() && result.get() == ButtonType.OK) {    
+            if (member == null) {// NO EXISTEIX EL MEMBRE I HEM DE CREAR UN DE NOU
+                //creem el nou membre
+                member = new Member();
+                //afegim les dades introduides
+                member.setName(nomField.getText());
+                member.setSurname(cognomField.getText());
+                member.setTelephone(telfField.getText());
+                member.setLogin(loginField.getText());
+                member.setPassword(passwordField.getText());
+                //de fet, no fa falta comprovar si image de imageView és null perque
+                //tens user.png. Passe el que passe l'afegirem
+                member.setImage(imageView.getImage());
+                //guardem el membre en la llista d'usuaris
+                creditCard = numberOne.getText() + numberTwo.getText() + numberThree.getText() + numberFour.getText();
+                member.setCreditCard(creditCard); //fixa la targeta de crèdit
+                member.setSvc(secretNumber.getText()); //fixa el nombre secret
+                clubDBAccess.getMembers().add(member);
+            }
+            
+        
+            CurrentUser.setMembre(loginField.getText(), passwordField.getText());
+            //canviem la finestra al formulari de targeta de crèdit per acabar amb el registre
+            ((Node) event.getSource()).getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLLogged.fxml")));
+        }
+        
+        /*
+        
         //Comprobe nom i cognom
         if(!nomField.getText().trim().isEmpty() &&
                 !cognomField.getText().trim().isEmpty())
@@ -236,9 +337,6 @@ public class FXMLRegisterController implements Initializable {
                             
                             
                             //TOT CORRECTE
-                            botoAcceptar.setDisable(false);
-                            //No deuria fer falta, pero no funcionen els listeners de dalt
-                            //No funciona tampoc, no ho entenc
                             
                             
                             
@@ -275,7 +373,7 @@ public class FXMLRegisterController implements Initializable {
                             }
                             CurrentUser.setMembre(loginField.getText(), passwordField.getText());
                             //canviem la finestra al formulari de targeta de crèdit per acabar amb el registre
-                            ((Node) event.getSource()).getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLPaymentCard.fxml")));
+                            ((Node) event.getSource()).getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLLogged.fxml")));
                         }
                         
                         
@@ -304,6 +402,7 @@ public class FXMLRegisterController implements Initializable {
             info.setTextFill(Color.RED);
             info.setText("Emplena el teu nom i cognom.");       
         }
+        */
     }
 
 

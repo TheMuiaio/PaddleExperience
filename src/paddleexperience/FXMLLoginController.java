@@ -28,6 +28,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
 import model.Member;
 
 import paddleexperience.CurrentUser;
@@ -44,13 +45,8 @@ public class FXMLLoginController implements Initializable {
     private TextField contrassenya;
     @FXML
     private Button botoAcceptar;
-    @FXML
-    private Label signIn;
-    @FXML
-    private ImageView backImg;
     
     private ClubDBAccess clubDBAccess;
-    private int incorrectPssw = 0;
     /**
      * Initializes the controller class.
      */
@@ -72,52 +68,48 @@ public class FXMLLoginController implements Initializable {
         password = contrassenya.getText();
         
         // COMPROVAR
-        if(incorrectPssw != 4){
-            if (login.length() != 0 && password.length() != 0) { //usuari o contrassenya buits
-                
-                //VICTOR: si t'avorreixes, fes que primer comprove una cosa i després l'altra
-                //per a que ens diga quina de les dos ha fallat :)
+        if (login.length() != 0 && password.length() != 0) { //usuari o contrassenya buits
 
-                //GERMÀRMOL: el que he fet és canviar la condició, que haja de cumplir que no estam buits
+            //VICTOR: si t'avorreixes, fes que primer comprove una cosa i després l'altra
+            //per a que ens diga quina de les dos ha fallat :)
 
-                if (clubDBAccess.existsLogin(userName.getText())) { //comprovem que el login introduit existeix
-                    
-                    if (clubDBAccess.getMemberByCredentials(login, password) == null) { //comprovem que la contrassenya siga correcta
-                        incorrectPssw++;
-                        Alert alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setHeaderText("Contrassenya incorrecta");
-                        alert.setContentText("La contrassenya introduïda no es correspon amb l'usuari introduït.");
-                        alert.show();
-                        
-                    } else { // Usuari i contrassenya correctes.
-                        incorrectPssw = 0;
-                        //Inicialitzem l'usuari al login introduit
-                        CurrentUser.setMembre(login, password);
-                        //canviem al fxml d'usuari
-                        ((Node) event.getSource()).getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLLogged.fxml")));
-                    }
-                } else {
+            //GERMÀRMOL: el que he fet és canviar la condició, que haja de cumplir que no estam buits
+
+            if (clubDBAccess.existsLogin(userName.getText())) { //comprovem que el login introduit existeix
+
+                if (clubDBAccess.getMemberByCredentials(login, password) == null) { //comprovem que la contrassenya siga correcta
                     Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setHeaderText("Usuari no trobat");
-                    alert.setContentText("El nom d'usuari introduit no existeix a la nostra base de dades.");
+                    alert.setHeaderText("Contrassenya incorrecta");
+                    alert.setContentText("La contrassenya introduïda no es correspon amb l'usuari introduït.");
                     alert.show();
+
+                } else { // Usuari i contrassenya correctes.
+                    //Inicialitzem l'usuari al login introduit
+                    CurrentUser.setMembre(login, password);
+                    //canviem al fxml d'usuari
+                    //Tornem les coses al seu lloc
+                    ((Stage) ((Node) event.getSource()).getScene().getWindow()).setMinHeight(800);
+                    ((Stage) ((Node) event.getSource()).getScene().getWindow()).setMinWidth(1100);
+                    ((Node) event.getSource()).getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLLogged.fxml")));
                 }
-            } else { //un dels dos camps buit
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setHeaderText("Credencials errònies");
-                alert.setContentText("Emplena els camps d'usuari i contrassenya.");
-                alert.show();}
-        }
-        else{
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("Massa intents de Login");
-            alert.setContentText("Has introduit massa vegades una contrassenya incorrecta.");
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText("Usuari no trobat");
+                alert.setContentText("El nom d'usuari introduit no existeix a la nostra base de dades.");
+                alert.show();
+            }
+        } else { //un dels dos camps buit
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("Credencials errònies");
+            alert.setContentText("Emplena els camps d'usuari i contrassenya.");
             alert.show();
         }
     }
 
     @FXML
     private void toSignIn(MouseEvent event) throws IOException{
+        ((Stage) ((Node) event.getSource()).getScene().getWindow()).setMinHeight(800);
+        ((Stage) ((Node) event.getSource()).getScene().getWindow()).setMinWidth(1100);
         userName.getScene().setCursor(Cursor.DEFAULT);
         ((Node) event.getSource()).getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLRegister.fxml")));
     }
@@ -125,6 +117,9 @@ public class FXMLLoginController implements Initializable {
     @FXML
     private void onBack(Event event) throws IOException {
         
+        //Tornem les coses al seu lloc
+        ((Stage) ((Node) event.getSource()).getScene().getWindow()).setMinHeight(800);
+        ((Stage) ((Node) event.getSource()).getScene().getWindow()).setMinWidth(1100);
         try{
             userName.getScene().setCursor(Cursor.DEFAULT);
             ((Node) event.getSource()).getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLDocument.fxml")));

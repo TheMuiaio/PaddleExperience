@@ -124,13 +124,10 @@ public class FXMLLoggedController implements Initializable {
     @FXML
     private void onProfile(ActionEvent event) throws IOException {
         dateLabel.getScene().setCursor(Cursor.DEFAULT);
-        //SI ens agrada només
-        //fem que la de user siga mes xicoteta i alhora de redimensionar tmb tinga altres mins
-        ((Stage) ((Node) event.getSource()).getScene().getWindow()).setHeight(430);
-        ((Stage) ((Node) event.getSource()).getScene().getWindow()).setWidth(780);
-        ((Stage) ((Node) event.getSource()).getScene().getWindow()).setMinHeight(430);
-        ((Stage) ((Node) event.getSource()).getScene().getWindow()).setMinWidth(780);
         
+        //fem que la de user alhora de redimensionar tinga altres mins
+        ((Stage) ((Node) event.getSource()).getScene().getWindow()).setMinHeight(600);
+        ((Stage) ((Node) event.getSource()).getScene().getWindow()).setMinWidth(730);
         
         ((Node) event.getSource()).getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLUserInfo.fxml")));
     }
@@ -154,15 +151,31 @@ public class FXMLLoggedController implements Initializable {
             alert.setHeaderText("Vas a realitzar una reserva");
             alert.setContentText("Vols continuar? Recorda que només pots anul·lar-la amb 24h d'antelació.");
             Optional<ButtonType> result = alert.showAndWait();
-            if (result.isPresent() && result.get() == ButtonType.OK) { //Es realitza la reserva
-
+            
+            if (result.isPresent() && result.get() == ButtonType.OK) { 
+                
+                if(CurrentUser.getMembre().getCreditCard() == null){ //no te targeta, ha de pagar al club
+                    alert = new Alert(AlertType.CONFIRMATION);
+                    alert.setTitle("Confimació");
+                    alert.setHeaderText("No tens una targeta vinculada");
+                    alert.setContentText("Hauràs de pagar-la al club");
+                    alert.show();
+                }
+                
                 clubDBAccess.getBookings().add(new Booking(LocalDateTime.now(), dia, lt, member.getCreditCard() != null, clubDBAccess.getCourt(fromCourt(event)), member));
                 ((Label)event.getSource()).setText(member.getLogin());
                 bookForDay = clubDBAccess.getForDayBookings(dia);
-
+                
             } else {
                 System.out.println("CANCEL");
             }
+        }
+        else{
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Diàleg d'error");
+            alert.setHeaderText("No pots realitzar aquesta reserva");
+            alert.setContentText("No pots reservar una pista anterior a l'hora actual.");
+            alert.show();
         }
     }
     

@@ -162,10 +162,8 @@ public class FXMLUserInfoController implements Initializable {
         CurrentUser.setMembre(null, null);
         
         //Tornem les coses al seu lloc
-        ((Stage) ((Node) event.getSource()).getScene().getWindow()).setHeight(800);
-        ((Stage) ((Node) event.getSource()).getScene().getWindow()).setWidth(1100);
-        ((Stage) ((Node) event.getSource()).getScene().getWindow()).setMinHeight(800);
-        ((Stage) ((Node) event.getSource()).getScene().getWindow()).setMinWidth(1100);
+        ((Stage) ((Node) event.getSource()).getScene().getWindow()).setMinHeight(530);
+        ((Stage) ((Node) event.getSource()).getScene().getWindow()).setMinWidth(630);
         
         //Avisem a l'usuari que ha tancat sessió
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -181,8 +179,6 @@ public class FXMLUserInfoController implements Initializable {
         nomField.getScene().setCursor(Cursor.DEFAULT);
         
         //Tornem les coses al seu lloc
-        ((Stage) ((Node) event.getSource()).getScene().getWindow()).setHeight(800);
-        ((Stage) ((Node) event.getSource()).getScene().getWindow()).setWidth(1100);
         ((Stage) ((Node) event.getSource()).getScene().getWindow()).setMinHeight(800);
         ((Stage) ((Node) event.getSource()).getScene().getWindow()).setMinWidth(1100);
         

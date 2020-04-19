@@ -12,19 +12,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
-import javafx.scene.control.TableView;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import DBAcess.ClubDBAccess;
-import com.sun.javafx.scene.control.skin.DatePickerSkin;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.ArrayList;
-import javafx.beans.binding.Bindings;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
@@ -91,6 +85,8 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML
     private void toLogIn(ActionEvent event) throws IOException {
+        ((Stage) ((Node) event.getSource()).getScene().getWindow()).setMinWidth(630);
+        ((Stage) ((Node) event.getSource()).getScene().getWindow()).setMinHeight(520);
         login.getScene().setCursor(Cursor.DEFAULT);
         ((Node) event.getSource()).getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLLogin.fxml")));
     }
