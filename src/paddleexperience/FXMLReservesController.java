@@ -65,17 +65,18 @@ public class FXMLReservesController implements Initializable {
     }    
 
     private void placeBookings() {
-        String time;
+        String first;
         int i = 3;
         for(;  i - 3 < 10 && i - 3 < bookForMember.size(); i++) {
 //            if( i - 3 < 10) {
-                time = "";
-                time += bookForMember.get(i - 3).getMadeForDay().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)) + " ";
-                time += bookForMember.get(i - 3).getFromTime().format(DateTimeFormatter.ofPattern("HH:mm"));
-                ((Label)taula.getChildren().get(i)).setText(time);
+                first = "";
+                first += bookForMember.get(i - 3).getMadeForDay().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)) + " ";
+                first += bookForMember.get(i - 3).getFromTime().format(DateTimeFormatter.ofPattern("HH:mm"));
+                first += " - " + bookForMember.get(i - 3).getCourt().getName();
+                ((Label)taula.getChildren().get(i)).setText(first);
     //            ((Label)taula.getChildren().get(i)).setText(bookForMember.get(i - 3).getMadeForDay().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)));
     //            ((Label)taula.getChildren().get(i + 10)).setText(bookForMember.get(i - 3).getFromTime().format(DateTimeFormatter.ofPattern("HH:mm")));
-                ((Label)taula.getChildren().get(i + 10)).setText(bookForMember.get(i - 3).getCourt().getName());
+                ((Label)taula.getChildren().get(i + 10)).setText(bookForMember.get(i - 3).getPaid() ? "Sí" : "No");
                 //System.out.println("index = " + i);
                 
                 //boto anular visible

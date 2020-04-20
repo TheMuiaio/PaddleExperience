@@ -33,6 +33,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import model.Booking;
 import model.Member;
@@ -150,39 +151,77 @@ public class FXMLLoggedController implements Initializable {
     
     @FXML
     private void newBooking(MouseEvent event) {
-        LocalTime lt = fromRow(taula.getRowIndex((Label)event.getSource()));
-        if ((dia.compareTo(LocalDate.now()) == 0 && lt.compareTo(LocalTime.now()) > 0) || dia.compareTo(LocalDate.now()) > 0) {
-            Alert alert = new Alert(AlertType.CONFIRMATION);
-            alert.setTitle("Diàleg de confirmació");
-            alert.setHeaderText("Vas a realitzar una reserva");
-            alert.setContentText("Vols continuar? Recorda que només pots anul·lar-la amb 24h d'antelació.");
-            Optional<ButtonType> result = alert.showAndWait();
-            
-            if (result.isPresent() && result.get() == ButtonType.OK) { 
-                
-                if(CurrentUser.getMembre().getCreditCard() == null){ //no te targeta, ha de pagar al club
-                    alert = new Alert(AlertType.CONFIRMATION);
-                    alert.setTitle("Confimació");
-                    alert.setHeaderText("No tens una targeta vinculada");
-                    alert.setContentText("Hauràs de pagar-la al club");
-                    alert.show();
+        Label pos = ((Label)event.getSource());
+        if (pos.getText().equals("Lliure")) { //comprovem que no hi haja una reserva existent
+            LocalTime lt = fromRow(taula.getRowIndex((Label)event.getSource()));
+            if ((dia.compareTo(LocalDate.now()) == 0 && lt.compareTo(LocalTime.now()) > 0) || dia.compareTo(LocalDate.now()) > 0) {
+                Alert alert = new Alert(AlertType.CONFIRMATION);
+                alert.setTitle("Diàleg de confirmació");
+                alert.setHeaderText("Vas a realitzar una reserva");
+                alert.setContentText("Vols continuar? Recorda que només pots anul·lar-la amb 24h d'antelació.");
+                Optional<ButtonType> result = alert.showAndWait();
+
+                if (result.isPresent() && result.get() == ButtonType.OK) { 
+
+                    if(CurrentUser.getMembre().getCreditCard() == null){ //no te targeta, ha de pagar al club
+                        alert = new Alert(AlertType.CONFIRMATION);
+                        alert.setTitle("Confimació");
+                        alert.setHeaderText("No tens una targeta vinculada");
+                        alert.setContentText("Hauràs de pagar-la al club");
+                        alert.show();
+                    }
+                    //afegim la reserva a la llista total de reserves
+                    clubDBAccess.getBookings().add(new Booking(LocalDateTime.now(), dia, lt, member.getCreditCard() != null, clubDBAccess.getCourt(fromCourt(event)), member));
+                    //marquem la casella com a reservada
+                    pos.setText(member.getLogin());
+                    //actualitzem la llista de reserves diària
+                    bookForDay = clubDBAccess.getForDayBookings(dia);
+
+                } else {
+                    System.out.println("CANCEL");
                 }
-                
-                clubDBAccess.getBookings().add(new Booking(LocalDateTime.now(), dia, lt, member.getCreditCard() != null, clubDBAccess.getCourt(fromCourt(event)), member));
-                ((Label)event.getSource()).setText(member.getLogin());
-                bookForDay = clubDBAccess.getForDayBookings(dia);
-                
             } else {
-                System.out.println("CANCEL");
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Diàleg d'error");
+                alert.setHeaderText("No pots realitzar aquesta reserva");
+                alert.setContentText("No pots reservar una pista anterior a l'hora actual.");
+                alert.show();
+            }
+        } else if (pos.getText().equals(member.getLogin())) {
+            Booking b = searchBooking(fromRow(taula.getRowIndex(pos)), fromCourt(event));
+            LocalDate ld = LocalDate.now();
+            LocalTime lt = LocalTime.now();
+            
+            if (ld.compareTo(b.getMadeForDay()) == 0) {
+            //NO ES POT PERQUÈ RESERVA I DATA SÓN EL MATEIX DIA
+            } else if (ld.compareTo(b.getMadeForDay().minusDays(1)) == 0 && lt.compareTo(b.getFromTime().minusHours(24)) > 0) {
+            //NO ES POT PERQUÈ HI HA MENYS DE 24H ENTRE ARA I L'HORA DE RESERVA
+            } else {
+                Alert alert = new Alert(AlertType.CONFIRMATION);
+                alert.setTitle("Diàleg de confirmació");
+                alert.setHeaderText("Cancel·lar reserva");
+                alert.setContentText("Vols cancel·lar la teua reserva?");
+                Optional<ButtonType> result = alert.showAndWait();
+
+                if (result.isPresent() && result.get() == ButtonType.OK) {
+                    clubDBAccess.getBookings().remove(b);
+                    bookForDay = clubDBAccess.getForDayBookings(dia);
+                    pos.setText("Lliure");
+                    
+                    placeBookings();
+                }
             }
         }
-        else{
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Diàleg d'error");
-            alert.setHeaderText("No pots realitzar aquesta reserva");
-            alert.setContentText("No pots reservar una pista anterior a l'hora actual.");
-            alert.show();
+        //pos.getStyleClass().add(".label");
+    }
+    
+    private Booking searchBooking(LocalTime hora, String nom) {
+        for (Booking b : bookForDay) {
+            if (b.getFromTime().equals(hora) && b.getCourt().getName().equals(nom)) {
+                return b;
+            }
         }
+        return null;
     }
     
     private LocalTime fromRow(int row) {
