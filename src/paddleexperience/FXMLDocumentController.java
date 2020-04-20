@@ -52,6 +52,7 @@ public class FXMLDocumentController implements Initializable {
     
     private ArrayList<Booking> bookForDay;
     
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -79,6 +80,7 @@ public class FXMLDocumentController implements Initializable {
             };
         });
     }
+    
     
     @FXML
     private void toLogIn(ActionEvent event) throws IOException {
@@ -173,12 +175,14 @@ public class FXMLDocumentController implements Initializable {
             System.out.println("FILA: " + translateHour(b.getFromTime().getHour()));
             System.out.println("COLUMNA: " + translateCourt(b.getCourt().getName()));
             
+            ((Label)taula.getChildren().get(13 + ((translateHour(b.getFromTime().getHour()) * 4) + translateCourt(b.getCourt().getName())))).setId("reservat");
             ((Label)taula.getChildren().get(13 + ((translateHour(b.getFromTime().getHour()) * 4) + translateCourt(b.getCourt().getName())))).setText(b.getMember().getLogin());
         }
     }
     
     public void cleangrid() {
         for(Booking b : bookForDay) {
+            ((Label)taula.getChildren().get(13 + ((translateHour(b.getFromTime().getHour()) * 4) + translateCourt(b.getCourt().getName())))).setId("lliure");
             ((Label)taula.getChildren().get(13 + ((translateHour(b.getFromTime().getHour()) * 4) + translateCourt(b.getCourt().getName())))).setText("Lliure");
         }
     }

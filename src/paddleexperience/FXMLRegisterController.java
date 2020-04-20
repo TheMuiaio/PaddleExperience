@@ -89,17 +89,12 @@ public class FXMLRegisterController implements Initializable {
     private boolean comprovacioPssw;
     private boolean comprovacioPssw2;
     
-    private boolean comprovacioCreditOne;
-    private boolean comprovacioCreditTwo;
-    private boolean comprovacioCreditThree;
-    private boolean comprovacioCreditFour;
-    private boolean comprovacioCreditSecret;
     
-    private boolean comprovacioBuitCreditOne;
-    private boolean comprovacioBuitCreditTwo;
-    private boolean comprovacioBuitCreditThree;
-    private boolean comprovacioBuitCreditFour;
-    private boolean comprovacioBuitCreditSecret;
+    private boolean comprovacioBuitCreditOne = true;
+    private boolean comprovacioBuitCreditTwo = true;
+    private boolean comprovacioBuitCreditThree = true;
+    private boolean comprovacioBuitCreditFour = true;
+    private boolean comprovacioBuitCreditSecret= true;
     
     private boolean comprovacioCredit;
         
@@ -144,6 +139,9 @@ public class FXMLRegisterController implements Initializable {
         telfField.textProperty().addListener((property, oldValue, newValue) -> {
             
            comprovacioTelf = newValue.length() == 9;
+           
+           if(newValue.length() > 9) telfField.setText(oldValue);
+           
            if(!comprovacioTelf){
                 info.setTextFill(Color.RED);
                 info.setText("Posa un número de telèfon vàlid.");
@@ -211,7 +209,9 @@ public class FXMLRegisterController implements Initializable {
                 numberOne.setText(newValue.replaceAll("[^\\d]", ""));
             }
             
-            comprovacioCreditOne = newValue.length() == 4;
+            if (newValue.length() == 4) numberTwo.requestFocus();
+            if (newValue.length() > 4) numberOne.setText(oldValue);
+            
             comprovacioBuitCreditOne = newValue.isEmpty();
             
             if(!comprovacionsCredit()){
@@ -219,6 +219,8 @@ public class FXMLRegisterController implements Initializable {
                 info.setText("Introdueix correctament la targeta de crèdit.");
             }
             else info.setText("");
+            
+            System.out.println(comprovacionsCredit());
             comprovacions();
         });
         
@@ -227,7 +229,9 @@ public class FXMLRegisterController implements Initializable {
                 numberTwo.setText(newValue.replaceAll("[^\\d]", ""));
             }
             
-            comprovacioCreditTwo = newValue.length() == 4;
+            if (newValue.length() == 4) numberThree.requestFocus();
+            if (newValue.length() > 4) numberTwo.setText(oldValue);
+            
             comprovacioBuitCreditTwo = newValue.isEmpty();
             
             if(!comprovacionsCredit()){
@@ -242,7 +246,10 @@ public class FXMLRegisterController implements Initializable {
             if (!newValue.matches("\\d*")) {
                 numberThree.setText(newValue.replaceAll("[^\\d]", ""));
             }
-            comprovacioCreditThree = newValue.length() == 4;
+            
+            if (newValue.length() == 4) numberFour.requestFocus();
+            if (newValue.length() > 4) numberThree.setText(oldValue);
+            
             comprovacioBuitCreditThree = newValue.isEmpty();
             
             if(!comprovacionsCredit()){
@@ -250,7 +257,6 @@ public class FXMLRegisterController implements Initializable {
                 info.setText("Introdueix correctament la targeta de crèdit.");
             }
             else info.setText("");
-            System.out.println(comprovacioCreditThree + " " + comprovacioBuitCreditThree + " " + comprovacioCredit);
             comprovacions();
         });
         
@@ -258,7 +264,10 @@ public class FXMLRegisterController implements Initializable {
             if (!newValue.matches("\\d*")) {
                 numberFour.setText(newValue.replaceAll("[^\\d]", ""));
             }
-            comprovacioCreditFour = newValue.length() == 4;
+            
+            if (newValue.length() == 4) secretNumber.requestFocus();
+            if (newValue.length() > 4) numberFour.setText(oldValue);
+            
             comprovacioBuitCreditFour = newValue.isEmpty();
             
             if(!comprovacionsCredit()){
@@ -273,7 +282,7 @@ public class FXMLRegisterController implements Initializable {
             if (!newValue.matches("\\d*")) {
                 secretNumber.setText(newValue.replaceAll("[^\\d]", ""));
             }
-            comprovacioCreditSecret = newValue.length() == 3;
+            if (newValue.length() > 3) secretNumber.setText(oldValue);
             comprovacioBuitCreditSecret = newValue.isEmpty();
             
             if(!comprovacionsCredit()){
@@ -294,16 +303,14 @@ public class FXMLRegisterController implements Initializable {
     
     //Per a posar el button disable o not
     private void comprovacions(){
-        comprovacioCredit = (comprovacioCreditOne && comprovacioCreditTwo && comprovacioCreditThree && comprovacioCreditFour && comprovacioCreditSecret) ||
-                            (comprovacioBuitCreditOne && comprovacioBuitCreditTwo && comprovacioBuitCreditThree && comprovacioBuitCreditFour && comprovacioBuitCreditSecret);
+        comprovacioCredit = comprovacionsCredit();
         
         botoAcceptar.setDisable(!(comprovacioNom && comprovacioCognom && comprovacioLogin && comprovacioTelf && comprovacioPssw && comprovacioPssw2 && comprovacioCredit));
     }
     
     
     private boolean comprovacionsCredit(){
-        return comprovacioCredit = (comprovacioCreditOne && comprovacioCreditTwo && comprovacioCreditThree && comprovacioCreditFour && comprovacioCreditSecret) ||
-                            (comprovacioBuitCreditOne && comprovacioBuitCreditTwo && comprovacioBuitCreditThree && comprovacioBuitCreditFour && comprovacioBuitCreditSecret);
+        return comprovacioCredit = comprovacioBuitCreditOne && comprovacioBuitCreditTwo && comprovacioBuitCreditThree && comprovacioBuitCreditFour && comprovacioBuitCreditSecret;
     }
     
     @FXML

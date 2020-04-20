@@ -25,7 +25,6 @@ import model.Member;
 import paddleexperience.CurrentUser;
 import DBAcess.ClubDBAccess;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
@@ -46,6 +45,8 @@ public class FXMLReservesController implements Initializable {
     private Member member;
     private ArrayList<Booking> bookForMember;
     private ClubDBAccess clubDBAccess;
+    
+    
     /**
      * Initializes the controller class.
      */
@@ -60,6 +61,15 @@ public class FXMLReservesController implements Initializable {
         for(int i = 3; i < 13; i++){
             ((Button)taula.getChildren().get(i + 20)).setVisible(false);
         }
+        
+        //borrem reserves passades
+        mustRemove();
+        
+        //Actualitzem el bookForMember
+        bookForMember = clubDBAccess.getUserBookings(member.getLogin());
+        
+        //posem els botons de reserva necessaris disabled
+        mustDisable();
         
         placeBookings();
     }    
@@ -113,7 +123,53 @@ public class FXMLReservesController implements Initializable {
         ((Node)event.getSource()).getScene().setCursor(Cursor.DEFAULT);
         ((Node)event.getSource()).getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLLogged.fxml")));
     }
+    
+    
+    private void mustRemove(){
+        //Comprovem que siguen reserves no anul·lables
+        
+        LocalDate ld = LocalDate.now();
+        LocalTime lt = LocalTime.now();
+        
+        for(Booking book : bookForMember){
+            if(ld.compareTo(book.getMadeForDay()) > 0){
+                System.out.println(book.getBookingDate().toString() + " " + book.getFromTime().toString());
+                //bookForMember.remove(book);
+                clubDBAccess.getUserBookings(member.getLogin()).remove(book);
+               
+            } else if(ld.compareTo(book.getMadeForDay()) == 0 && lt.compareTo(book.getFromTime()) > 0){
+                System.out.println(book.getBookingDate().toString() + " " + book.getFromTime().toString());
+                //bookForMember.remove(book);
+                clubDBAccess.getUserBookings(member.getLogin()).remove(book);
+            }
+            
+            //per a no fer iteracions innecessaries
+            else break;
+        }
+    }
+    
+    
+    private void mustDisable(){
+        //Comprovem que siguen reserves no anul·lables
+        
+        LocalDate ld = LocalDate.now();
+        LocalTime lt = LocalTime.now();
+        
+        for(int i = 23, j = 0; j < bookForMember.size(); i++, j++){
+            Booking book = bookForMember.get(j);
+            if(ld.compareTo(book.getMadeForDay()) == 0){
+                ((Button)taula.getChildren().get(i)).setDisable(true);
+                
+            } else if(ld.compareTo(book.getMadeForDay().minusDays(1)) == 0 && lt.compareTo(book.getFromTime().minusHours(24)) > 0){
+                ((Button)taula.getChildren().get(i)).setDisable(true);
+            }
+            
+            //per a no fer iteracions innecessaries
+            else break;
+        }
+    }
 
+    
     @FXML
     private void cancelarReserva(ActionEvent event) {
         Booking b = bookForMember.get(taula.getRowIndex(((Button)event.getSource())) - 1);
@@ -125,8 +181,10 @@ public class FXMLReservesController implements Initializable {
         
         if (ld.compareTo(b.getMadeForDay()) == 0) {
             //NO ES POT PERQUÈ RESERVA I DATA SÓN EL MATEIX DIA
+            
         } else if (ld.compareTo(b.getMadeForDay().minusDays(1)) == 0 && lt.compareTo(b.getFromTime().minusHours(24)) > 0) {
             //NO ES POT PERQUÈ HI HA MENYS DE 24H ENTRE ARA I L'HORA DE RESERVA
+            
             
         } else {
             Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -141,6 +199,7 @@ public class FXMLReservesController implements Initializable {
                 clubDBAccess.getBookings().remove(b);
                 bookForMember = clubDBAccess.getUserBookings(member.getLogin());
                 placeBookings();
+                
                 for(int i = 23; i < 33; i++){
                     if(((Label)taula.getChildren().get(i - 10)).getText().isEmpty()) taula.getChildren().get(i).setVisible(false);
                 }

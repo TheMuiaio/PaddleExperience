@@ -49,7 +49,9 @@ public class PaddleExperience extends Application {
         
         //Guardem els canvis efectuats en la base de dades al tancar la finestra
         
-        //Et canvie l'idioma de la finestra emergent
+        //Et canvie l'idioma de la finestra emergent4
+        
+        /*
         stage.setOnCloseRequest((WindowEvent event) -> {
             Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle(clubDBAccess.getClubName());
@@ -58,8 +60,9 @@ public class PaddleExperience extends Application {
             alert.show();
             clubDBAccess.saveDB();
         });
+        */
     }
-
+   
     /**
      * @param args the command line arguments
      */

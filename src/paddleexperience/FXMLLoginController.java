@@ -78,10 +78,12 @@ public class FXMLLoginController implements Initializable {
             if (clubDBAccess.existsLogin(userName.getText())) { //comprovem que el login introduit existeix
 
                 if (clubDBAccess.getMemberByCredentials(login, password) == null) { //comprovem que la contrassenya siga correcta
+                    contrassenya.setText("");
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setHeaderText("Contrassenya incorrecta");
                     alert.setContentText("La contrassenya introduïda no es correspon amb l'usuari introduït.");
-                    alert.show();
+                    alert.showAndWait();
+                    contrassenya.requestFocus();
 
                 } else { // Usuari i contrassenya correctes.
                     //Inicialitzem l'usuari al login introduit

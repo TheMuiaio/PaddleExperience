@@ -162,14 +162,17 @@ public class FXMLLoggedController implements Initializable {
                 Optional<ButtonType> result = alert.showAndWait();
 
                 if (result.isPresent() && result.get() == ButtonType.OK) { 
-
-                    if(CurrentUser.getMembre().getCreditCard() == null){ //no te targeta, ha de pagar al club
-                        alert = new Alert(AlertType.CONFIRMATION);
+                    //per a que canvie el CSS
+                    pos.setId("reservatPolsable");
+                    
+                    if("".equals(CurrentUser.getMembre().getCreditCard())){ //no te targeta, ha de pagar al club
+                        alert = new Alert(AlertType.INFORMATION);
                         alert.setTitle("Confimació");
                         alert.setHeaderText("No tens una targeta vinculada");
                         alert.setContentText("Hauràs de pagar-la al club");
                         alert.show();
                     }
+                    
                     //afegim la reserva a la llista total de reserves
                     clubDBAccess.getBookings().add(new Booking(LocalDateTime.now(), dia, lt, member.getCreditCard() != null, clubDBAccess.getCourt(fromCourt(event)), member));
                     //marquem la casella com a reservada
@@ -181,11 +184,13 @@ public class FXMLLoggedController implements Initializable {
                     System.out.println("CANCEL");
                 }
             } else {
+                //cal canviar esto per un disable!!
+                
                 Alert alert = new Alert(AlertType.ERROR);
                 alert.setTitle("Diàleg d'error");
                 alert.setHeaderText("No pots realitzar aquesta reserva");
                 alert.setContentText("No pots reservar una pista anterior a l'hora actual.");
-                alert.show();
+                alert.showAndWait();
             }
         } else if (pos.getText().equals(member.getLogin())) {
             Booking b = searchBooking(fromRow(taula.getRowIndex(pos)), fromCourt(event));
@@ -206,6 +211,7 @@ public class FXMLLoggedController implements Initializable {
                 if (result.isPresent() && result.get() == ButtonType.OK) {
                     clubDBAccess.getBookings().remove(b);
                     bookForDay = clubDBAccess.getForDayBookings(dia);
+                    pos.setId("lliurePolsable");
                     pos.setText("Lliure");
                     
                     placeBookings();
@@ -273,6 +279,7 @@ public class FXMLLoggedController implements Initializable {
         dateLabel.setText(dia.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)));
     }
 
+    
     @FXML
     private void outLink(MouseEvent event) {
         try {
@@ -284,9 +291,13 @@ public class FXMLLoggedController implements Initializable {
     @FXML
     private void onLink(MouseEvent event) {
         try {
-            dateLabel.getScene().setCursor(Cursor.HAND);
+            if(((Label)event.getSource()).getText().equals(member.getLogin()) || ((Label)event.getSource()).getText().equals("Lliure"))
+            {
+                dateLabel.getScene().setCursor(Cursor.HAND);
+            } 
+            else dateLabel.getScene().setCursor(Cursor.DEFAULT);
         }
-        catch(NullPointerException e){}
+        catch(Exception e) {}
     }
 
     @FXML
@@ -310,13 +321,26 @@ public class FXMLLoggedController implements Initializable {
             System.out.println("FILA: " + translateCourt(b.getCourt().getName()));
             System.out.println("COLUMNA: " + translateHour(b.getFromTime().getHour()));
             
+            
+            //funció real
             ((Label)taula.getChildren().get(13 + ((translateCourt(b.getCourt().getName()) * 9) + translateHour(b.getFromTime().getHour())))).setText(b.getMember().getLogin());
+            
+            //CSS
+            if(((Label)taula.getChildren().get(13 + ((translateCourt(b.getCourt().getName()) * 9) + translateHour(b.getFromTime().getHour())))).getText().equals(member.getLogin())){
+                ((Label)taula.getChildren().get(13 + ((translateCourt(b.getCourt().getName()) * 9) + translateHour(b.getFromTime().getHour())))).setId("reservatPolsable");
+            }
+            else {
+                ((Label)taula.getChildren().get(13 + ((translateCourt(b.getCourt().getName()) * 9) + translateHour(b.getFromTime().getHour())))).setId("reservat");
+                
+            }
+            
         }
     }
     
     public void cleangrid() {
         for(Booking b : bookForDay) {
             //System.out.println(b.getCourt().getName().equals("Court 4") ? "": "");
+            ((Label)taula.getChildren().get(13 + ((translateCourt(b.getCourt().getName()) * 9) + translateHour(b.getFromTime().getHour())))).setId("lliurePolsable");
             ((Label)taula.getChildren().get(13 + ((translateCourt(b.getCourt().getName()) * 9) + translateHour(b.getFromTime().getHour())))).setText("Lliure");
         }
     }
