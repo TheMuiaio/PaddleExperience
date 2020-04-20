@@ -3,7 +3,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -14,20 +13,20 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="770.0" prefWidth="1070.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="paddleexperience.FXMLReservesController">
+<BorderPane prefHeight="770.0" prefWidth="1070.0" stylesheets="@../resources/darkTheme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="paddleexperience.FXMLReservesController">
    <center>
       <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
             <HBox alignment="CENTER" prefHeight="98.0" prefWidth="710.0" spacing="10.0">
                <children>
-                  <Label text="Les meues reserves">
+                  <Label id="titolsTaula" text="Les meues reserves">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Label>
                </children>
             </HBox>
-            <GridPane fx:id="taula" gridLinesVisible="true" prefHeight="665.0" prefWidth="980.0" VBox.vgrow="ALWAYS">
+            <GridPane id="gridReserves" fx:id="taula" gridLinesVisible="true" prefHeight="665.0" prefWidth="980.0" VBox.vgrow="ALWAYS">
               <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="534.0" minWidth="10.0" percentWidth="70.0" prefWidth="492.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="316.0" minWidth="10.0" percentWidth="15.0" prefWidth="316.0" />
@@ -82,7 +81,7 @@
                   <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="8" />
                   <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="9" />
                   <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="10" />
-                  <Button contentDisplay="RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#cancelarReserva" text="Anul·lar" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                  <Button id="anular" contentDisplay="RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#cancelarReserva" stylesheets="@../resources/darkTheme.css" text="Anul·lar" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -94,7 +93,7 @@
                         <Insets />
                      </GridPane.margin>
                   </Button>
-                  <Button contentDisplay="RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#cancelarReserva" text="Anul·lar" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                  <Button id="anular" contentDisplay="RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#cancelarReserva" text="Anul·lar" GridPane.columnIndex="2" GridPane.rowIndex="2">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -103,7 +102,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button contentDisplay="RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#cancelarReserva" text="Anul·lar" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                  <Button id="anular" contentDisplay="RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#cancelarReserva" text="Anul·lar" GridPane.columnIndex="2" GridPane.rowIndex="3">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -112,7 +111,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button contentDisplay="RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#cancelarReserva" text="Anul·lar" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                  <Button id="anular" contentDisplay="RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#cancelarReserva" text="Anul·lar" GridPane.columnIndex="2" GridPane.rowIndex="4">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -121,7 +120,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button contentDisplay="RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#cancelarReserva" text="Anul·lar" GridPane.columnIndex="2" GridPane.rowIndex="5">
+                  <Button id="anular" contentDisplay="RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#cancelarReserva" text="Anul·lar" GridPane.columnIndex="2" GridPane.rowIndex="5">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -130,7 +129,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button contentDisplay="RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#cancelarReserva" text="Anul·lar" GridPane.columnIndex="2" GridPane.rowIndex="6">
+                  <Button id="anular" contentDisplay="RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#cancelarReserva" text="Anul·lar" GridPane.columnIndex="2" GridPane.rowIndex="6">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -139,7 +138,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button contentDisplay="RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#cancelarReserva" text="Anul·lar" GridPane.columnIndex="2" GridPane.rowIndex="7">
+                  <Button id="anular" contentDisplay="RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#cancelarReserva" text="Anul·lar" GridPane.columnIndex="2" GridPane.rowIndex="7">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -148,7 +147,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button contentDisplay="RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#cancelarReserva" text="Anul·lar" GridPane.columnIndex="2" GridPane.rowIndex="8">
+                  <Button id="anular" contentDisplay="RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#cancelarReserva" text="Anul·lar" GridPane.columnIndex="2" GridPane.rowIndex="8">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -157,7 +156,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button contentDisplay="RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#cancelarReserva" text="Anul·lar" GridPane.columnIndex="2" GridPane.rowIndex="9">
+                  <Button id="anular" contentDisplay="RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#cancelarReserva" text="Anul·lar" GridPane.columnIndex="2" GridPane.rowIndex="9">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -166,7 +165,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button contentDisplay="RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#cancelarReserva" text="Anul·lar" GridPane.columnIndex="2" GridPane.rowIndex="10">
+                  <Button id="anular" contentDisplay="RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#cancelarReserva" text="Anul·lar" GridPane.columnIndex="2" GridPane.rowIndex="10">
                      <graphic>
                         <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -181,15 +180,15 @@
       </VBox>
    </center>
    <top>
-      <ToolBar maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="LEFT_TO_RIGHT" prefHeight="54.0" prefWidth="800.0" BorderPane.alignment="CENTER">
-         <items>
-            <ImageView fitHeight="20.0" fitWidth="20.0" onMouseClicked="#onBack" onMouseEntered="#onLink" onMouseExited="#outLink" pickOnBounds="true" preserveRatio="true">
+      <HBox id="toolBar" alignment="CENTER_LEFT" prefHeight="50.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="35.0" fitWidth="35.0" onMouseClicked="#onBack" onMouseEntered="#onLink" onMouseExited="#outLink" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../resources/toBack2.png" />
                </image>
             </ImageView>
-         </items>
-      </ToolBar>
+         </children>
+      </HBox>
    </top>
    <left>
       <VBox prefHeight="400.0" prefWidth="45.0" BorderPane.alignment="CENTER" />
@@ -198,6 +197,6 @@
       <VBox prefHeight="400.0" prefWidth="45.0" BorderPane.alignment="CENTER" />
    </right>
    <bottom>
-      <HBox prefHeight="49.0" prefWidth="800.0" BorderPane.alignment="CENTER" />
+      <HBox prefHeight="50.0" prefWidth="800.0" BorderPane.alignment="CENTER" />
    </bottom>
 </BorderPane>

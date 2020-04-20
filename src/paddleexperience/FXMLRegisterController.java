@@ -213,6 +213,12 @@ public class FXMLRegisterController implements Initializable {
             
             comprovacioCreditOne = newValue.length() == 4;
             comprovacioBuitCreditOne = newValue.isEmpty();
+            
+            if(!comprovacionsCredit()){
+                info.setTextFill(Color.RED);
+                info.setText("Introdueix correctament la targeta de crèdit.");
+            }
+            else info.setText("");
             comprovacions();
         });
         
@@ -223,6 +229,12 @@ public class FXMLRegisterController implements Initializable {
             
             comprovacioCreditTwo = newValue.length() == 4;
             comprovacioBuitCreditTwo = newValue.isEmpty();
+            
+            if(!comprovacionsCredit()){
+                info.setTextFill(Color.RED);
+                info.setText("Introdueix correctament la targeta de crèdit.");
+            }
+            else info.setText("");
             comprovacions();
         });
         
@@ -232,6 +244,13 @@ public class FXMLRegisterController implements Initializable {
             }
             comprovacioCreditThree = newValue.length() == 4;
             comprovacioBuitCreditThree = newValue.isEmpty();
+            
+            if(!comprovacionsCredit()){
+                info.setTextFill(Color.RED);
+                info.setText("Introdueix correctament la targeta de crèdit.");
+            }
+            else info.setText("");
+            System.out.println(comprovacioCreditThree + " " + comprovacioBuitCreditThree + " " + comprovacioCredit);
             comprovacions();
         });
         
@@ -241,6 +260,12 @@ public class FXMLRegisterController implements Initializable {
             }
             comprovacioCreditFour = newValue.length() == 4;
             comprovacioBuitCreditFour = newValue.isEmpty();
+            
+            if(!comprovacionsCredit()){
+                info.setTextFill(Color.RED);
+                info.setText("Introdueix correctament la targeta de crèdit.");
+            }
+            else info.setText("");
             comprovacions();
         });
         
@@ -250,6 +275,12 @@ public class FXMLRegisterController implements Initializable {
             }
             comprovacioCreditSecret = newValue.length() == 3;
             comprovacioBuitCreditSecret = newValue.isEmpty();
+            
+            if(!comprovacionsCredit()){
+                info.setTextFill(Color.RED);
+                info.setText("Introdueix correctament la targeta de crèdit.");
+            }
+            else info.setText("");
             comprovacions();
         });
         
@@ -269,15 +300,21 @@ public class FXMLRegisterController implements Initializable {
         botoAcceptar.setDisable(!(comprovacioNom && comprovacioCognom && comprovacioLogin && comprovacioTelf && comprovacioPssw && comprovacioPssw2 && comprovacioCredit));
     }
     
+    
+    private boolean comprovacionsCredit(){
+        return comprovacioCredit = (comprovacioCreditOne && comprovacioCreditTwo && comprovacioCreditThree && comprovacioCreditFour && comprovacioCreditSecret) ||
+                            (comprovacioBuitCreditOne && comprovacioBuitCreditTwo && comprovacioBuitCreditThree && comprovacioBuitCreditFour && comprovacioBuitCreditSecret);
+    }
+    
     @FXML
     private void loginFieldInfo(MouseEvent event) {
-        info.setTextFill(Color.BLACK);
+        info.setTextFill(Color.WHITESMOKE);
         info.setText("Serà el teu nom d'usuari a l'aplicació. No poses espais.");
     }
 
     @FXML
     private void passwordFieldInfo(MouseEvent event) {
-        info.setTextFill(Color.BLACK);
+        info.setTextFill(Color.WHITESMOKE);
         info.setText("Una combinació de lletres i números amb més de 6 caràcters.");
     }
 

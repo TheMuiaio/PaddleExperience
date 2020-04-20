@@ -5,14 +5,14 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="paddleexperience.FXMLLoginController">
+
+<BorderPane stylesheets="@../resources/darkTheme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="paddleexperience.FXMLLoginController">
    <center>
       <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="420.0" prefHeight="420.0" prefWidth="599.0" spacing="20.0">
          <children>
@@ -27,8 +27,8 @@
             <Button fx:id="botoAcceptar" mnemonicParsing="false" onAction="#checkLogIn" prefWidth="400.0" text="Accedeix" />
             <HBox alignment="CENTER" maxHeight="-Infinity" prefHeight="10.0" prefWidth="600.0">
                <children>
-                  <Label text="No tens compte?" />
-                  <Label onMouseClicked="#toSignIn" onMouseEntered="#onLink" onMouseExited="#outLink" text=" Enregistra't" />
+                  <Label id="titolsTaula" text="No tens compte?" />
+                  <Label id="labelLink" onMouseClicked="#toSignIn" onMouseEntered="#onLink" onMouseExited="#outLink" text=" Enregistra't" />
                </children>
             </HBox>
          </children>
@@ -38,15 +38,15 @@
       </VBox>
    </center>
    <top>
-      <ToolBar BorderPane.alignment="CENTER">
-         <items>
-            <ImageView fitHeight="25.0" fitWidth="25.0" onMouseClicked="#onBack" onMouseEntered="#onLink" onMouseExited="#outLink" pickOnBounds="true" preserveRatio="true">
+      <HBox id="toolBar" alignment="CENTER_LEFT" prefHeight="50.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="35.0" fitWidth="35.0" onMouseClicked="#onBack" onMouseEntered="#onLink" onMouseExited="#outLink" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../resources/toBack2.png" />
                </image>
             </ImageView>
-         </items>
-      </ToolBar>
+         </children>
+      </HBox>
    </top>
    <bottom>
       <HBox prefHeight="77.0" prefWidth="799.0" BorderPane.alignment="CENTER" />

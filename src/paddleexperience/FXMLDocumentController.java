@@ -42,8 +42,6 @@ public class FXMLDocumentController implements Initializable {
     
     private LocalDate dia;
     
-    private boolean resized;
-    
     private ClubDBAccess clubDBAccess;
     @FXML
     private DatePicker datePicker;
@@ -57,7 +55,6 @@ public class FXMLDocumentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        resized = false;
         clubDBAccess = ClubDBAccess.getSingletonClubDBAccess();
         dia = LocalDate.now();
         changeDateLabel();

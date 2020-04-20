@@ -31,6 +31,7 @@ import DBAcess.ClubDBAccess;
 import java.util.Optional;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import model.Booking;
@@ -50,18 +51,21 @@ public class FXMLLoggedController implements Initializable {
     private Label dateLabel;
     @FXML
     private ImageView forwardDate;
-    
-    private LocalDate dia;
-
-    private Member member;
-    
-    private ClubDBAccess clubDBAccess;
     @FXML
     private DatePicker datePicker;
     @FXML
     private GridPane taula;
+    @FXML
+    private Button perfil;
+    @FXML
+    private ImageView imageViewPerfil;
     
+    private LocalDate dia;
+    private Member member;
+    private ClubDBAccess clubDBAccess;
     private ArrayList<Booking> bookForDay;
+    
+    
     /**
      * Initializes the controller class.
      */
@@ -76,6 +80,8 @@ public class FXMLLoggedController implements Initializable {
         datePicker.getEditor().setVisible(false);
         
         member = CurrentUser.getMembre();
+        perfil.setText(member.getLogin());
+        imageViewPerfil.setImage(member.getImage());
         
         //agafem la llista de reserves per al dia de hui
         bookForDay = clubDBAccess.getForDayBookings(dia);

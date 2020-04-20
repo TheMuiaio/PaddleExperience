@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import DBAcess.ClubDBAccess;
+import com.sun.javafx.css.StyleManager;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
@@ -33,6 +34,10 @@ public class PaddleExperience extends Application {
         
         Scene scene = new Scene(root);
         stage.setTitle("Paddle Experience");
+        
+        String css = this.getClass().getResource("/resources/darkTheme.css") .toExternalForm();
+        scene.getStylesheets().add(css);
+        
         stage.getIcons().add(new Image("/resources/image.jpg"));
         stage.setScene(scene);
         

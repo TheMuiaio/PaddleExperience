@@ -1,0 +1,185 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 20-abr-2020, 0:19:05
+    Author     : victo
+*/
+.root{
+    -fx-background-color: #333333;
+}
+
+.button {
+    -fx-background-color: dimgrey;
+    -fx-text-fill: whitesmoke;
+}
+
+.button:hover {
+    -fx-background-color: #898989;
+    -fx-text-fill: whitesmoke;
+}
+
+.button:pressed {
+    -fx-background-color: #a9a9a9;
+    -fx-text-fill: whitesmoke;
+    
+}
+
+
+.label {
+    -fx-background-color: dimgrey;
+    -fx-text-fill: whitesmoke;
+    -fx-font-family: sans-serif;
+}
+
+#taulaReserves:hover {
+    -fx-background-color: #898989;
+    -fx-text-fill: whitesmoke;
+}
+
+#taulaReserves:pressed {
+    -fx-background-color: #a9a9a9;
+    -fx-text-fill: whitesmoke;
+}
+
+
+GridPane {
+    -fx-background-color: #333333;
+    -fx-vgap: 1;
+    -fx-hgap: 1;
+    -fx-padding: 1
+    
+}
+
+VBox {
+    -fx-background-color: #333333;
+}
+
+HBox {
+    -fx-background-color: #333333;
+}
+
+DatePicker{
+    -fx-background-color: #333333;
+}
+
+#titolsTaula{
+    -fx-background-color: #333333;
+}
+
+#datePicker{
+    -fx-background-color: #444444;
+}
+
+#toolBar{
+    -fx-background-color: #555555;
+}
+
+AnchorPane{
+    -fx-background-color: #333333;
+}
+
+#labelLink {
+    -fx-background-color: #333333;
+}
+
+#labelLink:hover {
+    -fx-text-fill: skyblue;
+    -fx-text-decoration: underline skyblue;
+}
+
+.titled-pane > .title {
+    -fx-background-color: #888888;
+}
+
+.titled-pane-plot-background {
+    -fx-background-color: #888888;
+}
+
+TextField {
+    -fx-background-color: #404040;
+    -fx-border-color: #999999;
+    -fx-text-fill: whitesmoke;
+}
+
+PasswordField {
+    -fx-background-color: #404040;
+    -fx-border-color: #777777;
+    -fx-text-fill: whitesmoke;
+}
+
+
+
+/*se pot canviar*/
+
+
+
+.date-picker {
+    -fx-base: #444444;
+}
+
+.date-picker .label{
+    -fx-background-color:#555555;
+    -fx-pref-height: 35px;
+    -fx-pref-width: 35px;
+}
+
+.date-picker .arrow-button{
+    -fx-background-color: #555555;
+}
+
+.date-picker .arrow-button .arrow{
+    -fx-background-color: #888888;
+}
+
+.date-picker .arrow-button:hover .arrow{
+    -fx-background-color: #aaaaaa;
+ }
+
+ .date-picker .button {
+    -fx-background-color: #555555;;
+    -fx-border-color:transparent;
+    -fx-pref-height: 35px;
+    -fx-pref-width: 35px;
+ }
+
+ .date-picker .button:hover {
+    -fx-border-color:#333333;
+    -fx-pref-height: 35px;
+    -fx-pref-width: 35px;
+ }
+
+.date-picker .button .arrow:pressed {
+    -fx-border-color:transparent;
+    -fx-pref-height: 35px;
+    -fx-pref-width: 35px;
+ }
+
+ .date-picker .cell {
+    -fx-background-color: #555555;
+    -fx-text-fill: whitesmoke;
+ }
+
+.date-picker .cell:hover {
+    -fx-background-color: #777777;
+}
+
+.date-picker .cell:focused {
+    -fx-background-color: #999999;
+ }
+
+ .date-picker .date-cell {
+     -fx-font-size: 13;
+ }
+
+ 
+ 
+ #gridReserves {
+    -fx-background-color: dimgrey;
+ }
+ 
+#anular {
+    ;/*per si vols posar algo especial */
+}
