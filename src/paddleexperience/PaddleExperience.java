@@ -68,6 +68,7 @@ public class PaddleExperience extends Application {
                 alert.setContentText("Guardant canvis a la base de dades. Aquest procés pot tardar uns minuts...");
                 alert.show();
                 clubDBAccess.saveDB();
+                alert.hide();
             } else {
                 event.consume();
             }

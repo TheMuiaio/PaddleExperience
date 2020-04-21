@@ -25,6 +25,7 @@ import model.Member;
 import paddleexperience.CurrentUser;
 import DBAcess.ClubDBAccess;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
@@ -55,6 +56,9 @@ public class FXMLReservesController implements Initializable {
         // TODO
         clubDBAccess = ClubDBAccess.getSingletonClubDBAccess();
         member = CurrentUser.getMembre();
+        
+        clubDBAccess.getBookings().add(new Booking(LocalDateTime.now(), LocalDate.ofYearDay(2020, 1), LocalTime.of(9, 0), member.getCreditCard() != null, clubDBAccess.getCourt("Court 1"), member));
+        
         bookForMember = clubDBAccess.getUserBookings(member.getLogin());
         
         //botons de reserva invisibles
@@ -132,19 +136,15 @@ public class FXMLReservesController implements Initializable {
         LocalTime lt = LocalTime.now();
         
         for(Booking book : bookForMember){
+            
             if(ld.compareTo(book.getMadeForDay()) > 0){
                 System.out.println(book.getBookingDate().toString() + " " + book.getFromTime().toString());
-                //bookForMember.remove(book);
-                clubDBAccess.getUserBookings(member.getLogin()).remove(book);
+                clubDBAccess.getBookings().remove(book);
                
-            } else if(ld.compareTo(book.getMadeForDay()) == 0 && lt.compareTo(book.getFromTime()) > 0){
+            } else if (ld.compareTo(book.getMadeForDay()) == 0 && lt.compareTo(book.getFromTime()) > 0){
                 System.out.println(book.getBookingDate().toString() + " " + book.getFromTime().toString());
-                //bookForMember.remove(book);
-                clubDBAccess.getUserBookings(member.getLogin()).remove(book);
-            }
-            
-            //per a no fer iteracions innecessaries
-            else break;
+                clubDBAccess.getBookings().remove(book);
+            } else break;
         }
     }
     
@@ -162,10 +162,7 @@ public class FXMLReservesController implements Initializable {
                 
             } else if(ld.compareTo(book.getMadeForDay().minusDays(1)) == 0 && lt.compareTo(book.getFromTime().minusHours(24)) > 0){
                 ((Button)taula.getChildren().get(i)).setDisable(true);
-            }
-            
-            //per a no fer iteracions innecessaries
-            else break;
+            } else break;
         }
     }
 
