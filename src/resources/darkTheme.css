@@ -16,6 +16,39 @@ and open the template in the editor.
     -fx-text-fill: whitesmoke;
 }
 
+#reservat {
+    -fx-background-color: dimgrey;
+    -fx-text-fill: whitesmoke;
+}
+
+
+#reservatPolsable {
+    -fx-background-color: dimgrey;
+    -fx-text-fill: whitesmoke;
+}
+
+#reservatPolsable:hover {
+    -fx-background-color: #898989;
+    -fx-text-fill: whitesmoke;
+}
+
+
+#lliure {
+    -fx-background-color: #207720;
+    -fx-text-fill: whitesmoke;
+}
+
+#lliurePolsable {
+    -fx-background-color: #207720;
+    -fx-text-fill: whitesmoke;
+}
+
+#lliurePolsable:hover {
+    -fx-background-color: green;
+    -fx-text-fill: whitesmoke;
+}
+
+
 .button:hover {
     -fx-background-color: #898989;
     -fx-text-fill: whitesmoke;
@@ -24,7 +57,6 @@ and open the template in the editor.
 .button:pressed {
     -fx-background-color: #a9a9a9;
     -fx-text-fill: whitesmoke;
-    
 }
 
 
@@ -32,16 +64,6 @@ and open the template in the editor.
     -fx-background-color: dimgrey;
     -fx-text-fill: whitesmoke;
     -fx-font-family: sans-serif;
-}
-
-#taulaReserves:hover {
-    -fx-background-color: #898989;
-    -fx-text-fill: whitesmoke;
-}
-
-#taulaReserves:pressed {
-    -fx-background-color: #a9a9a9;
-    -fx-text-fill: whitesmoke;
 }
 
 
@@ -173,13 +195,9 @@ PasswordField {
  .date-picker .date-cell {
      -fx-font-size: 13;
  }
-
  
  
  #gridReserves {
     -fx-background-color: dimgrey;
  }
  
-#anular {
-    ;/*per si vols posar algo especial */
-}
