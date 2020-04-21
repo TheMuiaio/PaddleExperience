@@ -46,8 +46,7 @@ public class FXMLUserInfoController implements Initializable {
 
     
     private Member user;
-    
-    private static boolean fromUserInfo;
+   
     
     /**
      * Initializes the controller class.
@@ -57,13 +56,12 @@ public class FXMLUserInfoController implements Initializable {
         // TODO
         
         /////////////////////////////////
-        // Usuari: altra               //
+        // Usuari: prova               //
         // Pssw: provaprova            //
         /////////////////////////////////
         
         user = CurrentUser.getMembre();
         
-        fromUserInfo = true;
         System.out.println("esticAci");
         
         nomField.setText(user.getName());
@@ -72,51 +70,6 @@ public class FXMLUserInfoController implements Initializable {
         profilePhoto.setImage(user.getImage());
         loginField.setText(user.getLogin());
     }   
-    
-    public static void setFromUserInfo(boolean b){
-        fromUserInfo = b;
-    }
-    
-    public static boolean getFromUserInfo(){
-        return fromUserInfo;
-    }
-
-    private void onNewCard(ActionEvent event) throws IOException {
-        ((Node) event.getSource()).getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLPaymentCard.fxml")));
-    }
-
-    private void onGuardar(ActionEvent event) {
-        if(telfField.getText().length() == 9) { //telefon be
-            if(!loginField.getText().trim().isEmpty() &&
-                    loginField.getText().trim().replaceAll(" ", "").length() == 
-                    loginField.getText().length())
-            { //login be
-                
-                user.setTelephone(telfField.getText());
-                user.setLogin(loginField.getText());
-                
-                //actualitzem el currentUser
-                CurrentUser.setMembre(user.getLogin(), user.getPassword());
-                
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setHeaderText("Tot ha anat bé");
-                alert.setContentText("Dades d'usuari canviades amb èxit.");
-                alert.show();
-            
-            } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setHeaderText("Format de Login incorrecte");
-                alert.setContentText("Posa un Login vàlid.");
-                alert.show();
-            }
-            
-        } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("El telèfon no és vàlid");
-            alert.setContentText("Posa un número de telèfon vàlid.");
-            alert.show();
-        }
-    }
 
     @FXML
     private void outLink(MouseEvent event) {
@@ -162,8 +115,8 @@ public class FXMLUserInfoController implements Initializable {
         CurrentUser.setMembre(null, null);
         
         //Tornem les coses al seu lloc
-        ((Stage) ((Node) event.getSource()).getScene().getWindow()).setMinHeight(530);
         ((Stage) ((Node) event.getSource()).getScene().getWindow()).setMinWidth(630);
+        ((Stage) ((Node) event.getSource()).getScene().getWindow()).setMinHeight(520);
         
         //Avisem a l'usuari que ha tancat sessió
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -179,8 +132,8 @@ public class FXMLUserInfoController implements Initializable {
         nomField.getScene().setCursor(Cursor.DEFAULT);
         
         //Tornem les coses al seu lloc
-        ((Stage) ((Node) event.getSource()).getScene().getWindow()).setMinHeight(800);
-        ((Stage) ((Node) event.getSource()).getScene().getWindow()).setMinWidth(1100);
+        ((Stage) ((Node) event.getSource()).getScene().getWindow()).setMinHeight(900);
+        ((Stage) ((Node) event.getSource()).getScene().getWindow()).setMinWidth(1350);
         
         ((Node) event.getSource()).getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLLogged.fxml")));
     }

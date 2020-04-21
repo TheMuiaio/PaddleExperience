@@ -95,7 +95,6 @@ public class FXMLLoggedController implements Initializable {
         placeBookings();
         
         //deshabilitem les caselles anteriors a l'hora actual amb translateHour(b.getFromTime().getHour())
-        System.out.println("hola???????");
         disablePast(dia);
         
         datePicker.setDayCellFactory((DatePicker picker) -> {
@@ -305,6 +304,8 @@ public class FXMLLoggedController implements Initializable {
     @FXML
     private void toMyBookings(ActionEvent event) throws IOException {
         dateLabel.getScene().setCursor(Cursor.DEFAULT);
+        ((Stage) ((Node) event.getSource()).getScene().getWindow()).setMinWidth(1100);
+        ((Stage) ((Node) event.getSource()).getScene().getWindow()).setMinHeight(800);
         ((Node) event.getSource()).getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLReserves.fxml")));
     }
     

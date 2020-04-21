@@ -32,6 +32,7 @@ import DBAcess.ClubDBAccess;
 import java.util.Optional;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.stage.Stage;
 import model.Member;
 
 import paddleexperience.CurrentUser;
@@ -89,6 +90,12 @@ public class FXMLRegisterController implements Initializable {
     private boolean comprovacioPssw;
     private boolean comprovacioPssw2;
     
+    
+    private boolean comprovacioCreditOne;
+    private boolean comprovacioCreditTwo;
+    private boolean comprovacioCreditThree;
+    private boolean comprovacioCreditFour;
+    private boolean comprovacioCreditSecret;
     
     private boolean comprovacioBuitCreditOne = true;
     private boolean comprovacioBuitCreditTwo = true;
@@ -148,7 +155,7 @@ public class FXMLRegisterController implements Initializable {
             }
            else info.setText("");
            
-           //nomes numeros
+           //nomes numeros (from StackOvereFlow)
            if (!newValue.matches("\\d*")) {
                 telfField.setText(newValue.replaceAll("[^\\d]", ""));
             }
@@ -209,6 +216,8 @@ public class FXMLRegisterController implements Initializable {
                 numberOne.setText(newValue.replaceAll("[^\\d]", ""));
             }
             
+            comprovacioCreditOne = newValue.length() == 4;
+            
             if (newValue.length() == 4) numberTwo.requestFocus();
             if (newValue.length() > 4) numberOne.setText(oldValue);
             
@@ -229,6 +238,8 @@ public class FXMLRegisterController implements Initializable {
                 numberTwo.setText(newValue.replaceAll("[^\\d]", ""));
             }
             
+            comprovacioCreditTwo = newValue.length() == 4;
+            
             if (newValue.length() == 4) numberThree.requestFocus();
             if (newValue.length() > 4) numberTwo.setText(oldValue);
             
@@ -247,6 +258,8 @@ public class FXMLRegisterController implements Initializable {
                 numberThree.setText(newValue.replaceAll("[^\\d]", ""));
             }
             
+            comprovacioCreditThree = newValue.length() == 4;
+            
             if (newValue.length() == 4) numberFour.requestFocus();
             if (newValue.length() > 4) numberThree.setText(oldValue);
             
@@ -264,6 +277,8 @@ public class FXMLRegisterController implements Initializable {
             if (!newValue.matches("\\d*")) {
                 numberFour.setText(newValue.replaceAll("[^\\d]", ""));
             }
+            
+            comprovacioCreditFour = newValue.length() == 4;
             
             if (newValue.length() == 4) secretNumber.requestFocus();
             if (newValue.length() > 4) numberFour.setText(oldValue);
@@ -284,6 +299,8 @@ public class FXMLRegisterController implements Initializable {
             }
             if (newValue.length() > 3) secretNumber.setText(oldValue);
             comprovacioBuitCreditSecret = newValue.isEmpty();
+            
+            comprovacioCreditSecret = newValue.length() == 3;
             
             if(!comprovacionsCredit()){
                 info.setTextFill(Color.RED);
@@ -310,7 +327,8 @@ public class FXMLRegisterController implements Initializable {
     
     
     private boolean comprovacionsCredit(){
-        return comprovacioCredit = comprovacioBuitCreditOne && comprovacioBuitCreditTwo && comprovacioBuitCreditThree && comprovacioBuitCreditFour && comprovacioBuitCreditSecret;
+        return (comprovacioCredit = comprovacioBuitCreditOne && comprovacioBuitCreditTwo && comprovacioBuitCreditThree && comprovacioBuitCreditFour && comprovacioBuitCreditSecret) ||
+                (comprovacioCredit = comprovacioCreditOne && comprovacioCreditTwo && comprovacioCreditThree && comprovacioCreditFour && comprovacioCreditSecret);
     }
     
     @FXML
@@ -354,7 +372,8 @@ public class FXMLRegisterController implements Initializable {
             
         
             CurrentUser.setMembre(loginField.getText(), passwordField.getText());
-            //canviem la finestra al formulari de targeta de crèdit per acabar amb el registre
+            ((Stage) ((Node) event.getSource()).getScene().getWindow()).setMinWidth(1350);
+            ((Stage) ((Node) event.getSource()).getScene().getWindow()).setMinHeight(900);
             ((Node) event.getSource()).getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLLogged.fxml")));
         }
         
@@ -387,6 +406,8 @@ public class FXMLRegisterController implements Initializable {
     @FXML
     private void onBack(MouseEvent event) throws IOException {
         try{
+            ((Stage) ((Node) event.getSource()).getScene().getWindow()).setMinWidth(1350);
+            ((Stage) ((Node) event.getSource()).getScene().getWindow()).setMinHeight(900);
             info.getScene().setCursor(Cursor.DEFAULT);
             ((Node) event.getSource()).getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLDocument.fxml")));
         }

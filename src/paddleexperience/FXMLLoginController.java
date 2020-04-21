@@ -77,8 +77,8 @@ public class FXMLLoginController implements Initializable {
                     CurrentUser.setMembre(login, password);
                     //canviem al fxml d'usuari
                     //Tornem les coses al seu lloc
-                    ((Stage) ((Node) event.getSource()).getScene().getWindow()).setMinHeight(800);
-                    ((Stage) ((Node) event.getSource()).getScene().getWindow()).setMinWidth(1100);
+                    ((Stage) ((Node) event.getSource()).getScene().getWindow()).setMinHeight(900);
+                    ((Stage) ((Node) event.getSource()).getScene().getWindow()).setMinWidth(1350);
                     ((Node) event.getSource()).getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLLogged.fxml")));
                 }
             } else {
@@ -97,8 +97,8 @@ public class FXMLLoginController implements Initializable {
 
     @FXML
     private void toSignIn(MouseEvent event) throws IOException{
-        ((Stage) ((Node) event.getSource()).getScene().getWindow()).setMinHeight(800);
-        ((Stage) ((Node) event.getSource()).getScene().getWindow()).setMinWidth(1100);
+        ((Stage) ((Node) event.getSource()).getScene().getWindow()).setMinHeight(730);
+        ((Stage) ((Node) event.getSource()).getScene().getWindow()).setMinWidth(810);
         userName.getScene().setCursor(Cursor.DEFAULT);
         ((Node) event.getSource()).getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLRegister.fxml")));
     }
@@ -107,8 +107,8 @@ public class FXMLLoginController implements Initializable {
     private void onBack(Event event) throws IOException {
         
         //Tornem les coses al seu lloc
-        ((Stage) ((Node) event.getSource()).getScene().getWindow()).setMinHeight(800);
-        ((Stage) ((Node) event.getSource()).getScene().getWindow()).setMinWidth(1100);
+        ((Stage) ((Node) event.getSource()).getScene().getWindow()).setMinHeight(900);
+        ((Stage) ((Node) event.getSource()).getScene().getWindow()).setMinWidth(1300);
         try{
             userName.getScene().setCursor(Cursor.DEFAULT);
             ((Node) event.getSource()).getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLDocument.fxml")));

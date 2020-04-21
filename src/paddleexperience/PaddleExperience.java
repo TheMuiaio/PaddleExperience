@@ -43,8 +43,8 @@ public class PaddleExperience extends Application {
         stage.getIcons().add(new Image("/resources/pala.png"));
         stage.setScene(scene);
         
-        stage.setMinHeight(800);
-        stage.setMinWidth(1100);
+        stage.setMinHeight(900);
+        stage.setMinWidth(1350);
         
         stage.setMaximized(true);
         stage.show();

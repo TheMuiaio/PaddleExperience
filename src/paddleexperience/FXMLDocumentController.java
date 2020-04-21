@@ -16,6 +16,7 @@ import javafx.scene.input.MouseEvent;
 import DBAcess.ClubDBAccess;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.ArrayList;
@@ -68,6 +69,8 @@ public class FXMLDocumentController implements Initializable {
         //coloquem les reserves en la posició corresponent de la taula
         placeBookings();
         
+        //deshabilitem les caselles anteriors a l'hora actual amb translateHour(b.getFromTime().getHour())
+        disablePast(dia);
         
         datePicker.setDayCellFactory((DatePicker picker) -> {
             return new DateCell() {
@@ -92,8 +95,46 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML
     private void toSignin(ActionEvent event) throws IOException {
+        ((Stage) ((Node) event.getSource()).getScene().getWindow()).setMinWidth(810);
+        ((Stage) ((Node) event.getSource()).getScene().getWindow()).setMinHeight(730);
         login.getScene().setCursor(Cursor.DEFAULT);
         ((Node) event.getSource()).getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLRegister.fxml")));
+    }
+    
+    
+    private void disablePast(LocalDate dia) {
+        Label pos;
+        if (dia.compareTo(LocalDate.now()) == 0) {
+            int stop = nextHour(LocalTime.now());
+            System.out.println("stop = " + stop);
+            int iter = 13;
+
+            while(iter < taula.getChildren().size() - 1) {
+                pos = ((Label)taula.getChildren().get(iter));
+                
+                if(taula.getRowIndex(pos) < stop) {
+                    pos.setDisable(true);
+                    System.out.println("Disabling " + taula.getRowIndex(pos));
+                } 
+                iter++;
+            }
+        } else {
+            System.out.println("hola");
+            for (int i = 13; i < taula.getChildren().size() - 1; i++) {
+                pos = ((Label)taula.getChildren().get(i));
+                pos.setDisable(false);
+            }
+        }
+    }
+    
+    private int nextHour(LocalTime lt) {
+        LocalTime[] hores = {LocalTime.of(9, 0), LocalTime.of(10, 30), LocalTime.of(12, 0), LocalTime.of(13, 30), LocalTime.of(15, 0),
+                             LocalTime.of(16, 30), LocalTime.of(18, 0), LocalTime.of(19, 30), LocalTime.of(21, 0)};
+        
+        for (int i = 0; i < hores.length; i++) {
+            if(lt.compareTo(hores[i]) <= 0) return i + 1;
+        }
+        return hores.length + 1;
     }
     
     @FXML
@@ -105,6 +146,7 @@ public class FXMLDocumentController implements Initializable {
             cleangrid();
             bookForDay = clubDBAccess.getForDayBookings(dia);
             placeBookings();
+            disablePast(dia);
         }
     }
 
@@ -115,6 +157,7 @@ public class FXMLDocumentController implements Initializable {
         cleangrid();
         bookForDay = clubDBAccess.getForDayBookings(dia);
         placeBookings();
+        disablePast(dia);
     }
     
     @FXML

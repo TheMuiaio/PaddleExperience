@@ -31,6 +31,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
 import model.Booking;
 
 /**
@@ -118,6 +119,8 @@ public class FXMLReservesController implements Initializable {
 
     @FXML
     private void onBack(MouseEvent event) throws IOException {
+        ((Stage) ((Node) event.getSource()).getScene().getWindow()).setMinWidth(1350);
+        ((Stage) ((Node) event.getSource()).getScene().getWindow()).setMinHeight(900);
         ((Node)event.getSource()).getScene().setCursor(Cursor.DEFAULT);
         ((Node)event.getSource()).getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLLogged.fxml")));
     }
