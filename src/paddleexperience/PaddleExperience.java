@@ -40,7 +40,7 @@ public class PaddleExperience extends Application {
         String css = this.getClass().getResource("/resources/darkTheme.css") .toExternalForm();
         scene.getStylesheets().add(css);
         
-        stage.getIcons().add(new Image("/resources/image.jpg"));
+        stage.getIcons().add(new Image("/resources/pala.png"));
         stage.setScene(scene);
         
         stage.setMinHeight(800);

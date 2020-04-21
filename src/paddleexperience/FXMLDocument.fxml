@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="770.0" prefWidth="1070.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="paddleexperience.FXMLDocumentController">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="770.0" prefWidth="1070.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="paddleexperience.FXMLDocumentController">
    <center>
       <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="667.0" prefWidth="926.0">
          <children>
@@ -33,7 +33,7 @@
                   <StackPane prefHeight="28.0" prefWidth="233.0">
                      <children>
                         <DatePicker fx:id="datePicker" onAction="#pickDate" onMouseEntered="#onLink" onMouseExited="#outLink" prefHeight="25.0" prefWidth="230.0" showWeekNumbers="true" />
-                        <Label fx:id="dateLabel" alignment="CENTER" prefHeight="24.0" prefWidth="205.0" text="Sabado 31 de diciembre de 2020">
+                        <Label id="datepickerLabel" fx:id="dateLabel" alignment="CENTER" prefHeight="24.0" prefWidth="205.0" text="Sabado 31 de diciembre de 2020">
                            <StackPane.margin>
                               <Insets right="25.0" />
                            </StackPane.margin>
@@ -143,18 +143,18 @@
          <children>
             <Button fx:id="signin" mnemonicParsing="false" onAction="#toSignin" onMouseEntered="#onLink" onMouseExited="#outLink" prefHeight="35.0" prefWidth="115.0" text="Registrar-se">
                <graphic>
-                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../resources/signIn.png" />
+                        <Image url="@../resources/pencil.png" />
                      </image>
                   </ImageView>
                </graphic>
             </Button>
           <Button fx:id="login" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#toLogIn" onMouseEntered="#onLink" onMouseExited="#outLink" prefHeight="35.0" prefWidth="115.0" text="Iniciar sessió">
                <graphic>
-                  <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../resources/cafè.png" />
+                        <Image url="@../resources/signIn.png" />
                      </image>
                   </ImageView>
                </graphic>

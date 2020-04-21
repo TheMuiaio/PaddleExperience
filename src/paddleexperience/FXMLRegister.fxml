@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="770.0" prefWidth="1070.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="paddleexperience.FXMLRegisterController">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="770.0" prefWidth="1070.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="paddleexperience.FXMLRegisterController">
    <center>
       <VBox alignment="CENTER" prefHeight="455.0" prefWidth="707.0" spacing="12.0" BorderPane.alignment="CENTER">
          <children>
@@ -27,19 +27,19 @@
                      <children>
                         <VBox layoutX="37.0" layoutY="10.0" prefHeight="60.0" prefWidth="107.0" spacing="4.0">
                            <children>
-                              <Label id="titolsTaula" text="* Nom:" />
+                              <Label id="titolsRegistre" text="* Nom:" />
                               <TextField fx:id="nomField" onMouseClicked="#infoDisappear" prefHeight="25.0" prefWidth="126.0" />
                            </children>
                         </VBox>
                         <VBox layoutX="37.0" layoutY="71.0" prefHeight="50.0" prefWidth="172.0" spacing="4.0">
                            <children>
-                              <Label id="titolsTaula" text="* Cognoms:" />
+                              <Label id="titolsRegistre" text="* Cognoms:" />
                               <TextField fx:id="cognomField" onMouseClicked="#infoDisappear" prefHeight="11.0" prefWidth="172.0" />
                            </children>
                         </VBox>
                         <VBox layoutX="38.0" layoutY="132.0" prefHeight="50.0" prefWidth="106.0" spacing="4.0">
                            <children>
-                              <Label id="titolsTaula" text="* Telèfon:" />
+                              <Label id="titolsRegistre" text="* Telèfon:" />
                               <TextField fx:id="telfField" onMouseClicked="#infoDisappear" prefHeight="25.0" prefWidth="100.0" />
                            </children>
                         </VBox>
@@ -61,7 +61,7 @@
                         </GridPane>
                         <VBox layoutX="36.0" layoutY="194.0" spacing="4.0">
                            <children>
-                              <Label id="titolsTaula" text="Número de targeta de crèdit:" />
+                              <Label id="titolsRegistre" text="Número de targeta de crèdit:" />
                               <HBox prefHeight="25.0" prefWidth="590.0" spacing="5.0">
                                  <children>
                                     <TextField fx:id="numberOne" prefWidth="50.0" />
@@ -74,7 +74,7 @@
                               </HBox>
                            </children>
                         </VBox>
-                        <Label id="titolsTaula" layoutX="337.0" layoutY="194.0" text="Número de seguretat:" />
+                        <Label id="titolsRegistre" layoutX="337.0" layoutY="194.0" text="Número de seguretat:" />
                      </children>
                   </AnchorPane>
               </content>
@@ -85,13 +85,13 @@
                      <children>
                         <VBox layoutX="38.0" layoutY="6.0" spacing="4.0">
                            <children>
-                              <Label id="titolsTaula" text="* Login:" />
+                              <Label id="titolsRegistre" text="* Login:" />
                               <TextField fx:id="loginField" onMouseClicked="#loginFieldInfo" prefHeight="25.0" prefWidth="100.0" />
                            </children>
                         </VBox>
                         <VBox layoutX="38.0" layoutY="57.0" spacing="4.0">
                            <children>
-                              <Label id="titolsTaula" text="* Contrasenya:" />
+                              <Label id="titolsRegistre" text="* Contrasenya:" />
                               <AnchorPane>
                                  <children>
                                     <PasswordField fx:id="passwordField" onMouseClicked="#passwordFieldInfo" prefHeight="25.0" prefWidth="162.0" />
@@ -103,7 +103,7 @@
                         <VBox layoutX="38.0" layoutY="106.0" prefHeight="42.0" prefWidth="160.0" spacing="4.0">
                            <children>
                               <HBox prefHeight="0.0" prefWidth="200.0" />
-                              <Label id="titolsTaula" text="* Repeteix la contrasenya:" />
+                              <Label id="titolsRegistre" text="* Repeteix la contrasenya:" />
                               <PasswordField fx:id="repeatedPasswordField" onMouseClicked="#passwordFieldInfo" prefHeight="25.0" prefWidth="168.0" />
                            </children>
                         </VBox>
@@ -112,7 +112,7 @@
                               <Image url="@../resources/eye.png" />
                            </image>
                         </ImageView>
-                        <Label id="titolsTaula" fx:id="info" layoutX="38.0" layoutY="169.0" text="info" />
+                        <Label id="titolsRegistre" fx:id="info" layoutX="38.0" layoutY="169.0" text="info" />
                         <ImageView fitHeight="150.0" fitWidth="174.0" layoutX="390.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../resources/pala.png" />
@@ -126,7 +126,7 @@
                <children>
                   <VBox alignment="CENTER" prefHeight="35.0" prefWidth="208.0" spacing="1.0">
                      <children>
-                        <Label id="titolsTaula" prefHeight="78.0" prefWidth="220.0" text="Camps marcats amb '*' són obligatoris">
+                        <Label id="titolsRegistre" prefHeight="78.0" prefWidth="220.0" text="Camps marcats amb '*' són obligatoris">
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>

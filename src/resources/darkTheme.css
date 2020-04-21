@@ -14,11 +14,14 @@ and open the template in the editor.
 .button {
     -fx-background-color: dimgrey;
     -fx-text-fill: whitesmoke;
+    -fx-font-weight: bold;
 }
 
 #reservat {
     -fx-background-color: dimgrey;
     -fx-text-fill: whitesmoke;
+    -fx-font-size: 25;
+    -fx-font-weight: bold;
 }
 
 #hola {
@@ -29,6 +32,8 @@ and open the template in the editor.
 #reservatPolsable {
     -fx-background-color: dimgrey;
     -fx-text-fill: whitesmoke;
+    -fx-font-size: 25;
+    -fx-font-weight: bold;
 }
 
 #reservatPolsable:hover {
@@ -40,11 +45,15 @@ and open the template in the editor.
 #lliure {
     -fx-background-color: #207720;
     -fx-text-fill: whitesmoke;
+    -fx-font-size: 25;
+    -fx-font-weight: bold;
 }
 
 #lliurePolsable {
     -fx-background-color: #207720;
     -fx-text-fill: whitesmoke;
+    -fx-font-size: 25;
+    -fx-font-weight: bold;
 }
 
 #lliurePolsable:hover {
@@ -93,10 +102,16 @@ DatePicker{
 
 #titolsTaula{
     -fx-background-color: #333333;
+    -fx-font-size: 25;
+    -fx-font-weight: bold;
 }
 
 #datePicker{
     -fx-background-color: #444444;
+}
+
+#datepickerLabel{
+    -fx-font-size: 15;
 }
 
 #toolBar{
@@ -109,6 +124,11 @@ AnchorPane{
 
 #labelLink {
     -fx-background-color: #333333;
+}
+
+#noCompte {
+    -fx-background-color: #333333;
+    -fx-font-size: 15;
 }
 
 #labelLink:hover {
@@ -137,10 +157,10 @@ PasswordField {
 }
 
 
-
-/*se pot canviar*/
-
-
+#titolsRegistre{
+    -fx-background-color: #333333;
+    -fx-font-size: bold;
+}
 
 .date-picker {
     -fx-base: #444444;

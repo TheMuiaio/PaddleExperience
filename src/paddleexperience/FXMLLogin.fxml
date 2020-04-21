@@ -11,15 +11,14 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<BorderPane stylesheets="@../resources/darkTheme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="paddleexperience.FXMLLoginController">
+<BorderPane stylesheets="@../resources/darkTheme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="paddleexperience.FXMLLoginController">
    <center>
       <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="420.0" prefHeight="420.0" prefWidth="599.0" spacing="20.0">
          <children>
             <HBox prefHeight="77.0" prefWidth="599.0" />
             <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../resources/image.jpg" />
+                  <Image url="@../resources/user.png" />
                </image>
             </ImageView>
             <TextField fx:id="userName" alignment="CENTER" maxWidth="-Infinity" prefWidth="400.0" promptText="Usuari" />
@@ -27,7 +26,7 @@
             <Button fx:id="botoAcceptar" mnemonicParsing="false" onAction="#checkLogIn" prefWidth="400.0" text="Accedeix" />
             <HBox alignment="CENTER" maxHeight="-Infinity" prefHeight="10.0" prefWidth="600.0">
                <children>
-                  <Label id="titolsTaula" text="No tens compte?" />
+                  <Label id="noCompte" text="No tens compte?" />
                   <Label id="labelLink" onMouseClicked="#toSignIn" onMouseEntered="#onLink" onMouseExited="#outLink" text=" Enregistra't" />
                </children>
             </HBox>
