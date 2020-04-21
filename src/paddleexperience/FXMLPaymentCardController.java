@@ -100,10 +100,6 @@ public class FXMLPaymentCardController implements Initializable {
 
     @FXML
     private void onBack(MouseEvent event) throws IOException {
-        //tenim un problemeta, que es borraran totes les dades introduides abans
-        // ja no jjj
-        //perfecte bonico
-        
         secretNumber.getScene().setCursor(Cursor.DEFAULT);
         
         if(!FXMLUserInfoController.getFromUserInfo()){

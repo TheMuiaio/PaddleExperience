@@ -6,7 +6,6 @@
 package paddleexperience;
 
 import java.io.IOException;
-import static java.lang.Thread.sleep;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -58,7 +57,7 @@ public class FXMLNewPasswordController implements Initializable {
     @FXML
     private void onCanviar(ActionEvent event) throws InterruptedException, IOException {
         if(user.getPassword().equals(oldPssw.getText())){ //la oldPssw es bona
-            if(newPssw.getText().length() > 5){ //cumpleix la condicio de >=6
+            if(newPssw.getText().length() > 5){ //compleix la condicio de >=6
                 if(confirmNewPssw.getText().equals(newPssw.getText())){ //les dos pssw son iguals
                     if(!newPssw.getText().equals(user.getPassword())){ //mire que no canvie la pssw a la que tenia
                         
@@ -100,11 +99,6 @@ public class FXMLNewPasswordController implements Initializable {
 
     @FXML
     private void onBack(MouseEvent event) throws IOException {
-        //Dóna error pq intenta agafar l'usuari i contrassenya ANTERIOR, així que cal fer de nou el user. Pero el faig altra begada, no entenc pq no ho fa be
-        //si no fas cap canvi de login/pssw, tot va guai
-        
-        //edit: val, en CurrentUser el user i el password el fas a l'iniciar sessió. Cal tornar a fer un setMembre en canviar login/pssw
-        
         info.getScene().setCursor(Cursor.DEFAULT);
         ((Node) event.getSource()).getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLUserInfo.fxml")));
     }

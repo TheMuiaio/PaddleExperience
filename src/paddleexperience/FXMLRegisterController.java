@@ -344,8 +344,6 @@ public class FXMLRegisterController implements Initializable {
                 member.setTelephone(telfField.getText());
                 member.setLogin(loginField.getText());
                 member.setPassword(passwordField.getText());
-                //de fet, no fa falta comprovar si image de imageView és null perque
-                //tens user.png. Passe el que passe l'afegirem
                 member.setImage(imageView.getImage());
                 //guardem el membre en la llista d'usuaris
                 creditCard = numberOne.getText() + numberTwo.getText() + numberThree.getText() + numberFour.getText();
@@ -360,92 +358,6 @@ public class FXMLRegisterController implements Initializable {
             ((Node) event.getSource()).getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLLogged.fxml")));
         }
         
-        /*
-        
-        //Comprobe nom i cognom
-        if(!nomField.getText().trim().isEmpty() &&
-                !cognomField.getText().trim().isEmpty())
-        {
-            //Comprobe el telèfon
-            if(telfField.getText().length() == 9) {
-                
-                //Comprobe el login
-                if(!loginField.getText().trim().isEmpty() &&
-                    loginField.getText().trim().replaceAll(" ", "").length() == loginField.getText().length())
-                {
-                    //Comprobe la contrasenya
-                    if(passwordField.getText().trim().length() > 5){
-                        
-                        //Comprobe que coincidisquen les contrasenyes
-                        if(passwordField.getText().equals(repeatedPasswordField.getText())){
-                            
-                            
-                            //TOT CORRECTE
-                            
-                            
-                            
-                            if (member == null) {// NO EXISTEIX EL MEMBRE I HEM DE CREAR UN DE NOU
-                                //creem el nou membre
-                                member = new Member();
-                                //afegim les dades introduides
-                                member.setName(nomField.getText());
-                                member.setSurname(cognomField.getText());
-                                member.setTelephone(telfField.getText());
-                                member.setLogin(loginField.getText());
-                                member.setPassword(passwordField.getText());
-                                //de fet, no fa falta comprovar si image de imageView és null perque
-                                //tens user.png. Passe el que passe l'afegirem
-                                member.setImage(imageView.getImage());
-                                //guardem el membre en la llista d'usuaris
-                                clubDBAccess.getMembers().add(member);
-                                
-                            } else {// EXISTEIX EL MEMBRE I L'HEM DE MODIFICAR
-                                CurrentUser.getMembre().setName(nomField.getText());
-                                //member.setName(nomField.getText());
-                                CurrentUser.getMembre().setSurname(cognomField.getText());
-                                //member.setSurname(cognomField.getText());
-                                CurrentUser.getMembre().setTelephone(telfField.getText());
-                                //member.setTelephone(telfField.getText());
-                                CurrentUser.getMembre().setLogin(loginField.getText());
-                                //member.setLogin(loginField.getText());
-                                CurrentUser.getMembre().setPassword(passwordField.getText());
-                                //member.setPassword(passwordField.getText());
-                                //de fet, no fa falta comprovar si image de imageView és null perque
-                                //tens user.png. Passe el que passe l'afegirem
-                                CurrentUser.getMembre().setImage(imageView.getImage());
-                                //member.setImage(imageView.getImage());
-                            }
-                            CurrentUser.setMembre(loginField.getText(), passwordField.getText());
-                            //canviem la finestra al formulari de targeta de crèdit per acabar amb el registre
-                            ((Node) event.getSource()).getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLLogged.fxml")));
-                        }
-                        
-                        
-                        else {
-                            info.setTextFill(Color.RED);
-                            info.setText("Les contrasenyes no coincideixen.");}
-                        }  
-                    else {
-                        info.setTextFill(Color.RED);
-                        info.setText("Posa una contrasenya vàlida.");
-                    }
-                }
-                else {
-                    info.setTextFill(Color.RED);
-                    info.setText("Posa un Login correcte.");
-                }
-            }
-            else {
-                info.setTextFill(Color.RED);
-                info.setText("Introdueix un número de telèfon vàlid.");
-            }
-        }
-        
-        else {
-            info.setTextFill(Color.RED);
-            info.setText("Emplena el teu nom i cognom.");       
-        }
-        */
     }
 
 

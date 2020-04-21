@@ -81,25 +81,19 @@ public class FXMLReservesController implements Initializable {
     private void placeBookings() {
         String first;
         int i = 3;
+        //recorrem la llista fins arribar a 10
         for(;  i - 3 < 10 && i - 3 < bookForMember.size(); i++) {
-//            if( i - 3 < 10) {
-                first = "";
-                first += bookForMember.get(i - 3).getMadeForDay().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)) + " ";
-                first += bookForMember.get(i - 3).getFromTime().format(DateTimeFormatter.ofPattern("HH:mm"));
-                first += " - " + bookForMember.get(i - 3).getCourt().getName();
-                ((Label)taula.getChildren().get(i)).setText(first);
-    //            ((Label)taula.getChildren().get(i)).setText(bookForMember.get(i - 3).getMadeForDay().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)));
-    //            ((Label)taula.getChildren().get(i + 10)).setText(bookForMember.get(i - 3).getFromTime().format(DateTimeFormatter.ofPattern("HH:mm")));
-                ((Label)taula.getChildren().get(i + 10)).setText(bookForMember.get(i - 3).getPaid() ? "Sí" : "No");
-                //System.out.println("index = " + i);
-                
-                //boto anular visible
-                ((Button)taula.getChildren().get(i + 20)).setVisible(true);
-//            } else {
-//                ((Label)taula.getChildren().get(i)).setText("");
-//                ((Label)taula.getChildren().get(i + 10)).setText(bookForMember.get(i - 3).getCourt().getName());
-//            }
+            first = "";
+            first += bookForMember.get(i - 3).getMadeForDay().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)) + " ";
+            first += bookForMember.get(i - 3).getFromTime().format(DateTimeFormatter.ofPattern("HH:mm"));
+            first += " - " + bookForMember.get(i - 3).getCourt().getName();
+            ((Label)taula.getChildren().get(i)).setText(first);
+            ((Label)taula.getChildren().get(i + 10)).setText(bookForMember.get(i - 3).getPaid() ? "Sí" : "No");
+
+            //boto anul·lar visible
+            ((Button)taula.getChildren().get(i + 20)).setVisible(true);
         }
+        //si no hem arribat a 10, buidem les etiquetes de baix
         for(; i - 3 < 10; i++) {
             ((Label)taula.getChildren().get(i)).setText("");
             ((Label)taula.getChildren().get(i + 10)).setText("");

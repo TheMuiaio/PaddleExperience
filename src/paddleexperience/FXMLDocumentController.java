@@ -116,28 +116,20 @@ public class FXMLDocumentController implements Initializable {
         bookForDay = clubDBAccess.getForDayBookings(dia);
         placeBookings();
     }
-
-    // Assegura't de capturar les excepcions per a no provocar errors raros :c
+    
     @FXML
     private void outLink(MouseEvent event) {
         try {
         login.getScene().setCursor(Cursor.DEFAULT);
         } catch (NullPointerException e) { }
     }
-
-    // Same ací persi
+    
     @FXML
     private void onLink(MouseEvent event) {
         try {
         login.getScene().setCursor(Cursor.HAND);
         } catch (NullPointerException e) {}
     }
-    
-    //Vaig a canviar tots els que veja, però quan et poses a treballar repassa
-    //tots els botons que tinguen canvis en l'aparença del ratolí i afegeix el
-    //bloc try-catch als que no ho tinguen jjj
-    
-    //els que donen error en principi ja està
     
     private void changeDateLabel() {
         String formatted = dia.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL));
@@ -156,11 +148,7 @@ public class FXMLDocumentController implements Initializable {
         bookForDay = clubDBAccess.getForDayBookings(dia);
         placeBookings();
     }
-
     
-    
-    //No tinc ni puta idea de per què no funciona esto de baix, ni per què crea el pickDate. Crec que hi ha porblemes per compartir controlador
-    //Era perquè tenia un pickdate onMousePressed i ahi no va. L'he llevat i ja funciona
     private void onBack() throws IOException {
         login.getScene().setRoot(FXMLLoader.load(getClass().getResource("FXMLLogged.fxml")));
     }

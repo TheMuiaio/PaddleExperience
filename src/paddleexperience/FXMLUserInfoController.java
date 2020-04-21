@@ -57,9 +57,9 @@ public class FXMLUserInfoController implements Initializable {
         // TODO
         
         /////////////////////////////////
-       // Usuari: altra                //
-       // Pssw: provaprova             //
-        ////////////////////////////////
+        // Usuari: altra               //
+        // Pssw: provaprova            //
+        /////////////////////////////////
         
         user = CurrentUser.getMembre();
         

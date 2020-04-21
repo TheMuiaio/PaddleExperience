@@ -17,19 +17,11 @@ import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 import DBAcess.ClubDBAccess;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-import model.Member;
 
 import paddleexperience.CurrentUser;
 /**
@@ -69,12 +61,7 @@ public class FXMLLoginController implements Initializable {
         
         // COMPROVAR
         if (login.length() != 0 && password.length() != 0) { //usuari o contrassenya buits
-
-            //VICTOR: si t'avorreixes, fes que primer comprove una cosa i després l'altra
-            //per a que ens diga quina de les dos ha fallat :)
-
-            //GERMÀRMOL: el que he fet és canviar la condició, que haja de cumplir que no estam buits
-
+            
             if (clubDBAccess.existsLogin(userName.getText())) { //comprovem que el login introduit existeix
 
                 if (clubDBAccess.getMemberByCredentials(login, password) == null) { //comprovem que la contrassenya siga correcta
@@ -131,8 +118,7 @@ public class FXMLLoginController implements Initializable {
     }
 
     @FXML
-    private void outLink(MouseEvent event) { 
-        //te la nullPointer pq en canviar d'escena ho detecta com a un out del boto i, al no trobar l'escena, peta
+    private void outLink(MouseEvent event) {
         try{
             userName.getScene().setCursor(Cursor.DEFAULT); //Change cursor to default
         }
