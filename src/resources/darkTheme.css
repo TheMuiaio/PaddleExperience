@@ -21,6 +21,10 @@ and open the template in the editor.
     -fx-text-fill: whitesmoke;
 }
 
+#hola {
+    -fx-background-color: #555555;
+    -fx-font-weight: bold
+}
 
 #reservatPolsable {
     -fx-background-color: dimgrey;
