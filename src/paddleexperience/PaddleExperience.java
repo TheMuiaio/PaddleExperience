@@ -13,8 +13,10 @@ import javafx.stage.Stage;
 
 import DBAcess.ClubDBAccess;
 import com.sun.javafx.css.StyleManager;
+import java.util.Optional;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.stage.WindowEvent;
 
@@ -51,16 +53,25 @@ public class PaddleExperience extends Application {
         
         //Et canvie l'idioma de la finestra emergent4
         
-        /*
         stage.setOnCloseRequest((WindowEvent event) -> {
-            Alert alert = new Alert(AlertType.INFORMATION);
-            alert.setTitle(clubDBAccess.getClubName());
-            alert.setHeaderText("Guardant dades a la base de dades.");
-            alert.setContentText("Guardant canvis a la base de dades. Aquest procés pot tardar uns minuts...");
-            alert.show();
-            clubDBAccess.saveDB();
+            
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Tancar aplicació");
+            alert.setHeaderText("Estàs segur que vols tancar?");
+            alert.setContentText("Es guardaran els canvis efectuats.");
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.isPresent() && result.get() == ButtonType.OK) { 
+                alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle(clubDBAccess.getClubName());
+                alert.setHeaderText("Guardant dades a la base de dades.");
+                alert.setContentText("Guardant canvis a la base de dades. Aquest procés pot tardar uns minuts...");
+                alert.show();
+                clubDBAccess.saveDB();
+            } else {
+                event.consume();
+            }
         });
-        */
     }
    
     /**

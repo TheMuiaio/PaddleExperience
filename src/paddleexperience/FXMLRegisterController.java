@@ -425,7 +425,6 @@ public class FXMLRegisterController implements Initializable {
                             info.setTextFill(Color.RED);
                             info.setText("Les contrasenyes no coincideixen.");}
                         }  
-
                     else {
                         info.setTextFill(Color.RED);
                         info.setText("Posa una contrasenya vàlida.");
