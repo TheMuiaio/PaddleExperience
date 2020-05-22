@@ -53,7 +53,7 @@ public class PaddleExperience extends Application {
         
         //Et canvie l'idioma de la finestra emergent4
         
-        /*stage.setOnCloseRequest((WindowEvent event) -> {
+        stage.setOnCloseRequest((WindowEvent event) -> {
             
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Tancar aplicació");
@@ -72,7 +72,7 @@ public class PaddleExperience extends Application {
             } else {
                 event.consume();
             }
-        });*/
+        });
     }
    
     /**

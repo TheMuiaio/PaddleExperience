@@ -300,7 +300,7 @@ public class FXMLRegisterController implements Initializable {
             if (newValue.length() > 3) secretNumber.setText(oldValue);
             comprovacioBuitCreditSecret = newValue.isEmpty();
             
-            comprovacioCreditSecret = newValue.length() == 3;
+            comprovacioCreditSecret = newValue.length() == 3 || oldValue.length() == 3;
             
             if(!comprovacionsCredit()){
                 info.setTextFill(Color.RED);
